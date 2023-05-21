@@ -1,0 +1,21 @@
+.downloader-form {
+    align-self: start;
+}
+
+.link-field {
+    margin-bottom: 31px;
+}
+
+.error-text {
+    margin-top: 25px;
+}
+
+@media (max-width: 911px) {
+    .page-icon {
+        max-width: 300px;
+    }
+
+    .downloader-form {
+        width: 100%;
+    }
+}

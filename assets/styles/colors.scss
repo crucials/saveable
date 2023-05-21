@@ -1,0 +1,7 @@
+$emerald: #5DC080;
+$soft-black: #0F0F0F;
+$enchanted-emerald-gradient: linear-gradient(101.21deg, #FFFFFF 0%, #11998E 0.01%, #38EF7D 100%);
+
+%themeable {
+    transition: color 0.5s, background-color 0.5s, fill 0.5s, border-color 0.5s;
+}

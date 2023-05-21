@@ -1,0 +1,26 @@
+{
+  "name": "nuxt-app",
+  "private": true,
+  "overrides": {
+    "vue": "latest"
+  },
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "devDependencies": {
+    "@nuxtjs/color-mode": "^3.2.0",
+    "@types/node": "^18",
+    "nuxt": "^3.4.3",
+    "sass": "^1.62.1"
+  },
+  "dependencies": {
+    "@pinia/nuxt": "^0.4.9",
+    "js-file-downloader": "^1.1.24",
+    "pinia": "^2.0.35",
+    "ytdl-core": "^4.11.4"
+  }
+}

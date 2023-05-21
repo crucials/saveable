@@ -1,0 +1,1 @@
+export const DEFAULT_SERVER_ERROR_MESSAGE = 'Something went wrong while downloading, try again later'
