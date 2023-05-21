@@ -7,6 +7,9 @@ export default defineNuxtConfig({
                 {
                     src: '/scripts/color-theme-resolver.ts'
                 }
+            ],
+            link: [
+                { rel: 'icon', type: 'image/x-icon', href: '/favicon.png' }
             ]
         }
     },
