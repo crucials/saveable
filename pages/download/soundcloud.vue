@@ -10,9 +10,9 @@
                     <img src="~~/assets/images/link.svg" alt="Two paperclips, link icon">
                 </IconTextField>
 
-                <DownloadButton :downloading="downloading">
+                <LoadingButton :downloading="downloading">
                     Download
-                </DownloadButton>
+                </LoadingButton>
 
                 <ErrorText :visible="errorTextVisible" class="error-text">
                     {{ errorText }}
