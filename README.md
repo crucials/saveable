@@ -2,7 +2,7 @@
 
 :city_sunset: App contains: 
 - Video and audio downloader from such services as Youtube and SoundCloud (_maybe more platfoms soon_).
-- Audio extraction from video, converts most of video formats to mp3
+- Audio extraction from video, converts most of video formats to mp3. And yes, **convertion happens in your browser** so your videos isn't uploaded to anywhere
 
 Website has nice-looking and comfortable design, bottom bar on mobile for faster navigation. There is also dark and light color themes
 
