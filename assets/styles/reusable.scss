@@ -1,4 +1,6 @@
-.downloader-form {
+$bottom-bar-breakpoint-width: 900px;
+
+.service-form {
     align-self: start;
 }
 
@@ -15,7 +17,7 @@
         max-width: 300px;
     }
 
-    .downloader-form {
+    .service-form {
         width: 100%;
     }
 }

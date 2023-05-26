@@ -66,6 +66,7 @@
 
         display: grid;
         column-gap: 40px;
+        row-gap: 30px;
         grid-template-columns: minmax(310px, 41%) minmax(270px, 35%);
         justify-content: space-between;
         align-items: center;

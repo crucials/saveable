@@ -8,7 +8,7 @@
 
 </script>
 
-<style>
+<style scoped lang="scss">
     .service-page-heading {
         color: white;
         font-weight: 700;

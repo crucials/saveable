@@ -1,7 +1,7 @@
 <template>
     <NuxtLayout name="service-page">
         <template #form>
-            <form class="downloader-form" @submit.prevent="download">
+            <form class="service-form" @submit.prevent="download">
                 <ServicePageHeading>
                     Download from SoundCloud
                 </ServicePageHeading>
@@ -10,7 +10,7 @@
                     <img src="~~/assets/images/link.svg" alt="Two paperclips, link icon">
                 </IconTextField>
 
-                <LoadingButton :downloading="downloading">
+                <LoadingButton :loading="loading">
                     Download
                 </LoadingButton>
 
@@ -35,7 +35,7 @@
     const { errorTextVisible, errorText, showErrorText } = useErrorText()    
 
     const trackLink = ref('')
-    const downloading = ref(false)
+    const loading = ref(false)
 
     useHead({
         title: 'Download tracks from SoundCloud | Saveable'
@@ -48,7 +48,7 @@
         }
         else {
             try {
-                downloading.value = true
+                loading.value = true
 
                 const response = await fetch(`/api/media-info/soundcloud?track_url=${trackLinkValue}`)
 
@@ -60,7 +60,7 @@
                         showErrorText(DEFAULT_SERVER_ERROR_MESSAGE)
                     }
 
-                    downloading.value = false
+                    loading.value = false
                     return
                 }
 
@@ -70,11 +70,11 @@
                     filename: trackInfo.name + '.mp3'
                 })
 
-                downloading.value = false
+                loading.value = false
             }
             catch(error) {
                 showErrorText(DEFAULT_SERVER_ERROR_MESSAGE)
-                downloading.value = false
+                loading.value = false
             }
         }
     }

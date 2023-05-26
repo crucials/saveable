@@ -17,6 +17,12 @@
                     YouTube
                 </NuxtLink>
             </li>
+
+            <li>
+                <NuxtLink to="/extract-audio" class="navigation-link">
+                    Extract audio
+                </NuxtLink>
+            </li>
         </ul>
 
         <MobileNavigationMenu/>
@@ -67,7 +73,6 @@
 <style lang="scss" scoped>
     .navigation-bar {
         display: flex;
-        flex-wrap: wrap;
         justify-content: center;
         row-gap: 5px;
         column-gap: 95px;
@@ -93,6 +98,7 @@
         justify-content: center;
         align-items: center;
         column-gap: 30px;
+        flex-shrink: 0;
     }
 
     .navigation-link {
@@ -122,6 +128,7 @@
 
     .theme-switcher {
         margin-left: auto;
+        flex-shrink: 0;
     }
 
     .expand-mobile-navigation-button {
@@ -138,7 +145,11 @@
         }
     }
 
-    @media (max-width: 785px) {
+    @media (max-width: $bottom-bar-breakpoint-width) {
+        .navigation-bar {
+            flex-wrap: wrap;
+        }
+
         .theme-switcher {
             margin-left: 0px;
         }

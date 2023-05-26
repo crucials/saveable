@@ -1,6 +1,6 @@
 <template>
-    <WhiteFilledButton class="download-button" :class="{ 'downloading': downloading }">
-        <span class="download-button-text">
+    <WhiteFilledButton class="loading-button" :class="{ 'loading': loading }">
+        <span class="loading-button-text">
             <slot></slot>
         </span>
 
@@ -10,7 +10,7 @@
 
 <script lang="ts" setup>
     defineProps<{
-        downloading : boolean
+        loading : boolean
     }>()
 </script>
 
@@ -31,8 +31,8 @@
         }
     }
 
-    .downloading {
-        .download-button-text {
+    .loading {
+        .loading-button-text {
             display: none;
         }
 

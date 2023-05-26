@@ -69,7 +69,7 @@
         display: none;
     }
 
-    @media (max-width: 785px) {
+    @media (max-width: $bottom-bar-breakpoint-width) {
         .switch-theme-button {
             width: 70px;
             height: 70px;
