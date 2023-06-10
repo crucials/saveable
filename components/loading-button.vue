@@ -1,5 +1,5 @@
 <template>
-    <WhiteFilledButton class="loading-button" :class="{ 'loading': loading }">
+    <WhiteFilledButton class="loading-button" :class="{ 'loading': loading }" :disabled="loading">
         <span class="loading-button-text">
             <slot></slot>
         </span>
