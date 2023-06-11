@@ -3,12 +3,12 @@ import { SoundcloudResolveApiResponse, MediaInfo } from '~/types'
 export default defineEventHandler<MediaInfo>(async event => {
     const API_BASE_URL = 'https://api-v2.soundcloud.com'
     const clientId = useRuntimeConfig().soundcloudClientId
-    const trackUrl = getQuery(event)['track_url']?.toString()
+    const trackUrl = getQuery(event)['url']?.toString()
     
     if(!trackUrl) {
         throw createError({
             statusCode: 400,
-            message: `Query parameter 'track_url' not provided`
+            message: `Query parameter 'url' not provided`
         })
     }
 
