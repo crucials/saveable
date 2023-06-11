@@ -1,7 +1,7 @@
+import { API_BASE_URL } from '~/constants/api-urls'
 import { SoundcloudResolveApiResponse, MediaInfo } from '~/types'
 
 export default defineEventHandler<MediaInfo>(async event => {
-    const API_BASE_URL = 'https://api-v2.soundcloud.com'
     const clientId = useRuntimeConfig().soundcloudClientId
     const trackUrl = getQuery(event)['url']?.toString()
     
