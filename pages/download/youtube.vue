@@ -30,7 +30,7 @@
 <script setup lang="ts">
     import JsFileDownloader from 'js-file-downloader'    
     import type { MediaInfo } from '~~/types'
-    import { DEFAULT_SERVER_ERROR_MESSAGE } from '~/messages'
+    import { DEFAULT_SERVER_ERROR_MESSAGE } from '~/constants/messages'
 
     const { errorTextVisible, errorText, showErrorText } = useErrorText()
 
