@@ -1,4 +1,4 @@
-export interface SoundcloudResolveApiResponse {
+export interface SoundcloudResolveTrackResponse {
     user : {
         username : string
     },

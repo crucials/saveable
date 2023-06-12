@@ -1,5 +1,5 @@
 import { API_BASE_URL } from '~/constants/api-urls'
-import { SoundcloudResolveApiResponse, MediaInfo } from '~/types'
+import { SoundcloudResolveTrackResponse, MediaInfo } from '~/types'
 
 export default defineEventHandler<MediaInfo>(async event => {
     const clientId = useRuntimeConfig().soundcloudClientId
@@ -23,7 +23,7 @@ export default defineEventHandler<MediaInfo>(async event => {
         }
     }
 
-    const rawTrackInfo : SoundcloudResolveApiResponse = await resolveResponse.json()
+    const rawTrackInfo : SoundcloudResolveTrackResponse = await resolveResponse.json()
     const neededTranscoding = rawTrackInfo.media.transcodings.find(transcoding => {
         return transcoding.format.protocol === 'progressive'
     })
