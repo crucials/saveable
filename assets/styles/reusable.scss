@@ -1,3 +1,5 @@
+@use '~~/assets/styles/colors.scss' as *;
+
 $bottom-bar-breakpoint-width: 900px;
 
 .service-form {
@@ -11,6 +13,73 @@ $bottom-bar-breakpoint-width: 900px;
 .error-text {
     margin-top: 25px;
 }
+
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 16px 20px;
+    flex-wrap: wrap;
+}
+
+%half-width-underline {
+    content: '';
+    height: 1px;
+    background-color: white;
+    position: absolute;
+    bottom: -3px;
+    transform: scaleX(0);
+
+    transition: transform 0.4s ease;
+}
+
+.action {
+    color: white;
+    font-size: 1rem;
+    position: relative;
+
+    &::before {
+        @extend %half-width-underline;
+        left: 0px;
+        width: 62%;
+        transform-origin: left;
+        transition-duration: 0.2s;
+    }
+
+    &::after {
+        @extend %half-width-underline;
+        right: 0px;
+        width: 38%;
+        transform-origin: right;
+    }
+
+    &:hover::before, &:hover::after {
+        transform: scaleX(1);
+    }
+}
+
+.spinner {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    animation: spinning 1s linear infinite;
+
+    @keyframes spinning {
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    &-full-border {
+        border: 2px solid lighten($emerald, 15);
+        border-right: 2px solid $emerald;
+    }
+
+    &-partial-border {
+        border: 2px solid transparent;
+        border-right: 2px solid $emerald;
+    }
+}
+
 
 @media (max-width: 911px) {
     .page-icon {

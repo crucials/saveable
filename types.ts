@@ -1,4 +1,4 @@
-export interface SoundcloudResolveTrackResponse {
+export interface SoundcloudApiTrack {
     user : {
         username : string
     },
@@ -13,7 +13,18 @@ export interface SoundcloudResolveTrackResponse {
     }
 }
 
+export interface SoundcloudApiPlaylist {
+    title : string,
+    tracks : [
+        {
+            id : number
+        }
+    ] 
+}
+
 export interface MediaInfo {
     name : string,
     downloadUrl : string
 }
+
+export type PlaylistInfo = { name : string, tracks : MediaInfo[] }

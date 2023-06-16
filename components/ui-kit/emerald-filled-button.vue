@@ -1,20 +1,23 @@
 <template>
-    <button class="emerald-filled-button">
+    <button :class="`emerald-filled-button  emerald-filled-button-${size}`">
         <slot></slot>
     </button>
 </template>
 
 <script lang="ts" setup>
-
+    defineProps({
+        size: {
+            type: String as PropType<'medium' | 'large'>,
+            default: 'medium'
+        }
+    })
 </script>
 
 <style lang="scss" scoped>
     .emerald-filled-button {
         background-color: $emerald;
         color: white;
-        padding: 14px 30px;
         border-radius: 8px;
-        font-size: 1.25rem;
 
         display: flex;
         justify-content: center;
@@ -25,6 +28,16 @@
 
         &:hover {
             box-shadow: 0px 0px 0px 4px rgb($emerald, 0.3);
+        }
+
+        &-medium {
+            padding: 12px 26px;
+            font-size: 1rem;
+        }
+
+        &-large {
+            padding: 14px 30px;
+            font-size: 1.25rem;
         }
     }
 
