@@ -56,7 +56,7 @@
             try {
                 loading.value = true
 
-                const response = await fetch(`/api/media-info/soundcloud-track?url=${trackLinkValue}`)
+                const response = await fetch(`/api/media-info/soundcloud/track?url=${trackLinkValue}`)
 
                 if(!response.ok) {
                     if(response.status == 404) {

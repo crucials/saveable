@@ -1,10 +1,9 @@
 import { API_BASE_URL } from '~/constants/api-urls'
 import getTrackDownloadUrl from '~/server/utils/get-track-download-url'
 import { MediaInfo, PlaylistInfo, SoundcloudApiPlaylist, SoundcloudApiTrack } from '~/types'
+import JSZip from 'jszip'
 
-export default defineEventHandler<PlaylistInfo>(async event => {
-    const MAXIMUM_TRACKS = 5
-
+export default defineEventHandler<NodeJS.ReadableStream>(async event => {
     const clientId = useRuntimeConfig().soundcloudClientId
     const playlistUrl = getQuery(event)['url']?.toString()
 
@@ -30,9 +29,28 @@ export default defineEventHandler<PlaylistInfo>(async event => {
     }
 
     const rawPlaylistInfo : SoundcloudApiPlaylist = await resolveResponse.json()
-    const rawPlaylistTracks = rawPlaylistInfo.tracks
+    const playlistTracksFiles = await getPlaylistTracksFiles(rawPlaylistInfo)
 
-    const playlistTracks : MediaInfo[] = []
+    const zip = new JSZip()
+
+    for(const file of playlistTracksFiles) {
+        zip.file(file.name, await file.arrayBuffer(), { binary: true, compression : 'DEFLATE' })
+    }
+
+    setHeaders(event, {
+        'Content-Type': 'application/zip',
+        'Content-Disposition': `attachment; filename=${rawPlaylistInfo.title}.zip`
+    })
+
+    return zip.generateNodeStream()
+})
+
+async function getPlaylistTracksFiles(playlist : SoundcloudApiPlaylist) {
+    const MAXIMUM_TRACKS = 5
+    const clientId = useRuntimeConfig().soundcloudClientId
+
+    const playlistTracksFiles : File[] = []
+    const rawPlaylistTracks = playlist.tracks
 
     for (let i = 0; i < rawPlaylistTracks.length; i += MAXIMUM_TRACKS) {
         const tracksIds = rawPlaylistTracks.slice(i, i + MAXIMUM_TRACKS).map(track => String(track.id))
@@ -56,16 +74,16 @@ export default defineEventHandler<PlaylistInfo>(async event => {
             const downloadUrl = await getTrackDownloadUrl(track, clientId)
 
             if(downloadUrl) {
-                playlistTracks.push({
-                    name: `${track.user.username} - ${track.title}`,
-                    downloadUrl: downloadUrl
-                })
+                const downloadUrlResponse = await fetch(downloadUrl)
+                const trackName = `${track.user.username} - ${track.title}`
+                const trackFilename = trackName.replace(/[/\\?%*:|"<>]/g, '_') + '.mp3'
+
+                if(downloadUrlResponse.ok) {
+                    playlistTracksFiles.push(new File([ await downloadUrlResponse.blob() ], trackFilename))
+                }
             }
         }
     }
 
-    return {
-        name: rawPlaylistInfo.title,
-        tracks: playlistTracks
-    }
-})
+    return playlistTracksFiles
+}

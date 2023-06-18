@@ -66,7 +66,8 @@
         inProcess : boolean,
         stage : 'downloading' | 'success' | 'error' | undefined,
         heading : string,
-        note : string | undefined
+        note : string | undefined,
+        filesArrayFilled : boolean
     }
 
     const { errorTextVisible, errorText, showErrorText } = useErrorText()
@@ -77,7 +78,8 @@
         inProcess : false,
         stage : undefined,
         heading : '',
-        note: undefined
+        note: undefined,
+        filesArrayFilled: false
     })
 
     const emit = defineEmits<{
@@ -94,10 +96,10 @@
             try {
                 downloadStatus.value.inProcess = true
                 downloadStatus.value.stage = 'downloading'
-                downloadStatus.value.heading = 'Requesting playlist information...'
-                downloadStatus.value.note = 'Downloading large playlists can take up to 5 minutes'
+                downloadStatus.value.heading = 'Downloading...'
+                downloadStatus.value.note = 'Downloading large playlists can take up to 7 minutes'
 
-                const response = await fetch(`/api/media-info/soundcloud-playlist?url=${playlistLinkValue}`)
+                const response = await fetch(`/api/download/soundcloud/playlist?url=${playlistLinkValue}`) 
 
                 if(!response.ok) {
                     if(response.status == 404) {
@@ -113,26 +115,12 @@
                     return
                 }
 
-                downloadStatus.value.heading = 'Downloading...'
-
-                const playlistInfo : PlaylistInfo = await response.json()
-                const tracksFiles : File[] = []
-
-                for (const track of playlistInfo.tracks) {
-                    const response = await fetch(track.downloadUrl)
-                    const trackFilename = track.name.replace(/[/\\?%*:|"<>]/g, '_') + '.mp3'
-
-                    if(response.body) {
-                        tracksFiles.push(new File([ await response.blob() ], trackFilename))
-                    }
-                }
-
-                const tracksArchiveBlob = await downloadZip(tracksFiles).blob()
-                const archiveDownloadUrl = URL.createObjectURL(tracksArchiveBlob)
+                const playlistZipBlob = new Blob([ await response.arrayBuffer() ])
+                const zipDownloadUrl = URL.createObjectURL(playlistZipBlob)
 
                 await new JsFileDownloader({
-                    url: archiveDownloadUrl,
-                    filename: playlistInfo.name + '.zip'
+                    url: zipDownloadUrl,
+                    filename: getFilenameFromHeaders(response) || 'playlist'
                 })
 
                 downloadStatus.value.stage = 'success'
@@ -141,11 +129,22 @@
 
                 setTimeout(() => {
                     downloadStatus.value.inProcess = false
-                }, 1200)
+                }, 2000)
             }
             catch(error) {
                 showErrorInModal(DEFAULT_SERVER_ERROR_MESSAGE)
             }
+        }
+    }
+
+    function getFilenameFromHeaders(response : Response) {
+        const headerParts = response.headers.get('Content-Disposition')?.split('; filename=')
+
+        if(headerParts) {
+            return headerParts[1]
+        }
+        else {
+            return undefined
         }
     }
 
