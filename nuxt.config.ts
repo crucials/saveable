@@ -5,7 +5,8 @@ export default defineNuxtConfig({
             title: 'Saveable',
             script: [
                 {
-                    src: '/scripts/color-theme-resolver.ts'
+                    src: '/scripts/color-theme-resolver.ts',
+                    type: 'text/javascript'
                 }
             ],
             link: [
