@@ -1,6 +1,6 @@
 # Saveable
 
-:fire: New feature - SoundCloud playlist downloader
+:fire: New feature - SoundCloud playlist downloader (_playlists with more than about 100 tracks probably won't be downloaded because app is hosted on 512 MB servers_)
 
 :city_sunset: App contains: 
 - Video and audio downloader from such services as Youtube and SoundCloud (_maybe more platfoms soon_).
