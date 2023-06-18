@@ -1,6 +1,6 @@
 # Saveable
 
-:fire: New feature - SoundCloud playlist downloader (_playlists with more than about 30 tracks can't be downloaded because of Netlify functions 10 seconds limit, gonna rewrite it to background functions soon_)
+:fire: New feature - SoundCloud playlist downloader
 
 :city_sunset: App contains: 
 - Video and audio downloader from such services as Youtube and SoundCloud (_maybe more platfoms soon_).
