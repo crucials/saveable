@@ -8,7 +8,7 @@
 
 Website has nice-looking and comfortable design, bottom bar on mobile for faster navigation. There is also dark and light color themes
 
-[:eyes: View the app](https://saveable.netlify.app/)
+[:eyes: View the app](https://saveable.onrender.com/)
 
 ⚒️ Built with Vue, Nuxt, TypeScript and SCSS. Also [ffmpeg.wasm](https://github.com/ffmpegwasm/ffmpeg.wasm) was used from client-side video manipulations
 
