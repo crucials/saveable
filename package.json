@@ -20,6 +20,7 @@
   "dependencies": {
     "@ffmpeg/core": "^0.11.0",
     "@ffmpeg/ffmpeg": "^0.11.6",
+    "@netlify/functions": "^1.6.0",
     "@pinia/nuxt": "^0.4.9",
     "js-file-downloader": "^1.1.24",
     "jszip": "^3.10.1",
