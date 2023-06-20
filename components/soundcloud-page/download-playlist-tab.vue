@@ -60,7 +60,6 @@
     import JsFileDownloader from 'js-file-downloader'    
     import type { PlaylistInfo } from '~~/types'
     import { DEFAULT_SERVER_ERROR_MESSAGE } from '~/constants/messages'
-    import { downloadZip } from 'client-zip'
 
     interface DownloadStatus {
         inProcess : boolean,
