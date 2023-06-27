@@ -1,4 +1,4 @@
-![Frame (1)](https://github.com/crucials/saveable/assets/83793845/89bfa860-2cd5-4be2-afc0-f79bc7d1b04e)
+![Down arrow poiting to the platform with "Saveable" label next to it, Saveable logo](https://github.com/crucials/saveable/assets/83793845/89bfa860-2cd5-4be2-afc0-f79bc7d1b04e)
 
 # Saveable
 
@@ -22,6 +22,5 @@ Website with media utilities like video and audio downloader and audio extractio
 ⚒️ Built with Vue, Nuxt, TypeScript and SCSS. Also [ffmpeg.wasm](https://github.com/ffmpegwasm/ffmpeg.wasm) was used from client-side video manipulations
 
 ⠀
-
 
 ![screencapture-saveable-netlify-app-download-youtube-2023-05-21-10_31_04](https://github.com/crucials/saveable/assets/83793845/baecfbc2-6ec8-45db-ad81-cc0742f93cc9)
