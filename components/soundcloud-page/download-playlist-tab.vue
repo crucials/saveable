@@ -60,13 +60,13 @@
     import JsFileDownloader from 'js-file-downloader'    
     import type { PlaylistInfo } from '~~/types'
     import { DEFAULT_SERVER_ERROR_MESSAGE } from '~/constants/messages'
+import { validateURL } from 'ytdl-core'
 
     interface DownloadStatus {
         inProcess : boolean,
         stage : 'downloading' | 'success' | 'error' | undefined,
         heading : string,
-        note : string | undefined,
-        filesArrayFilled : boolean
+        note : string | undefined
     }
 
     const { errorTextVisible, errorText, showErrorText } = useErrorText()
@@ -77,13 +77,14 @@
         inProcess : false,
         stage : undefined,
         heading : '',
-        note: undefined,
-        filesArrayFilled: false
+        note: undefined
     })
 
     const emit = defineEmits<{
         (event : 'tab-switched', tabNumber : number) : void
     }>()
+
+    let abortController : AbortController | undefined = undefined
 
     async function download() {
         const playlistLinkValue = playlistLink.value
@@ -98,7 +99,11 @@
                 downloadStatus.value.heading = 'Downloading...'
                 downloadStatus.value.note = 'Downloading large playlists can take up to 7 minutes'
 
-                const response = await fetch(`/api/download/soundcloud/playlist?url=${playlistLinkValue}`) 
+                abortController = new AbortController()
+
+                const response = await fetch(`/api/download/soundcloud/playlist?url=${playlistLinkValue}`, {
+                    signal: abortController.signal
+                }) 
 
                 if(!response.ok) {
                     if(response.status == 404) {
@@ -134,7 +139,12 @@
                 }, 2000)
             }
             catch(error) {
-                showErrorInModal(DEFAULT_SERVER_ERROR_MESSAGE)
+                if(error instanceof Error && error.name == 'AbortError') {
+                    downloadStatus.value.inProcess = false
+                }
+                else {
+                    showErrorInModal(DEFAULT_SERVER_ERROR_MESSAGE)
+                }
             }
         }
     }
@@ -157,9 +167,14 @@
     }
 
     function closeDownloadStatusModal() {
-        downloadStatus.value.inProcess = false
-        downloadStatus.value.stage = undefined
-        downloadStatus.value.note = undefined
+        if(downloadStatus.value.stage === 'downloading') {
+            abortController?.abort()
+        }
+        else {
+            downloadStatus.value.inProcess = false
+            downloadStatus.value.stage = undefined
+            downloadStatus.value.note = undefined
+        }
     }
 </script>
 
