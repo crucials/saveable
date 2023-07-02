@@ -25,6 +25,11 @@ export default defineEventHandler<MediaInfo>(async event => {
     }
 
     const rawTrackInfo : SoundcloudApiTrack = await response.json()
+
+    if(rawTrackInfo.kind != 'track') {
+        throw createError({ statusCode: 400, message: 'Requested resource is not a track' })
+    }
+
     const downloadUrl = await getTrackDownloadUrl(rawTrackInfo, clientId)
     
     if(!downloadUrl) {
