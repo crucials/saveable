@@ -107,6 +107,9 @@
                     else if(response.status == 429) {
                         showErrorInModal('Soundcloud servers request limit is reached for today')
                     }
+                    else if(response.status == 400) {
+                        showErrorInModal('Provided link is not a playlist')
+                    }
                     else {
                         showErrorInModal(DEFAULT_SERVER_ERROR_MESSAGE)
                     }

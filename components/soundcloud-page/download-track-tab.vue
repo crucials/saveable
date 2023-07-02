@@ -62,6 +62,9 @@
                     if(response.status == 404) {
                         showErrorText('Track with entered link not found')
                     }
+                    else if(response.status == 400) {
+                        showErrorText('Provided link is not a track')
+                    }
                     else {
                         showErrorText(DEFAULT_SERVER_ERROR_MESSAGE)
                     }

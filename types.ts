@@ -3,6 +3,7 @@ export interface SoundcloudApiTrack {
         username : string
     },
     title : string,
+    kind : string,
     media : {
         transcodings: {
             url : string,
@@ -19,7 +20,8 @@ export interface SoundcloudApiPlaylist {
         {
             id : number
         }
-    ] 
+    ],
+    kind : string
 }
 
 export interface MediaInfo {
