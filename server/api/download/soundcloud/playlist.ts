@@ -29,6 +29,11 @@ export default defineEventHandler<NodeJS.ReadableStream>(async event => {
     }
 
     const rawPlaylistInfo : SoundcloudApiPlaylist = await resolveResponse.json()
+
+    if(rawPlaylistInfo.kind != 'playlist') {
+        throw createError({ statusCode: 400, message: 'Requested resource is not a playlist' })
+    }
+
     const playlistTracksFiles = await getPlaylistTracksFiles(rawPlaylistInfo)
 
     const zip = new JSZip()
