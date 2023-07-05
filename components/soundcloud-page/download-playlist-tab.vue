@@ -37,7 +37,7 @@
                         Download
                     </WhiteFilledButton>
 
-                    <button class="action" type="button" @click="emit('tab-switched', 1)">
+                    <button class="action-text" type="button" @click="emit('tab-switched', 1)">
                         Download track
                     </button>
                 </div>

@@ -15,7 +15,7 @@
                         Download
                     </LoadingButton>
 
-                    <button class="action" type="button" @click="emit('tab-switched', 2)">
+                    <button class="action-text" type="button" @click="emit('tab-switched', 2)">
                         Download playlist
                     </button>
                 </div>

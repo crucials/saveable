@@ -1,5 +1,5 @@
 <template>
-    <DownloadTrackTab v-if="currentTab == 1" @tab-switched="tabNumber => currentTab = tabNumber"/>
+    <DownloadTrackTab v-if="currentTab == 1" @tab-switched="(tabNumber : number) => currentTab = tabNumber"/>
     <DownloadPlaylistTab v-else-if="currentTab == 2" @tab-switched="tabNumber => currentTab = tabNumber"/>
 </template>
 
