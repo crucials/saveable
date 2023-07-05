@@ -5,7 +5,7 @@
 Website with media utilities like video and audio downloader and audio extraction
 
 ## Features
-:fire: New feature - SoundCloud playlist downloader (_playlists with more than about 100 tracks probably won't be downloaded because app is hosted on 512 MB servers_)
+:fire: New feature - SoundCloud playlist/album downloader (_playlists with more than about 100 tracks probably won't be downloaded because app is hosted on 512 MB servers_)
 
 :city_sunset: Website has nice-looking and comfortable design, bottom bar on mobile for faster navigation. There is also dark and light color themes
 
