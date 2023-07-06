@@ -11,7 +11,7 @@ Website with media utilities like video and audio downloader and audio extractio
 
 #### Functionallity: 
 - Video and audio downloader from such services as Youtube and SoundCloud (_maybe more platfoms soon_).
-- Audio extraction from video, converts most of video formats to mp3. And yes, **convertion happens in your browser** so your videos isn't uploaded to anywhere
+- Audio extraction from file or Youtube video, converts most of video formats to mp3. And yes, **convertion happens in your browser** so your videos isn't uploaded to anywhere
 
 ## Try it out
 
