@@ -24,9 +24,13 @@
     <NuxtLayout name="service-page">
         <template #form>
             <form class="service-form" @submit.prevent="download">
-                <ServicePageHeading>
+                <ServicePageHeading margin-bottom-size="smaller">
                     Download playlist from SoundCloud
                 </ServicePageHeading>
+
+                <p class="service-description">
+                    You can download albums too
+                </p>
 
                 <IconTextField type="url" placeholder="Playlist link" class="link-field" v-model.trim="playlistLink">
                     <img src="~~/assets/images/link.svg" alt="Two paperclips, link icon">

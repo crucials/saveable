@@ -61,7 +61,7 @@ $bottom-bar-breakpoint-width: 900px;
 
         &::before, &::after {
             transform: scaleX(0);
-            
+
         }
     }
 }
@@ -87,6 +87,12 @@ $bottom-bar-breakpoint-width: 900px;
         border: 2px solid transparent;
         border-right: 2px solid $emerald;
     }
+}
+
+.service-description {
+    font-size: 1rem;
+    color: white;
+    margin-bottom: 39px;
 }
 
 

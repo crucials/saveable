@@ -2,11 +2,11 @@
     <NuxtLayout name="service-page">
         <template #form>
             <form class="service-form" @submit.prevent="extract">
-                <ServicePageHeading class="extract-audio-page-heading">
+                <ServicePageHeading margin-bottom-size="smaller">
                     Extract audio from video
                 </ServicePageHeading>
 
-                <p class="note">
+                <p class="service-description">
                     Extracting process happens in your browser, so your videos isn't uploaded to anywhere
                 </p>
 
@@ -105,15 +105,5 @@
 
     .video-upload-area {
         margin-bottom: 41px;
-    }
-
-    .note {
-        font-size: 1rem;
-        color: white;
-        margin-bottom: 39px;
-    }
-
-    .extract-audio-page-heading {
-        margin-bottom: 16px;
     }
 </style>
