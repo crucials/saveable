@@ -10,7 +10,7 @@
                     Extracting process happens in your browser, so your videos isn't uploaded to anywhere
                 </p>
 
-                <FileUploadArea @file-uploaded="printFile" class="video-upload-area">
+                <FileUploadArea @file-uploaded="(file : File) => uploadedFile = file" class="video-upload-area">
                     Upload a video 
                     (<mark class="tip-action">click</mark>
                     or
@@ -36,6 +36,7 @@
 <script lang="ts" setup>
     import { createFFmpeg } from '@ffmpeg/ffmpeg'
     import JsFileDownloader from 'js-file-downloader'
+    import { DEFAULT_SERVER_EXTRACT_ERROR_MESSAGE } from '~/constants/messages'
 
     useHead({
         title: 'Extract audio from video | Saveable'
@@ -45,10 +46,6 @@
     const loading = ref(false)
 
     let uploadedFile : File | undefined = undefined
-
-    function printFile(file : File) {
-        uploadedFile = file
-    }
 
     async function extract() {
         if(uploadedFile) {
@@ -65,7 +62,7 @@
             try {
                 const ffmpeg = createFFmpeg({ 
                     mainName: 'main',
-                    log: true,
+                    log: false,
                     corePath: 'https://unpkg.com/@ffmpeg/core-st@0.11.1/dist/ffmpeg-core.js'
                 })
                 await ffmpeg.load()
@@ -73,17 +70,17 @@
                 const targetVideoFilename = `videoToExtractFrom.${uploadedFile.type.split('/')[1]}`
 
                 ffmpeg.FS(
-                    "writeFile",
+                    'writeFile',
                     targetVideoFilename,
                     new Uint8Array(videoBuffer, 0, videoBuffer.byteLength)
                 )
 
                 await ffmpeg.run('-i', targetVideoFilename, 'extractedAudio.mp3')
 
-                const extractedVideo = ffmpeg.FS('readFile', 'extractedAudio.mp3')
+                const extractedAudio = ffmpeg.FS('readFile', 'extractedAudio.mp3')
 
                 new JsFileDownloader({
-                    url: URL.createObjectURL(new Blob([extractedVideo.buffer], { type: 'audio/mpeg' })),
+                    url: URL.createObjectURL(new Blob([extractedAudio.buffer], { type: 'audio/mpeg' })),
                     filename: videoFilename + '.mp3',
                     contentType: 'audio/mpeg'
                 })
@@ -92,8 +89,7 @@
             }
             catch(error) {
                 loading.value = false
-                console.log(error)
-                showErrorText('Something went wrong while extracting. Error: ' + error)
+                showErrorText(`${DEFAULT_SERVER_EXTRACT_ERROR_MESSAGE}. Error: ${error}`)
             }
         }
         else {

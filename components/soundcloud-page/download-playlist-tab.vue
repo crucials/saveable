@@ -58,9 +58,7 @@
 
 <script lang="ts" setup>
     import JsFileDownloader from 'js-file-downloader'    
-    import type { PlaylistInfo } from '~~/types'
-    import { DEFAULT_SERVER_ERROR_MESSAGE } from '~/constants/messages'
-import { validateURL } from 'ytdl-core'
+    import { DEFAULT_SERVER_DOWNLOAD_ERROR_MESSAGE } from '~/constants/messages'
 
     interface DownloadStatus {
         inProcess : boolean,
@@ -116,7 +114,7 @@ import { validateURL } from 'ytdl-core'
                         showErrorInModal('Provided link is not a playlist')
                     }
                     else {
-                        showErrorInModal(DEFAULT_SERVER_ERROR_MESSAGE)
+                        showErrorInModal(DEFAULT_SERVER_DOWNLOAD_ERROR_MESSAGE)
                     }
 
                     return
@@ -143,7 +141,7 @@ import { validateURL } from 'ytdl-core'
                     downloadStatus.value.inProcess = false
                 }
                 else {
-                    showErrorInModal(DEFAULT_SERVER_ERROR_MESSAGE)
+                    showErrorInModal(DEFAULT_SERVER_DOWNLOAD_ERROR_MESSAGE)
                 }
             }
         }

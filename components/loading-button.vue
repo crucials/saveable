@@ -20,6 +20,11 @@
     }
 
     .loading {
+        &:hover {
+            box-shadow: none;
+            cursor: not-allowed;
+        }
+
         .loading-button-text {
             display: none;
         }

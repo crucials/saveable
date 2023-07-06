@@ -36,7 +36,7 @@
 <script lang="ts" setup>
     import JsFileDownloader from 'js-file-downloader'    
     import type { MediaInfo } from '~~/types'
-    import { DEFAULT_SERVER_ERROR_MESSAGE } from '~/constants/messages'
+    import { DEFAULT_SERVER_DOWNLOAD_ERROR_MESSAGE } from '~/constants/messages'
 
     const { errorTextVisible, errorText, showErrorText } = useErrorText()
 
@@ -66,7 +66,7 @@
                         showErrorText('Provided link is not a track')
                     }
                     else {
-                        showErrorText(DEFAULT_SERVER_ERROR_MESSAGE)
+                        showErrorText(DEFAULT_SERVER_DOWNLOAD_ERROR_MESSAGE)
                     }
 
                     loading.value = false
@@ -82,7 +82,7 @@
                 loading.value = false
             }
             catch(error) {
-                showErrorText(DEFAULT_SERVER_ERROR_MESSAGE)
+                showErrorText(DEFAULT_SERVER_DOWNLOAD_ERROR_MESSAGE)
                 loading.value = false
             }
         }
