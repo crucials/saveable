@@ -55,6 +55,15 @@ $bottom-bar-breakpoint-width: 900px;
     &:hover::before, &:hover::after {
         transform: scaleX(1);
     }
+
+    &:disabled:hover {
+        cursor: not-allowed;
+
+        &::before, &::after {
+            transform: scaleX(0);
+            
+        }
+    }
 }
 
 .spinner {
