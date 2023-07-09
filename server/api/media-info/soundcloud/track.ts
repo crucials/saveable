@@ -5,6 +5,7 @@ import { SoundcloudApiTrack, MediaInfo } from '~/types'
 export default defineEventHandler<MediaInfo>(async event => {
     const clientId = useRuntimeConfig().soundcloudClientId
     const trackUrl = getQuery(event)['url']?.toString()
+    const excludeArtistInFilename = getQuery(event)['exclude_artist'] === 'true'
     
     if(!trackUrl) {
         throw createError({
@@ -35,9 +36,12 @@ export default defineEventHandler<MediaInfo>(async event => {
     if(!downloadUrl) {
         throw createError({ statusCode: 500, message: 'Failed to get download URL' })
     }
+
+    const filename = excludeArtistInFilename ? rawTrackInfo.title 
+        : `${rawTrackInfo.user.username} - ${rawTrackInfo.title}`
     
     return {
-        name: `${rawTrackInfo.user.username} - ${rawTrackInfo.title}`,
+        name: filename,
         downloadUrl: downloadUrl
     }
 })

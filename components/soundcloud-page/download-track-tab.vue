@@ -6,9 +6,14 @@
                     Download track from SoundCloud
                 </ServicePageHeading>
 
-                <IconTextField type="url" placeholder="Track link" class="link-field" v-model.trim="trackLink">
+                <IconTextField type="url" placeholder="Track link" v-model.trim="trackLink" 
+                    class="link-field">
                     <img src="~~/assets/images/link.svg" alt="Two paperclips, link icon">
                 </IconTextField>
+
+                <ToggleButton v-model="includeArtistInFilename">
+                    Include artist username in filename
+                </ToggleButton>
 
                 <div class="actions">
                     <LoadingButton :loading="loading">
@@ -20,7 +25,7 @@
                     </button>
                 </div>
 
-                <ErrorText :visible="errorTextVisible" class="error-text">
+                <ErrorText :visible="errorTextVisible">
                     {{ errorText }}
                 </ErrorText>
             </form>
@@ -41,6 +46,7 @@
     const { errorTextVisible, errorText, showErrorText } = useErrorText()
 
     const trackLink = ref('')
+    const includeArtistInFilename = ref(true)
     const loading = ref(false)
 
     const emit = defineEmits<{
@@ -56,7 +62,8 @@
             try {
                 loading.value = true
 
-                const response = await fetch(`/api/media-info/soundcloud/track?url=${trackLinkValue}`)
+                const response = await fetch(`/api/media-info/soundcloud/track?url=${trackLinkValue}` 
+                    + `&exclude_artist=${!includeArtistInFilename.value}`)
 
                 if(!response.ok) {
                     if(response.status == 404) {

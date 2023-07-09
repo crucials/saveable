@@ -6,6 +6,7 @@ import JSZip from 'jszip'
 export default defineEventHandler<NodeJS.ReadableStream>(async event => {
     const clientId = useRuntimeConfig().soundcloudClientId
     const playlistUrl = getQuery(event)['url']?.toString()
+    const excludeArtistInFilenames = getQuery(event)['exclude_artist'] === 'true'
 
     if(!playlistUrl) {
         throw createError({
@@ -34,7 +35,7 @@ export default defineEventHandler<NodeJS.ReadableStream>(async event => {
         throw createError({ statusCode: 400, message: 'Requested resource is not a playlist' })
     }
 
-    const playlistTracksFiles = await getPlaylistTracksFiles(rawPlaylistInfo)
+    const playlistTracksFiles = await getPlaylistTracksFiles(rawPlaylistInfo, excludeArtistInFilenames)
 
     const zip = new JSZip()
 
@@ -50,7 +51,7 @@ export default defineEventHandler<NodeJS.ReadableStream>(async event => {
     return zip.generateNodeStream()
 })
 
-async function getPlaylistTracksFiles(playlist : SoundcloudApiPlaylist) {
+async function getPlaylistTracksFiles(playlist : SoundcloudApiPlaylist, excludeArtistInFilenames : boolean) {
     const MAXIMUM_TRACKS = 5
     const clientId = useRuntimeConfig().soundcloudClientId
 
@@ -80,7 +81,7 @@ async function getPlaylistTracksFiles(playlist : SoundcloudApiPlaylist) {
 
             if(downloadUrl) {
                 const downloadUrlResponse = await fetch(downloadUrl)
-                const trackName = `${track.user.username} - ${track.title}`
+                const trackName = excludeArtistInFilenames ? track.title : `${track.user.username} - ${track.title}`
                 const trackFilename = trackName.replace(/[/\\?%*:|"<>]/g, '_') + '.mp3'
 
                 if(downloadUrlResponse.ok) {

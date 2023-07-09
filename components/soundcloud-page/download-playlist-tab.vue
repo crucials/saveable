@@ -24,7 +24,7 @@
     <NuxtLayout name="service-page">
         <template #form>
             <form class="service-form" @submit.prevent="download">
-                <ServicePageHeading margin-bottom-size="smaller">
+                <ServicePageHeading>
                     Download playlist from SoundCloud
                 </ServicePageHeading>
 
@@ -32,9 +32,14 @@
                     You can download albums too
                 </p>
 
-                <IconTextField type="url" placeholder="Playlist link" class="link-field" v-model.trim="playlistLink">
+                <IconTextField type="url" placeholder="Playlist link" v-model.trim="playlistLink"
+                    class="link-field">
                     <img src="~~/assets/images/link.svg" alt="Two paperclips, link icon">
                 </IconTextField>
+
+                <ToggleButton v-model="includeArtistInFilenames">
+                    Include artist username in tracks' filenames
+                </ToggleButton>
 
                 <div class="actions">
                     <WhiteFilledButton :disabled="downloadStatus.inProcess">
@@ -46,7 +51,7 @@
                     </button>
                 </div>
 
-                <ErrorText :visible="errorTextVisible" class="error-text">
+                <ErrorText :visible="errorTextVisible">
                     {{ errorText }}
                 </ErrorText>
             </form>
@@ -81,6 +86,7 @@
         heading : '',
         note: undefined
     })
+    const includeArtistInFilenames = ref(true)
 
     const emit = defineEmits<{
         (event : 'tab-switched', tabNumber : number) : void
@@ -103,7 +109,8 @@
 
                 abortController = new AbortController()
 
-                const response = await fetch(`/api/download/soundcloud/playlist?url=${playlistLinkValue}`, {
+                const response = await fetch(`/api/download/soundcloud/playlist?url=${playlistLinkValue}` 
+                    + `&exclude_artist=${!includeArtistInFilenames.value}`, {
                     signal: abortController.signal
                 }) 
 

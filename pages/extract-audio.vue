@@ -2,7 +2,7 @@
     <NuxtLayout name="service-page">
         <template #form>
             <form class="service-form" @submit.prevent="extract">
-                <ServicePageHeading margin-bottom-size="smaller">
+                <ServicePageHeading>
                     Extract audio from video
                 </ServicePageHeading>
 
@@ -21,7 +21,7 @@
                     Extract
                 </LoadingButton>
 
-                <ErrorText :visible="errorTextVisible" class="error-text">
+                <ErrorText :visible="errorTextVisible">
                     {{ errorText }}
                 </ErrorText>
             </form>
@@ -101,9 +101,5 @@
 <style lang="scss" scoped>
     .tip-action {
         color: white;
-    }
-
-    .video-upload-area {
-        margin-bottom: 41px;
     }
 </style>

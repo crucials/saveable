@@ -4,14 +4,16 @@ $bottom-bar-breakpoint-width: 900px;
 
 .service-form {
     align-self: start;
+
+    display: flex;
+    flex-direction: column;
+    row-gap: 32px;
+    align-items: flex-start;
 }
 
 .link-field {
-    margin-bottom: 31px;
-}
-
-.error-text {
-    margin-top: 25px;
+    margin-top: 9px;
+    width: 100%;
 }
 
 .actions {
@@ -92,7 +94,6 @@ $bottom-bar-breakpoint-width: 900px;
 .service-description {
     font-size: 1rem;
     color: white;
-    margin-bottom: 39px;
 }
 
 

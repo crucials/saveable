@@ -160,7 +160,7 @@
 
         .navigation-bar {
             position: fixed;
-            z-index: 2;
+            z-index: 3;
             column-gap: 67px;
             row-gap: 30px;
             left: 0px;

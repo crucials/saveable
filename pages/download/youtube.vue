@@ -6,7 +6,8 @@
                     Download from Youtube
                 </ServicePageHeading>
 
-                <IconTextField type="url" placeholder="Video link" class="link-field" v-model.trim="videoLink">
+                <IconTextField type="url" placeholder="Video link" v-model.trim="videoLink"
+                    class="link-field">
                     <img src="~~/assets/images/link.svg" alt="Two paperclips, link icon">
                 </IconTextField>
                 
@@ -20,7 +21,7 @@
                     </button>
                 </div>
 
-                <ErrorText :visible="errorTextVisible" class="error-text">
+                <ErrorText :visible="errorTextVisible">
                     {{ errorText }}
                 </ErrorText>
             </form>
