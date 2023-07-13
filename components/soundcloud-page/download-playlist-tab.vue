@@ -24,7 +24,7 @@
     <NuxtLayout name="service-page">
         <template #form>
             <form class="service-form" @submit.prevent="download">
-                <ServicePageHeading>
+                <ServicePageHeading smaller-margin-bottom>
                     Download playlist from SoundCloud
                 </ServicePageHeading>
 

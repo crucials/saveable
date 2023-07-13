@@ -7,12 +7,14 @@ $bottom-bar-breakpoint-width: 900px;
 
     display: flex;
     flex-direction: column;
-    row-gap: 32px;
     align-items: flex-start;
+
+    > *:not(:last-child) {
+        margin-bottom: 32px;
+    }
 }
 
 .link-field {
-    margin-top: 9px;
     width: 100%;
 }
 
