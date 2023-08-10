@@ -3,14 +3,14 @@ export function useErrorText() {
     const errorText = ref('')
 
     let hideTimeoutId = 0
-    function showErrorText(text : string) {
+    function showErrorText(text : string, hideTimeout : number = 2750) {
         window.clearTimeout(hideTimeoutId)
 
         errorText.value = text
         errorTextVisible.value = true
         hideTimeoutId = window.setTimeout(() => {
             errorTextVisible.value = false
-        }, 2750)
+        }, hideTimeout)
     }
 
     return { errorTextVisible, errorText, showErrorText }
