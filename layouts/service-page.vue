@@ -60,6 +60,7 @@
     .gradient-container {
         position: relative;
         width: 78%;
+        min-height: 400px;
         padding: 33px 78px 33px 38px;
         background-image: linear-gradient(101.21deg, #FFFFFF 0%, #11998E 0.01%, #38EF7D 100%);
         border-radius: 12px;
