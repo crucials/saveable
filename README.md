@@ -5,12 +5,12 @@
 Website with media utilities like video and audio downloader and audio extraction
 
 ## Features
-:fire: New feature - SoundCloud playlist/album downloader (_playlists with more than about 100 tracks probably won't be downloaded because app is hosted on 512 MB servers_)
+:fire: New features - SoundCloud playlist/album downloader (_playlists with more than about 100 tracks probably won't be downloaded because app is hosted on 512 MB servers_) and SampleFocus downloader
 
 :city_sunset: Website has nice-looking and comfortable design, bottom bar on mobile for faster navigation. There is also dark and light color themes
 
-#### Functionallity: 
-- Video and audio downloader from such services as Youtube and SoundCloud (_maybe more platfoms soon_).
+### Functionallity: 
+- Video, audio or playlist downloaders for such services as Youtube and SoundCloud (_maybe more platfoms soon_).
 - Audio extraction from file or Youtube video, converts most of video formats to mp3. And yes, **convertion happens in your browser** so your videos isn't uploaded to anywhere
 
 ## Try it out
