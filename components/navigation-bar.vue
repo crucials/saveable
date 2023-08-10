@@ -19,6 +19,12 @@
             </li>
 
             <li>
+                <NuxtLink to="/download/samplefocus" class="navigation-link">
+                    SampleFocus
+                </NuxtLink>
+            </li>
+
+            <li>
                 <NuxtLink to="/extract-audio" class="navigation-link">
                     Extract audio
                 </NuxtLink>
@@ -61,7 +67,8 @@
 
     function displayExpandButtonIfNeeded() {
         const navigationScrollHeight = navigation.value?.scrollHeight
-        if(navigationScrollHeight && navigationScrollHeight > 93) {
+        console.log(navigationScrollHeight)
+        if(navigationScrollHeight && navigationScrollHeight >= 93) {
             expandButtonVisible.value = true
         }
         else {
@@ -175,7 +182,7 @@
         }
     }
 
-    @media (max-width: 480px) {
+    @media (max-width: 558px) {
         .navigation-bar {
             column-gap: 50px;
             max-height: 97px;
@@ -187,7 +194,7 @@
         }
     }
 
-    @media (max-width: 400px) {
+    @media (max-width: 559px) {
         .navigation-bar {
             .expand-mobile-navigation-button {
                 display: block;
