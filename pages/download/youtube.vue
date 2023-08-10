@@ -62,7 +62,7 @@
                 const videoInfo = await getVideoInfo(videoLinkValue)
 
                 new JsFileDownloader({ 
-                    url: `/api/proxy/google-videos?url=${encodeURIComponent(videoInfo.downloadUrl)}`, 
+                    url: `/api/proxy/media?url=${encodeURIComponent(videoInfo.downloadUrl)}`, 
                     filename: videoInfo.name + '.mp4'
                 }).catch(() => {
                     window.open(videoInfo.downloadUrl)

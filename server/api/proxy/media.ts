@@ -21,7 +21,7 @@ export default defineEventHandler(async event => {
         })
     }
     
-    const videoBuffer = await response.arrayBuffer()
+    const mediaBuffer = await response.arrayBuffer()
     
-    return new Uint8Array(videoBuffer, 0, videoBuffer.byteLength)
+    return new Uint8Array(mediaBuffer, 0, mediaBuffer.byteLength)
 })
