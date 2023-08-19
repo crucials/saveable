@@ -86,7 +86,7 @@
                 loading.value = true
 
                 const videoInfo = await getVideoInfo(videoLinkValue)
-                const videoResponse = await fetch(`/api/proxy/google-videos?url=${encodeURIComponent(videoInfo.downloadUrl)}`)
+                const videoResponse = await fetch(`/api/proxy/media?url=${encodeURIComponent(videoInfo.downloadUrl)}`)
 
                 if(!videoResponse.ok) {     
                     showErrorText(DEFAULT_SERVER_EXTRACT_ERROR_MESSAGE)
