@@ -1,6 +1,6 @@
 <template>
     <DownloadTrackTab v-if="currentTab == 1" @tab-switched="(tabNumber : number) => currentTab = tabNumber"/>
-    <DownloadPlaylistTab v-else-if="currentTab == 2" @tab-switched="tabNumber => currentTab = tabNumber"/>
+    <DownloadPlaylistTab v-else-if="currentTab == 2" @tab-switched="(tabNumber : number) => currentTab = tabNumber"/>
 </template>
 
 <script lang="ts" setup>
