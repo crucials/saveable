@@ -21,5 +21,6 @@ export interface SoundcloudApiPlaylist {
             id : number
         }
     ],
-    kind : string
+    kind : string,
+    track_count : number
 }

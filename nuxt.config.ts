@@ -23,7 +23,8 @@ export default defineNuxtConfig({
     ],
 
     runtimeConfig: {
-        soundcloudClientId: ''
+        soundcloudClientId: '',
+        maximumPlaylistTracks: ''
     },
 
     vite: {

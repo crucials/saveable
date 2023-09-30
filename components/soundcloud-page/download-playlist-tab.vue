@@ -16,9 +16,18 @@
             {{ downloadStatus.note }}
         </p>
 
-        <EmeraldFilledButton @click="closeDownloadStatusModal">
-            {{ downloadStatus.stage === 'downloading' ? 'Cancel' : 'Close' }}
-        </EmeraldFilledButton>
+        <div class="actions download-status-modal-actions">
+            <EmeraldFilledButton @click="closeDownloadStatusModal">
+                {{ downloadStatus.stage === 'downloading' ? 'Cancel' : 'Close' }}
+            </EmeraldFilledButton>
+
+            <Transition name="sliding-up">
+                <a v-if="hostLocallyLinkVisible" target="_blank" class="emerald-text-action"
+                    href="https://github.com/crucials/saveable/blob/master/README.md#run-locally">
+                    Host this app locally
+                </a>
+            </Transition>
+        </div>
     </ModalWindow>
 
     <NuxtLayout name="service-page">
@@ -76,7 +85,7 @@
         note : string | undefined
     }
 
-    const { errorTextVisible, errorText, showErrorText } = useErrorText()
+    const { errorTextVisible, errorText, showErrorText } = useErrorText();
 
     const playlistLink = ref('')
 
@@ -86,6 +95,7 @@
         heading : '',
         note: undefined
     })
+    const hostLocallyLinkVisible = ref(false);
     const includeArtistInFilenames = ref(true)
 
     const emit = defineEmits<{
@@ -106,13 +116,14 @@
                 downloadStatus.value.stage = 'downloading'
                 downloadStatus.value.heading = 'Downloading...'
                 downloadStatus.value.note = 'Downloading large playlists can take up to 7 minutes'
+                hostLocallyLinkVisible.value = false
 
                 abortController = new AbortController()
 
-                const response = await fetch(`/api/download/soundcloud/playlist?url=${playlistLinkValue}` 
-                    + `&exclude_artist=${!includeArtistInFilenames.value}`, {
+                const response = await fetch(`/api/download/soundcloud/playlist?url=${playlistLinkValue}` + 
+                    `&exclude_artist=${!includeArtistInFilenames.value}`, {
                     signal: abortController.signal
-                }) 
+                })
 
                 if(!response.ok) {
                     if(response.status == 404) {
@@ -123,6 +134,10 @@
                     }
                     else if(response.status == 400) {
                         showErrorInModal('Provided link is not a playlist')
+                    }
+                    else if(response.status == 413) {
+                        showErrorInModal('Your playlist is too large for our free tier hosting')
+                        hostLocallyLinkVisible.value = true
                     }
                     else {
                         showErrorInModal(DEFAULT_SERVER_DOWNLOAD_ERROR_MESSAGE)
@@ -202,6 +217,10 @@
         .dark & {
             color: white;
         }
+
+        @media (max-width: 800px) {
+            font-size: 1.15rem;
+        }
     }
 
     .download-status-note {
@@ -212,6 +231,20 @@
 
         .dark & {
             color: white;
+        }
+    }
+
+    .download-status-modal-actions {
+        margin-top: 10px;
+        justify-content: center
+    }
+
+    .emerald-text-action {
+        @extend .action-text;
+        color: $emerald;
+
+        &::before, &::after {
+            background-color: $emerald;
         }
     }
 </style>

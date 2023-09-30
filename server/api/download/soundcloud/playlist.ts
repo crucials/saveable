@@ -5,6 +5,8 @@ import JSZip from 'jszip'
 
 export default defineEventHandler<NodeJS.ReadableStream>(async event => {
     const clientId = useRuntimeConfig().soundcloudClientId
+    const maximumPlaylistTracks = useRuntimeConfig().maximumPlaylistTracks
+    
     const playlistUrl = getQuery(event)['url']?.toString()
     const excludeArtistInFilenames = getQuery(event)['exclude_artist'] === 'true'
 
@@ -33,6 +35,15 @@ export default defineEventHandler<NodeJS.ReadableStream>(async event => {
 
     if(rawPlaylistInfo.kind != 'playlist') {
         throw createError({ statusCode: 400, message: 'Requested resource is not a playlist' })
+    }
+
+    if(maximumPlaylistTracks !== '' && rawPlaylistInfo.track_count > +maximumPlaylistTracks) {
+        throw createError({
+            statusCode: 413, 
+            message: 'Server cannot download playlists that have more than 20 tracks ' + 
+                'cause of 512 MB memory limit. Btw, you can host this app by yourself - ' + 
+                'https://github.com/crucials/saveable/blob/master/README.md#run-locally'
+        })
     }
 
     const playlistTracksFiles = await getPlaylistTracksFiles(rawPlaylistInfo, excludeArtistInFilenames)

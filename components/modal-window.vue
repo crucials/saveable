@@ -55,7 +55,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        row-gap: 32px;
+        row-gap: 24px;
 
         position: fixed;
         left: 50%;
