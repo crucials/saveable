@@ -42,9 +42,8 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        box-shadow: 0px 0px 16px -1px hsla(141, 44%, 56%, 1);
 
-        transition: left 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+        transition: left 0.3s cubic-bezier(0.075, 0.82, 0.165, 1), box-shadow 0.3s ease;
     }
 
     .sun-icon, .moon-icon {
@@ -54,6 +53,7 @@
     .dark {
         .current-theme-indicator {
             left: 65px;
+            box-shadow: 0px 0px 16px -1px hsla(141, 44%, 56%, 1);
         }
 
         .sun-icon {
