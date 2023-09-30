@@ -84,6 +84,5 @@
         width: 22px;
         height: 22px;
         transition: left 0.2s ease;
-        z-index: 2;
     }
 </style>
