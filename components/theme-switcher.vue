@@ -23,8 +23,8 @@
 <style lang="scss" scoped>
     .switch-theme-button {
         position: relative;
-        width: 123px;
-        height: 62px;
+        width: 112px;
+        height: 52px;
         border-radius: 100px;
         border: 2px solid $emerald;
     }
@@ -33,10 +33,10 @@
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
-        left: 8px;
+        left: 6px;
 
-        width: 44px;
-        height: 44px;
+        width: 36px;
+        height: 36px;
         background-color: $emerald;
         border-radius: 100%;
         display: flex;
@@ -48,7 +48,7 @@
     }
 
     .sun-icon, .moon-icon {
-        width: 22px;
+        width: 20px;
     }
 
     .dark {
@@ -71,8 +71,8 @@
 
     @media (max-width: $bottom-bar-breakpoint-width) {
         .switch-theme-button {
-            width: 70px;
-            height: 70px;
+            width: 62px;
+            height: 62px;
             display: flex;
             justify-content: center;
             align-items: center; 
