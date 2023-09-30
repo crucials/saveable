@@ -25,7 +25,7 @@
         row-gap: 6px;
         align-items: center;
         column-gap: 12px;
-        flex-wrap: wrap-reverse;
+        /* flex-wrap: wrap-reverse; */
 
         &:hover {
             cursor: pointer;
@@ -39,10 +39,15 @@
     .toggle-button-label {
         font-size: 1.125rem;
         color: white;
+
+        @media (max-width: 1280px) {
+            font-size: 1rem;
+        }
     }
 
     .toggle-button {
         position: relative;
+        flex-shrink: 0;
         width: 59px;
         height: 30px;
         display: flex;
