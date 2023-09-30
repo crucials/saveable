@@ -9,7 +9,7 @@
 </script>
 
 <style lang="scss">
-    @use '~~/assets/styles/normalize';
+    @use '~/assets/styles/normalize';
 
     @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
 

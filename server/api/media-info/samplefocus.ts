@@ -1,5 +1,5 @@
 import { HTMLElement, parse } from 'node-html-parser'
-import { MediaInfo } from '~/types'
+import { MediaInfo } from '~/types/media-info'
 
 interface Sample {
     slug : string,

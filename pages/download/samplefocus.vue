@@ -32,7 +32,7 @@
 <script setup lang="ts">
     import { DEFAULT_SERVER_DOWNLOAD_ERROR_MESSAGE } from '~/constants/messages'
     import JsFileDownloader from 'js-file-downloader'
-    import { MediaInfo } from '~/types'
+    import { MediaInfo } from '~/types/media-info'
 
     useHead({
         title: 'Download from SampleFocus | Saveable'

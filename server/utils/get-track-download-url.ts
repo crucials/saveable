@@ -1,4 +1,4 @@
-import { SoundcloudApiTrack } from '~/types'
+import { SoundcloudApiTrack } from '~/types/soundcloud-api'
 
 export default async function getTrackDownloadUrl(track : SoundcloudApiTrack, clientId : string) {
     const neededTranscoding = track.media.transcodings.find(transcoding => {

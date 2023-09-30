@@ -1,5 +1,5 @@
 import ytdl from 'ytdl-core'
-import { MediaInfo } from '~/types'
+import { MediaInfo } from '~/types/media-info'
 
 export default defineEventHandler<MediaInfo>(async event => {
     const videoUrl = getQuery(event)['video_url']?.toString()

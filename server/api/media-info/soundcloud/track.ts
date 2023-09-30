@@ -1,6 +1,7 @@
 import { API_BASE_URL } from '~/constants/api-urls'
 import getTrackDownloadUrl from '~/server/utils/get-track-download-url'
-import { SoundcloudApiTrack, MediaInfo } from '~/types'
+import { MediaInfo } from '~/types/media-info'
+import { SoundcloudApiTrack } from '~/types/soundcloud-api'
 
 export default defineEventHandler<MediaInfo>(async event => {
     const clientId = useRuntimeConfig().soundcloudClientId
