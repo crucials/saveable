@@ -252,7 +252,7 @@
     .emerald-text-action {
         @extend .action-text;
         color: $emerald;
-        transition: all 0.6s ease;
+        transition: all 0.6s ease 0.3s;
 
         &::before, &::after {
             background-color: $emerald;
