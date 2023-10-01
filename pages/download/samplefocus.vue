@@ -2,9 +2,9 @@
     <NuxtLayout name="service-page">
         <template #form>
             <form class="service-form" @submit.prevent="download">
-                <ServicePageHeading>
+                <Heading>
                     Download from SampleFocus
-                </ServicePageHeading>
+                </Heading>
 
                 <IconTextField type="url" placeholder="Sample page link" v-model.trim="sampleLink"
                     class="link-field">

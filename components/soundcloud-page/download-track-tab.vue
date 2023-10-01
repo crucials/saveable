@@ -2,9 +2,9 @@
     <NuxtLayout name="service-page">
         <template #form>
             <form class="service-form" @submit.prevent="download">
-                <ServicePageHeading>
+                <Heading>
                     Download track from SoundCloud
-                </ServicePageHeading>
+                </Heading>
 
                 <IconTextField type="url" placeholder="Track link" v-model.trim="trackLink" 
                     class="link-field">

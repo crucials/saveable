@@ -15,5 +15,10 @@
 
     * {
         font-family: 'Lato';
+        
+        &::selection {
+            background-color: $pastel-purple;
+            color: white;
+        }
     }
 </style>

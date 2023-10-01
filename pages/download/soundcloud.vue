@@ -10,7 +10,3 @@
 
     const currentTab = ref(1)
 </script>
-
-<style lang="scss" scoped>
-    
-</style>

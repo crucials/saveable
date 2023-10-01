@@ -15,6 +15,10 @@
         display: flex;
         flex-direction: column;
         @extend %themeable;
+
+        @media (max-width: $bottom-bar-breakpoint-width) {
+            padding-bottom: 97px;
+        }
     }
 
     .dark .root-wrapper {

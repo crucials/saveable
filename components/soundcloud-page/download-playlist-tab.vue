@@ -21,7 +21,7 @@
                 {{ downloadStatus.stage === 'downloading' ? 'Cancel' : 'Close' }}
             </EmeraldFilledButton>
 
-            <Transition name="sliding-up">
+            <Transition name="slide-up">
                 <a v-if="hostLocallyLinkVisible" target="_blank" class="emerald-text-action"
                     href="https://github.com/crucials/saveable/blob/master/README.md#run-locally">
                     Host this app locally
@@ -33,9 +33,9 @@
     <NuxtLayout name="service-page">
         <template #form>
             <form class="service-form" @submit.prevent="download">
-                <ServicePageHeading smaller-margin-bottom>
+                <Heading smaller-margin-bottom>
                     Download playlist from SoundCloud
-                </ServicePageHeading>
+                </Heading>
 
                 <p class="service-description">
                     You can download albums too
@@ -71,6 +71,16 @@
                 alt="Cloud with sound waves with reflection, SoundCloud logo"
                 class="page-icon">
         </template>
+
+        <OtherToolsSection platform-name="SoundCloud" :tools-pages="[
+            {
+                title: 'Export & Import playlist',
+                link: '/save-soundcloud-playlist',
+                iconSrc: '/images/black-soundcloud-export.svg',
+                darkThemeIconSrc: '/images/white-soundcloud-export.svg',
+                iconAltText: 'Cloud with sound waves (SoundCloud logo) and the up arrow on top'
+            }
+        ]"/>
     </NuxtLayout>
 </template>
 
@@ -242,9 +252,19 @@
     .emerald-text-action {
         @extend .action-text;
         color: $emerald;
+        transition: all 0.6s ease;
 
         &::before, &::after {
             background-color: $emerald;
         }
+    }
+
+    .slide-up-enter-from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+
+    .slide-up-leave-to {
+        display: none;
     }
 </style>
