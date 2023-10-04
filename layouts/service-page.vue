@@ -128,19 +128,23 @@
     }
 }
 
-@media (max-width: 911px) {
+@media (max-width: 1000px) {
     .gradient-container {
-        width: 97%;
+        width: 80%;
         grid-template-columns: 1fr;
         justify-items: center;
         padding: 33px 40px;
-        margin: 0 auto;
+    }
+}
+
+@media (max-width: 800px) {
+    .gradient-container {
+        width: 100%;
     }
 }
 
 @media (max-width: 600px) {
     .gradient-container {
-        width: 100%;
         min-width: 300px;
         padding: 25px;
     }
