@@ -29,8 +29,12 @@
             margin-bottom: 41px;
         }
 
+        @media (max-width: 1200px) {
+            font-size: 1.6rem;
+        }
+
         @media (max-width: 600px) {
-            font-size: 1.7rem;
+            font-size: 1.4rem;
         }
     }
 
