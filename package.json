@@ -21,6 +21,7 @@
     "@ffmpeg/core": "^0.11.0",
     "@ffmpeg/ffmpeg": "^0.11.6",
     "@netlify/functions": "^1.6.0",
+    "@nuxt/image": "^1.0.0-rc.3",
     "@nuxtjs/proxy": "^2.1.0",
     "@pinia/nuxt": "^0.4.9",
     "js-file-downloader": "^1.1.24",
