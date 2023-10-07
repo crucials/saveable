@@ -75,7 +75,7 @@
         <OtherToolsSection platform-name="SoundCloud" :tools-pages="[
             {
                 title: 'Export & Import playlist',
-                link: '/save-soundcloud-playlist',
+                link: '/soundcloud/save-playlist',
                 iconSrc: '/images/black-soundcloud-export.svg',
                 darkThemeIconSrc: '/images/white-soundcloud-export.svg',
                 iconAltText: 'Cloud with sound waves (SoundCloud logo) and the up arrow on top'

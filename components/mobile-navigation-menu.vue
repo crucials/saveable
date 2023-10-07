@@ -10,7 +10,7 @@
         </li> -->
 
         <li title="Download from SoundCloud">
-            <NuxtLink class="mobile-navigation-link" to="/download/soundcloud">
+            <NuxtLink class="mobile-navigation-link" to="/soundcloud/download">
                 <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg"
                     class="page-icon">
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M18.03 32.0205V10.9611C18.03 10.2914 18.2315 9.89028 18.6366 9.76134C25.3826 8.16616 32.1979 12.872 32.8171 19.9619C39.412 17.1771 45.1464 25.5693 40.0354 30.6086C38.7404 31.8855 37.1872 32.524 35.3758 32.524L18.3805 32.5055C18.1559 32.4306 18.03 32.1973 18.03 32.0205ZM13.4585 31.4012C13.4585 32.9236 16.3508 32.9423 16.3508 31.4012V11.1395C16.3508 9.22192 13.4585 9.23025 13.4585 11.1395V31.4012ZM8.96673 31.4012C8.96673 32.8882 11.857 32.9465 11.857 31.4012V19.4585C11.857 17.5409 8.96673 17.5492 8.96673 19.4585V31.4012ZM4.49176 30.7808C4.49176 32.3115 7.36523 32.3365 7.36523 30.7808V17.6968C7.36523 15.8438 4.49176 15.8209 4.49176 17.6968V30.7808ZM0 28.3814C0 30.1679 2.87137 30.6192 2.87137 28.3814V22.7674C2.87137 20.8665 0 20.8831 0 22.7674V28.3814Z"/>
@@ -19,7 +19,7 @@
         </li>
 
         <li title="Download from YouTube">
-            <NuxtLink class="mobile-navigation-link" to="/download/youtube">
+            <NuxtLink class="mobile-navigation-link" to="/youtube/download">
 
                 <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg"
                     class="page-icon">
@@ -37,7 +37,7 @@
         </li>
 
         <li title="Download from SampleFocus">
-            <NuxtLink class="mobile-navigation-link" to="/download/samplefocus">
+            <NuxtLink class="mobile-navigation-link" to="/samplefocus/download">
 
                 <!-- im sorry -->
                 <svg width="40" height="38" viewBox="0 0 40 38" fill="none" xmlns="http://www.w3.org/2000/svg"
