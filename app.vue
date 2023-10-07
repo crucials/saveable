@@ -21,4 +21,8 @@
             color: white;
         }
     }
+
+    body {
+        @include scrollbar($pastel-purple);
+    }
 </style>
