@@ -55,7 +55,7 @@
     })
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" >
     .article-banner {
         overflow: hidden;
         position: relative;
@@ -66,6 +66,7 @@
         @media (max-width: 500px) {
             padding: 15px 20px;
             height: auto;
+            min-height: 120px;
         }
     }
 
@@ -98,9 +99,9 @@
         }
 
         @media (max-width: 670px) {
-            top: 50%;
+            top: 60%;
             translate: 0 -50%;
-            right: -30px;
+            right: -40px;
 
             &, img {
                 width: 200px;
@@ -110,7 +111,7 @@
 
     .article-content {
         @extend %themeable;
-        width: 96%;
+        width: 92%;
         max-width: 1232px;
         padding: 43px 78px;
         margin: 0 auto;
