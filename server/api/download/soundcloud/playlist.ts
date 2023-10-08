@@ -3,7 +3,7 @@ import getTrackDownloadUrl from '~/server/utils/get-track-download-url'
 import { SoundcloudApiPlaylist, SoundcloudApiTrack } from '~/types/soundcloud-api'
 import JSZip from 'jszip'
 
-export default defineEventHandler<NodeJS.ReadableStream>(async event => {
+export default defineEventHandler(async event => {
     const clientId = useRuntimeConfig().soundcloudClientId
     const maximumPlaylistTracks = useRuntimeConfig().maximumPlaylistTracks
     
