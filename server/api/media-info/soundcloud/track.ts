@@ -3,7 +3,7 @@ import getTrackDownloadUrl from '~/server/utils/get-track-download-url'
 import { MediaInfo } from '~/types/media-info'
 import { SoundcloudApiTrack } from '~/types/soundcloud-api'
 
-export default defineEventHandler<MediaInfo>(async event => {
+export default defineEventHandler<Promise<MediaInfo>>(async event => {
     const clientId = useRuntimeConfig().soundcloudClientId
     const trackUrl = getQuery(event)['url']?.toString()
     const excludeArtistInFilename = getQuery(event)['exclude_artist'] === 'true'

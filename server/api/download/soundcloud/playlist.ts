@@ -3,7 +3,7 @@ import getTrackDownloadUrl from '~/server/utils/get-track-download-url'
 import { SoundcloudApiPlaylist, SoundcloudApiTrack } from '~/types/soundcloud-api'
 import JSZip from 'jszip'
 
-export default defineEventHandler<NodeJS.ReadableStream>(async event => {
+export default defineEventHandler(async event => {
     const clientId = useRuntimeConfig().soundcloudClientId
     const maximumPlaylistTracks = useRuntimeConfig().maximumPlaylistTracks
     
@@ -40,7 +40,7 @@ export default defineEventHandler<NodeJS.ReadableStream>(async event => {
     if(maximumPlaylistTracks !== '' && rawPlaylistInfo.track_count > +maximumPlaylistTracks) {
         throw createError({
             statusCode: 413, 
-            message: 'Server cannot download playlists that have more than 20 tracks ' + 
+            message: `Server cannot download playlists that have more than ${maximumPlaylistTracks} tracks ` + 
                 'cause of 512 MB memory limit. Btw, you can host this app by yourself - ' + 
                 'https://github.com/crucials/saveable/blob/master/README.md#run-locally'
         })
@@ -63,44 +63,91 @@ export default defineEventHandler<NodeJS.ReadableStream>(async event => {
 })
 
 async function getPlaylistTracksFiles(playlist : SoundcloudApiPlaylist, excludeArtistInFilenames : boolean) {
-    const MAXIMUM_TRACKS = 5
+    const MAXIMUM_TRACKS = 50
     const clientId = useRuntimeConfig().soundcloudClientId
 
     const playlistTracksFiles : File[] = []
     const rawPlaylistTracks = playlist.tracks
 
-    for (let i = 0; i < rawPlaylistTracks.length; i += MAXIMUM_TRACKS) {
-        const tracksIds = rawPlaylistTracks.slice(i, i + MAXIMUM_TRACKS).map(track => String(track.id))
-        const tracksIdsString = tracksIds.reduce((id1, id2) => `${id1},${id2}`)
+    const trackGroupRequests : Promise<void>[] = []
 
-        const tracksResponse = await fetch(API_BASE_URL + `/tracks?client_id=${clientId}&ids=${tracksIdsString}`)
+    for (let trackIndex = 0; trackIndex < rawPlaylistTracks.length; trackIndex += MAXIMUM_TRACKS) {
+        trackGroupRequests.push(new Promise(async (resolve, reject) => {
+            const tracksIds = rawPlaylistTracks.slice(trackIndex, trackIndex + MAXIMUM_TRACKS)
+                .map(track => String(track.id))
+            const tracksIdsString = tracksIds.reduce((id1, id2) => `${id1},${id2}`)
 
-        if(!tracksResponse.ok) {
-            if(tracksResponse.status == 429) {
-                throw createError({ statusCode: 429, message: 'Soundcloud API today\'s request limit was reached' }) 
-            }
-            else {
-                console.log(tracksResponse.status)
-                throw createError({ statusCode: 500, message: 'Couldn\'t get playlist info' })
-            }
-        }
+            const tracksResponse = await fetch(API_BASE_URL + `/tracks?client_id=${clientId}&ids=${tracksIdsString}`)
 
-        const tracksResponseData : SoundcloudApiTrack[] = await tracksResponse.json()
-
-        for (const track of tracksResponseData) {
-            const downloadUrl = await getTrackDownloadUrl(track, clientId)
-
-            if(downloadUrl) {
-                const downloadUrlResponse = await fetch(downloadUrl)
-                const trackName = excludeArtistInFilenames ? track.title : `${track.user.username} - ${track.title}`
-                const trackFilename = trackName.replace(/[/\\?%*:|"<>]/g, '_') + '.mp3'
-
-                if(downloadUrlResponse.ok) {
-                    playlistTracksFiles.push(new File([ await downloadUrlResponse.blob() ], trackFilename))
+            if(!tracksResponse.ok) {
+                if(tracksResponse.status == 429) {
+                    reject(createError({ statusCode: 429, message: 'Soundcloud API today\'s request limit was reached' }))
+                }
+                else {
+                    console.log(tracksResponse.status)
+                    reject(createError({ statusCode: 500, message: 'Couldn\'t get playlist info' }))
                 }
             }
-        }
+
+            const tracksResponseData : SoundcloudApiTrack[] = await tracksResponse.json()
+
+            /* for (const track of tracksResponseData) {
+                await new Promise<void>(async resolveNextTrack => {
+                    setTimeout(() => {
+                        resolveNextTrack()
+                    }, 500)
+
+                    console.log('New track')
+                    const downloadUrl = await getTrackDownloadUrl(track, clientId)
+
+                    if(downloadUrl) {
+                        const downloadUrlResponse = await fetch(downloadUrl)
+                        const trackName = excludeArtistInFilenames ? track.title : `${track.user.username} - ${track.title}`
+                        const trackFilename = trackName.replace(/[/\\?%*:|"<>]/g, '_') + '.mp3'
+
+                        if(downloadUrlResponse.ok) {
+                            playlistTracksFiles.push(new File([ await downloadUrlResponse.blob() ], trackFilename))
+                        }
+                    }
+                })
+            } */
+
+            for(
+                let trackFromGroupIndex = 0; 
+                trackFromGroupIndex < tracksResponseData.length; 
+                trackFromGroupIndex++
+            ) {
+                const track = tracksResponseData[trackFromGroupIndex];
+
+                await new Promise<void>(async resolveNextTrack => {
+                    setTimeout(() => {
+                        resolveNextTrack()
+                    }, 2500)
+
+                    console.log('New track', trackFromGroupIndex)
+                    const downloadUrl = await getTrackDownloadUrl(track, clientId)
+
+                    if(downloadUrl) {
+                        const downloadUrlResponse = await fetch(downloadUrl)
+                        const trackName = excludeArtistInFilenames ? track.title : `${track.user.username} - ${track.title}`
+                        const trackFilename = trackName.replace(/[/\\?%*:|"<>]/g, '_') + '.mp3'
+
+                        if(downloadUrlResponse.ok) {
+                            playlistTracksFiles.push(new File([ await downloadUrlResponse.blob() ], trackFilename))
+                        }
+                    }
+
+                    resolveNextTrack()
+
+                    if(trackFromGroupIndex === tracksResponseData.length - 1) {
+                        resolve()
+                    }
+                })
+            }
+        }))
     }
+
+    await Promise.allSettled(trackGroupRequests)
 
     return playlistTracksFiles
 }
