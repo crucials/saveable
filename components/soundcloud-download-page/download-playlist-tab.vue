@@ -76,8 +76,8 @@
             {
                 title: 'Export & Import playlist',
                 link: '/soundcloud/save-playlist',
-                iconSrc: '/images/black-soundcloud-export.svg',
-                darkThemeIconSrc: '/images/white-soundcloud-export.svg',
+                iconSrc: '/images/soundcloud-save-playlist-black.svg',
+                darkThemeIconSrc: '/images/soundcloud-save-playlist-white.svg',
                 iconAltText: 'Cloud with sound waves (SoundCloud logo) and the up arrow on top'
             }
         ]"/>
