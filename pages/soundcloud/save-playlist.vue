@@ -1,5 +1,5 @@
 <template>
-    
+    <ExportPlaylistTab />
 </template>
 
 <script setup lang="ts">
