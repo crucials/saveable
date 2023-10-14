@@ -37,7 +37,7 @@
                     Download playlist from SoundCloud
                 </Heading>
 
-                <p class="service-description">
+                <p class="white-text">
                     You can download albums too
                 </p>
 

@@ -36,6 +36,10 @@ $bottom-bar-breakpoint-width: 1050px;
     transition: transform 0.4s ease;
 }
 
+.white-text {
+    color: white;
+}
+
 .action-text {
     color: white;
     font-size: 1rem;
@@ -91,11 +95,6 @@ $bottom-bar-breakpoint-width: 1050px;
         border: 2px solid transparent;
         border-right: 2px solid $emerald;
     }
-}
-
-.service-description {
-    font-size: 1rem;
-    color: white;
 }
 
 

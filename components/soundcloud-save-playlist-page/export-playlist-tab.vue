@@ -6,7 +6,7 @@
                     Export SoundCloud playlist as JSON
                 </Heading>
 
-                <p class="service-description">
+                <p class="white-text">
                     Save your SoundCloud playlist for future import, for example, on other account
                 </p>
 
@@ -17,10 +17,10 @@
 
                 <div class="actions">
                     <LoadingButton :loading="loading">
-                        Download
+                        Export
                     </LoadingButton>
 
-                    <button class="action-text" type="button" @click="emit('tab-switched', 1)">
+                    <button class="action-text" type="button" @click="emit('tab-switched', 2)">
                         Restore from JSON
                     </button>
                 </div>
@@ -57,6 +57,10 @@ const playlistLink = ref('')
 const loading = ref(false)
 
 const { errorText, errorTextVisible, showErrorText } = useErrorText()
+
+const emit = defineEmits<{
+    (event : 'tab-switched', tabNumber: number): void
+}>()
 
 async function exportPlaylist() {
     const playlistLinkValue = playlistLink.value
