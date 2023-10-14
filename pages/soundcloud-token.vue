@@ -125,7 +125,6 @@
 
         .dark & {
             background-color: rgb(22, 22, 22);
-            border: 4px solid rgb(white, 0.1);
         }
     }
 
