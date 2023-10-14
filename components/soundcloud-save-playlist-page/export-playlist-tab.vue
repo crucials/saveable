@@ -53,14 +53,14 @@
 import { SoundcloudApiPlaylist } from '~/types/soundcloud-api'
 import JsFileDownloader from 'js-file-downloader'
 
+const emit = defineEmits<{
+    (event : 'tab-switched', tabNumber: number): void
+}>()
+
 const playlistLink = ref('')
 const loading = ref(false)
 
 const { errorText, errorTextVisible, showErrorText } = useErrorText()
-
-const emit = defineEmits<{
-    (event : 'tab-switched', tabNumber: number): void
-}>()
 
 async function exportPlaylist() {
     const playlistLinkValue = playlistLink.value
