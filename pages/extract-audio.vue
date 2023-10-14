@@ -10,7 +10,7 @@
                     Extracting process happens in your browser, so your videos isn't uploaded to anywhere
                 </p>
 
-                <FileUploadArea @file-uploaded="(file : File) => uploadedFile = file" class="video-upload-area">
+                <FileUploadArea @file-uploaded="(file : File) => uploadedFile = file">
                     Upload a video 
                     (<mark class="white-text">click</mark>
                     or
