@@ -1,5 +1,6 @@
 <template>
-    <ExportPlaylistTab />
+    <ExportPlaylistTab v-if="currentTab == 1" @tab-switched="(tabNumber : number) => currentTab = tabNumber"/>
+    <ImportPlaylistTab v-else-if="currentTab == 2" @tab-switched="(tabNumber : number) => currentTab = tabNumber"/>
 </template>
 
 <script setup lang="ts">
