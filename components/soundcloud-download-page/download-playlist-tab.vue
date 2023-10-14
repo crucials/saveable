@@ -42,7 +42,7 @@
                 </p>
 
                 <IconTextField type="url" placeholder="Playlist link" v-model.trim="playlistLink"
-                    class="link-field">
+                    full-width>
                     <img src="~~/assets/images/link.svg" alt="Two paperclips, link icon">
                 </IconTextField>
 

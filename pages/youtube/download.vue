@@ -7,7 +7,7 @@
                 </Heading>
 
                 <IconTextField type="url" placeholder="Video link" v-model.trim="videoLink"
-                    class="link-field">
+                    full-width>
                     <img src="~~/assets/images/link.svg" alt="Two paperclips, link icon">
                 </IconTextField>
                 

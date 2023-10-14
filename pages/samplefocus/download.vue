@@ -7,7 +7,7 @@
                 </Heading>
 
                 <IconTextField type="url" placeholder="Sample page link" v-model.trim="sampleLink"
-                    class="link-field">
+                    full-width>
                     <img src="~~/assets/images/link.svg" alt="Two paperclips, link icon">
                 </IconTextField>
 

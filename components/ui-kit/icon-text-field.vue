@@ -1,5 +1,8 @@
 <template>
-    <div class="text-field" :class="{ 'text-field-focused': focused }">
+    <div class="text-field" :class="{ 
+        'text-field-focused': focused,
+        'full-width': fullWidth
+    }">
         <slot></slot>
         <input :type="type" :placeholder="placeholder" class="input" @focus="focused = true" @blur="focused = false"
             @input="event => $emit('update:modelValue', (event.target as HTMLInputElement).value)">
@@ -11,6 +14,7 @@
         placeholder? : string,
         type? : 'text' | 'email' | 'password' | 'number' | 'url',
         modelValue : string,
+        fullWidth? : boolean
     }>(), {
         type: 'text'
     })
@@ -31,6 +35,10 @@
         &-focused {
             box-shadow: 0px 0px 0px 3px hsla(0, 0%, 100%, 0.3);
         }
+    }
+
+    .full-width {
+        width: 100%;
     }
 
     .input {

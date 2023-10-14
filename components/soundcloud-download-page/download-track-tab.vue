@@ -7,7 +7,7 @@
                 </Heading>
 
                 <IconTextField type="url" placeholder="Track link" v-model.trim="trackLink" 
-                    class="link-field">
+                    full-width>
                     <img src="~~/assets/images/link.svg" alt="Two paperclips, link icon">
                 </IconTextField>
 
