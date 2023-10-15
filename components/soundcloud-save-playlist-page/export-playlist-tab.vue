@@ -89,14 +89,14 @@ async function exportPlaylist() {
                     showErrorText('Provided link is not a playlist')
                 }
                 else {
-                    showErrorText("Something went wrong while exporting")
+                    showErrorText('Something went wrong while exporting')
                 }
 
                 return
             }
 
             if(!response.data.value) {
-                showErrorText("Something went wrong while exporting")
+                showErrorText('Something went wrong while exporting')
                 loading.value = false
                 return
             }
@@ -111,7 +111,7 @@ async function exportPlaylist() {
             loading.value = false
         }
         catch(error) {
-            showErrorText("Something went wrong while exporting")
+            showErrorText('Something went wrong while exporting')
             loading.value = false
         }
     }
