@@ -69,9 +69,14 @@
 </template>
 
 <script setup lang="ts">
+import { SoundcloudApiPlaylist } from '~/types/soundcloud-api'
+
 const emit = defineEmits<{
     (event : 'tab-switched', tabNumber: number): void
 }>()
+
+const DEFAULT_IMPORTING_ERROR_MESSAGE = 'Something went wrong while importing. Make sure that ' +
+    'your JSON file is valid'
 
 const { errorText, errorTextVisible, showErrorText } = useErrorText()
 const { 
@@ -98,14 +103,32 @@ async function importPlaylist() {
         try {
             loading.value = true
 
-            
+            const response = await fetch('/api/import-soundcloud-playlist', {
+                method: 'POST',
+                body: JSON.stringify({
+                    token: accountToken.value,
+                    playlistData: JSON.parse(await uploadedFile.text())
+                })
+            })
+
+            if(!response.ok) {
+                showErrorText(DEFAULT_IMPORTING_ERROR_MESSAGE)
+                loading.value = false
+
+                return
+            }
+
+            window.open((await response.json() as SoundcloudApiPlaylist).permalink_url)
+            loading.value = false
         }
         catch(error) {
-            showErrorText('Something went wrong while importing')
+            showErrorText(DEFAULT_IMPORTING_ERROR_MESSAGE)
+            loading.value = false
         }
     }
     else {
         showErrorText('You need to upload a JSON file to restore playlist from it')
+        loading.value = false
     }
 }
 </script>
