@@ -2,13 +2,13 @@
     <ModalWindow :opened="downloadStatus.inProcess" @closed="closeDownloadStatusModal">
         <div class="spinner spinner-partial-border" v-show="downloadStatus.stage === 'downloading'"></div>
 
-        <img src="~~/assets/images/checkmark.svg" alt="Checkmark in green circle" 
+        <img src="~~/assets/images/checkmark.svg" alt="Checkmark in green circle"
             v-show="downloadStatus.stage === 'success'">
 
-        <img src="~~/assets/images/broken-laptop.svg" alt="Laptop with broken screen" 
+        <img src="~~/assets/images/broken-laptop.svg" alt="Laptop with broken screen"
             v-show="downloadStatus.stage === 'error'">
 
-        <h2 class="download-status-heading"> 
+        <h2 class="download-status-heading">
             {{ downloadStatus.heading }}
         </h2>
 
