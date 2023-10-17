@@ -21,6 +21,8 @@ export interface SoundcloudApiPlaylist {
             id : number
         }
     ],
+    sharing : 'public' | 'private',
+    permalink_url : string,
     kind : string,
     track_count : number
 }
