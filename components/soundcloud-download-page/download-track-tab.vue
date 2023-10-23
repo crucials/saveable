@@ -53,15 +53,15 @@
     import type { MediaInfo } from '~/types/media-info'
     import { DEFAULT_SERVER_DOWNLOAD_ERROR_MESSAGE } from '~/constants/messages'
 
+    const emit = defineEmits<{
+        (event : 'tab-switched', tabNumber : number) : void
+    }>()
+
     const { errorTextVisible, errorText, showErrorText } = useErrorText()
 
     const trackLink = ref('')
     const includeArtistInFilename = ref(true)
     const loading = ref(false)
-
-    const emit = defineEmits<{
-        (event : 'tab-switched', tabNumber : number) : void
-    }>()
 
     async function download() {
         const trackLinkValue = trackLink.value
