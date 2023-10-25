@@ -2,6 +2,8 @@
     <div class="root-wrapper">
         <NavigationBar/>
         <slot></slot>
+
+        <Notifications/>
     </div>
 </template>
 
