@@ -9,7 +9,7 @@ $bottom-bar-breakpoint-width: 1050px;
     flex-direction: column;
     align-items: flex-start;
 
-    > *:not(:last-child) {
+    > *:not(:last-child):not(.custom-margin) {
         margin-bottom: 32px;
     }
 }

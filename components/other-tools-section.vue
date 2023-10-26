@@ -1,6 +1,6 @@
 <template>
     <section class="other-tools-section">
-        <Heading color="pastel-purple" type="h2">
+        <Heading color="pastel-purple" type="h2" margin-bottom="41px">
             Other {{ platformName }} tools
         </Heading>
 

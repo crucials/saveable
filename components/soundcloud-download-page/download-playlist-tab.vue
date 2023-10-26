@@ -33,7 +33,7 @@
     <NuxtLayout name="service-page">
         <template #form>
             <form class="service-form" @submit.prevent="download">
-                <Heading smaller-margin-bottom>
+                <Heading>
                     Download playlist from SoundCloud
                 </Heading>
 

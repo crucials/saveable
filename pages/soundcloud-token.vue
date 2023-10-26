@@ -6,7 +6,7 @@
 
             <div class="banner-image-overlay"></div>
 
-            <Heading class="article-heading">
+            <Heading class="article-heading" margin-bottom="41px">
                 What’s a “SoundCloud account token” and why this app needs it
             </Heading>
         </header>
@@ -21,7 +21,7 @@
                 control to get token from your credentials.
             </p>
 
-            <Heading class="article-heading" color="black-and-white" smaller-margin-bottom type="h2">
+            <Heading class="article-heading" color="black-and-white" type="h2">
                 Where can I find my token?
             </Heading>
 
@@ -36,7 +36,7 @@
                 alt="Cookies table with 'oauth_token' row in Chrome developer tools ui"
                 margin-bottom="56px" scroll-if-too-small/>
 
-            <Heading class="article-heading" color="black-and-white" smaller-margin-bottom type="h2">
+            <Heading class="article-heading" color="black-and-white" type="h2">
                 Why this website needs your token?
             </Heading>
 

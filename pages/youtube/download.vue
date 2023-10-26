@@ -2,7 +2,7 @@
     <NuxtLayout name="service-page">
         <template #form>
             <form class="service-form" @submit.prevent="download">
-                <Heading>
+                <Heading margin-bottom="41px">
                     Download from Youtube
                 </Heading>
 

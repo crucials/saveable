@@ -2,7 +2,7 @@
     <NuxtLayout name="service-page">
         <template #form>
             <form class="service-form" @submit.prevent="exportPlaylist">
-                <Heading smaller-margin-bottom>
+                <Heading>
                     Export SoundCloud playlist as JSON
                 </Heading>
 

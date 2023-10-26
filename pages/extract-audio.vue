@@ -2,7 +2,7 @@
     <NuxtLayout name="service-page">
         <template #form>
             <form class="service-form" @submit.prevent="extract">
-                <Heading smaller-margin-bottom>
+                <Heading>
                     Extract audio from video
                 </Heading>
 

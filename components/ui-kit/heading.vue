@@ -1,7 +1,6 @@
 <template>
-    <Component :is="type" class="service-page-heading" 
-        :class="{ 
-            'smaller-margin-bottom': smallerMarginBottom,
+    <Component :is="type" class="heading custom-margin" 
+        :class="{
             [color]: true
         }">
         <slot></slot>
@@ -10,26 +9,27 @@
 
 <script lang="ts" setup>
     withDefaults(defineProps<{
-        smallerMarginBottom? : boolean,
+        marginBottom?: string;
         type? : 'h1' | 'h2' | 'h3',
         color? : 'white' | 'pastel-purple' | 'black-and-white'
     }>(), {
         type: 'h1',
-        color: 'white'
+        color: 'white',
+        marginBottom: '16px'
     })
 </script>
 
 <style scoped lang="scss">
-    .service-page-heading {
+    .heading {
         @extend %themeable;
         font-weight: 700;
 
         &:not(:last-child) {
-            margin-bottom: 41px;
+            margin-bottom: v-bind(marginBottom);
         }
     }
 
-    h1.service-page-heading {
+    h1.heading {
         font-size: 2rem;
 
         @media (max-width: 1200px) {
@@ -41,7 +41,7 @@
         }
     }
 
-    h2.service-page-heading {
+    h2.heading {
         font-size: 1.72rem;
 
         @media (max-width: 1200px) {
@@ -67,9 +67,5 @@
         .dark & {
             color: white;
         }
-    }
-
-    .service-page-heading.smaller-margin-bottom:not(:last-child) {
-        margin-bottom: 16px;
     }
 </style>
