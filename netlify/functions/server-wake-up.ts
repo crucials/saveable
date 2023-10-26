@@ -1,4 +1,5 @@
-import { Handler, HandlerEvent, HandlerContext, schedule } from '@netlify/functions'
+import type { Handler, HandlerEvent, HandlerContext } from '@netlify/functions'
+import { schedule } from '@netlify/functions'
 import fetch from 'node-fetch'
 import { SERVER_BASE_URL } from '~~/constants/api-urls'
 

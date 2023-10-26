@@ -50,7 +50,7 @@
 </template>
 
 <script setup lang="ts">
-import { SoundcloudApiPlaylist } from '~/types/soundcloud-api'
+import type { SoundcloudApiPlaylist } from '~/types/soundcloud-api'
 import JsFileDownloader from 'js-file-downloader'
 
 const emit = defineEmits<{

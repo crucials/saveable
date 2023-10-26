@@ -1,6 +1,6 @@
 import { API_BASE_URL } from '~/constants/api-urls'
 import getTrackDownloadUrl from '~/server/utils/get-track-download-url'
-import { SoundcloudApiPlaylist, SoundcloudApiTrack } from '~/types/soundcloud-api'
+import type { SoundcloudApiPlaylist, SoundcloudApiTrack } from '~/types/soundcloud-api'
 import JSZip from 'jszip'
 
 export default defineEventHandler(async event => {

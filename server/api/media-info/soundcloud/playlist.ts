@@ -1,5 +1,5 @@
 import { API_BASE_URL } from '~~/constants/api-urls'
-import { SoundcloudApiPlaylist } from '~~/types/soundcloud-api'
+import type { SoundcloudApiPlaylist } from '~~/types/soundcloud-api'
 
 export default defineEventHandler<Promise<SoundcloudApiPlaylist>>(async event => {
     const clientId = useRuntimeConfig().soundcloudClientId
