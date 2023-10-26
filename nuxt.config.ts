@@ -49,9 +49,7 @@ export default defineNuxtConfig({
             preprocessorOptions: {
                 scss: {
                     additionalData: `
-                        @use '~/assets/styles/colors.scss' as *;
-                        @use '~/assets/styles/reusable.scss' as *;
-                        @use '~/assets/styles/scrollbar.scss' as *;
+                        @use '~/assets/styles/main.scss' as *;
                     `
                 }
             }
