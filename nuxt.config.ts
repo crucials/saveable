@@ -1,5 +1,21 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+    modules: [
+        '@vueuse/nuxt',
+        '@nuxt/image',
+        
+        [
+            '@pinia/nuxt',
+            {
+                autoImports: [
+                    'defineStore', 'storeToRefs'
+                ]
+            }
+        ]
+    ],
+
+    typescript: { typeCheck: true },
+
     app: {
         head: {
             htmlAttrs: {
@@ -42,19 +58,5 @@ export default defineNuxtConfig({
                 }
             }
         }
-    },
-
-    modules: [
-        '@vueuse/nuxt',
-        '@nuxt/image',
-        
-        [
-            '@pinia/nuxt',
-            {
-                autoImports: [
-                    'defineStore', 'storeToRefs'
-                ]
-            }
-        ]
-    ]
+    }
 })
