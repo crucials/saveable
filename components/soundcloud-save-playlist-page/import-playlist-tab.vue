@@ -101,7 +101,7 @@ const { errorText, errorTextVisible, showErrorText } = useErrorText()
 const { showNotification } = useNotificationsStore()
 const resultPlaylist = reactive({
     windowOpened: false,
-    url: 'https://soundcloud.com/crucials/sets/zzz'
+    url: ''
 })
 const { 
     errorTextVisible: noTokenErrorVisible, 
