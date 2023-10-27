@@ -1,10 +1,13 @@
 <template>
     <div class="text-field" :class="{ 
         'text-field-focused': focused,
-        'full-width': fullWidth
+        'full-width': fullWidth,
+        'themeable': themeable
     }">
         <slot></slot>
-        <input :type="type" :placeholder="placeholder" class="input" @focus="focused = true" @blur="focused = false"
+        <input :type="type" :placeholder="placeholder" class="input" @focus="focused = true"
+            :disabled="disabled" @blur="focused = false"
+            :value="modelValue"
             @input="event => $emit('update:modelValue', (event.target as HTMLInputElement).value)">
     </div>
 </template>
@@ -14,6 +17,8 @@
         placeholder? : string,
         type? : 'text' | 'email' | 'password' | 'number' | 'url',
         modelValue : string,
+        disabled?: boolean,
+        themeable?: boolean,
         fullWidth? : boolean
     }>(), {
         type: 'text'
@@ -30,10 +35,31 @@
         padding: 10px;
         background-color: white;
         border-radius: 8px;
-        transition: box-shadow 0.5s;
+        transition: all 0.5s;
 
         &-focused {
             box-shadow: 0px 0px 0px 3px hsla(0, 0%, 100%, 0.3);
+        }
+
+        .dark &.themeable {
+            background-color: $soft-black;
+            border: 1px solid lighten($soft-black, 10);
+
+            .input:not(:disabled) {
+                color: white;
+
+                &::placeholder {
+                    color: lighten($soft-black, 20);
+                }
+            }
+
+            .input:disabled {
+                color: lighten($soft-black, 33);
+            }
+
+            &.text-field-focused {
+                box-shadow: 0px 0px 0px 3px lighten($soft-black, 5);
+            }
         }
     }
 
@@ -48,6 +74,10 @@
 
         &::placeholder {
             color: #C7C7C7;
+        }
+
+        &:disabled {
+            color: #a8a8a8;
         }
     }
 
