@@ -1,8 +1,26 @@
 <template>
+    <ModalWindow :opened="resultPlaylist.windowOpened" @closed="resultPlaylist.windowOpened = false">
+        <img src="~~/assets/images/checkmark.svg" alt="Checkmark in green circle">
+
+        <Heading color="black-and-white" type="h2" margin-bottom="0">
+            Imported successfully
+        </Heading>
+
+        <IconTextField type="url" disabled v-model="resultPlaylist.url" full-width themeable>
+            <button class="copy-button" @click="copyPlaylistLink">
+                <img src="~~/assets/images/clipboard.svg" alt="Clipboard, 'copy' button icon">
+            </button>
+        </IconTextField>
+
+         <EmeraldFilledButton :link="resultPlaylist.url">
+            Open in new tab
+         </EmeraldFilledButton>
+    </ModalWindow>
+
     <NuxtLayout name="service-page">
         <template #form>
             <form class="service-form" @submit.prevent="importPlaylist">
-                <Heading smaller-margin-bottom>
+                <Heading>
                     Import playlist from JSON
                 </Heading>
 
@@ -69,7 +87,8 @@
 </template>
 
 <script setup lang="ts">
-import { SoundcloudApiPlaylist } from '~/types/soundcloud-api'
+import { useNotificationsStore } from '~/stores/notifications'
+import type { SoundcloudApiPlaylist } from '~/types/soundcloud-api'
 
 const emit = defineEmits<{
     (event : 'tab-switched', tabNumber: number): void
@@ -79,6 +98,11 @@ const DEFAULT_IMPORTING_ERROR_MESSAGE = 'Something went wrong while importing. M
     'your JSON file is valid'
 
 const { errorText, errorTextVisible, showErrorText } = useErrorText()
+const { showNotification } = useNotificationsStore()
+const resultPlaylist = reactive({
+    windowOpened: false,
+    url: 'https://soundcloud.com/crucials/sets/zzz'
+})
 const { 
     errorTextVisible: noTokenErrorVisible, 
     showErrorText: showNoTokenError 
@@ -118,7 +142,8 @@ async function importPlaylist() {
                 return
             }
 
-            window.open((await response.json() as SoundcloudApiPlaylist).permalink_url)
+            resultPlaylist.url = (await response.json() as SoundcloudApiPlaylist).permalink_url
+            resultPlaylist.windowOpened = true
             loading.value = false
         }
         catch(error) {
@@ -131,6 +156,16 @@ async function importPlaylist() {
         loading.value = false
     }
 }
+
+async function copyPlaylistLink() {
+    try {
+        await navigator.clipboard.writeText(resultPlaylist.url)
+        showNotification('success', 'Link copied to clipboard')
+    }
+    catch(error) {
+        showNotification('error', 'Link copied to clipboard')
+    }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -141,5 +176,21 @@ async function importPlaylist() {
     &:hover {
         scale: 1.15;
     }
+}
+
+.copy-button {
+    transition: scale 0.18s ease;
+
+    &:hover {
+        scale: 1.1;
+    }
+
+    &:active {
+        scale: 0.9;
+    }
+}
+
+.open-playlist-link {
+    display: block;
 }
 </style>
