@@ -80,6 +80,10 @@
             background-color: lighten($soft-black, 2);
         }
 
+        @media (max-width: 1000px) {
+            padding: 26px 20px;
+        }
+
         @media (max-width: 450px) {
             min-width: 320px;
         }
