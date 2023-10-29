@@ -2,13 +2,13 @@
     <ModalWindow :opened="downloadStatus.inProcess" @closed="closeDownloadStatusModal">
         <div class="spinner spinner-partial-border" v-show="downloadStatus.stage === 'downloading'"></div>
 
-        <img src="~~/assets/images/checkmark.svg" alt="Checkmark in green circle" 
+        <img src="~~/assets/images/checkmark.svg" alt="Checkmark in green circle"
             v-show="downloadStatus.stage === 'success'">
 
-        <img src="~~/assets/images/broken-laptop.svg" alt="Laptop with broken screen" 
+        <img src="~~/assets/images/broken-laptop.svg" alt="Laptop with broken screen"
             v-show="downloadStatus.stage === 'error'">
 
-        <h2 class="download-status-heading"> 
+        <h2 class="download-status-heading">
             {{ downloadStatus.heading }}
         </h2>
 
@@ -21,7 +21,7 @@
                 {{ downloadStatus.stage === 'downloading' ? 'Cancel' : 'Close' }}
             </EmeraldFilledButton>
 
-            <Transition name="sliding-up">
+            <Transition name="slide-up">
                 <a v-if="hostLocallyLinkVisible" target="_blank" class="emerald-text-action"
                     href="https://github.com/crucials/saveable/blob/master/README.md#run-locally">
                     Host this app locally
@@ -33,16 +33,16 @@
     <NuxtLayout name="service-page">
         <template #form>
             <form class="service-form" @submit.prevent="download">
-                <ServicePageHeading smaller-margin-bottom>
+                <Heading>
                     Download playlist from SoundCloud
-                </ServicePageHeading>
+                </Heading>
 
-                <p class="service-description">
+                <p class="white-text">
                     You can download albums too
                 </p>
 
                 <IconTextField type="url" placeholder="Playlist link" v-model.trim="playlistLink"
-                    class="link-field">
+                    full-width>
                     <img src="~~/assets/images/link.svg" alt="Two paperclips, link icon">
                 </IconTextField>
 
@@ -71,6 +71,16 @@
                 alt="Cloud with sound waves with reflection, SoundCloud logo"
                 class="page-icon">
         </template>
+
+        <OtherToolsSection platform-name="SoundCloud" :tools-pages="[
+            {
+                title: 'Export & Import playlist',
+                link: '/soundcloud/save-playlist',
+                iconSrc: '/images/soundcloud-save-playlist-black.svg',
+                darkThemeIconSrc: '/images/soundcloud-save-playlist-white.svg',
+                iconAltText: 'Cloud with sound waves (SoundCloud logo) and the up arrow on top'
+            }
+        ]"/>
     </NuxtLayout>
 </template>
 
@@ -242,9 +252,19 @@
     .emerald-text-action {
         @extend .action-text;
         color: $emerald;
+        transition: all 0.6s ease 0.3s;
 
         &::before, &::after {
             background-color: $emerald;
         }
+    }
+
+    .slide-up-enter-from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+
+    .slide-up-leave-to {
+        display: none;
     }
 </style>

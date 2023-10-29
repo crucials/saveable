@@ -9,14 +9,14 @@
                 class="error-illustration">
 
             <div class="links">
-                <NuxtLink to="/download/soundcloud" class="page-link">
+                <NuxtLink to="/soundcloud/download" class="page-link">
                     <EmeraldFilledButton size="large">
                         <img src="~~/assets/images/download.svg" alt="Download icon">
                         SoundCloud
                     </EmeraldFilledButton>
                 </NuxtLink>
 
-                <NuxtLink to="/download/youtube" class="page-link">
+                <NuxtLink to="/youtube/download" class="page-link">
                     <EmeraldFilledButton size="large">
                         <img src="~~/assets/images/download.svg" alt="Download icon">
                         YouTube

@@ -15,5 +15,14 @@
 
     * {
         font-family: 'Lato';
+        
+        &::selection {
+            background-color: $pastel-purple;
+            color: white;
+        }
+    }
+
+    body {
+        @include scrollbar($pastel-purple);
     }
 </style>

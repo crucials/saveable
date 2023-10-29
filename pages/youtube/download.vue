@@ -2,12 +2,12 @@
     <NuxtLayout name="service-page">
         <template #form>
             <form class="service-form" @submit.prevent="download">
-                <ServicePageHeading>
+                <Heading margin-bottom="41px">
                     Download from Youtube
-                </ServicePageHeading>
+                </Heading>
 
                 <IconTextField type="url" placeholder="Video link" v-model.trim="videoLink"
-                    class="link-field">
+                    full-width>
                     <img src="~~/assets/images/link.svg" alt="Two paperclips, link icon">
                 </IconTextField>
                 

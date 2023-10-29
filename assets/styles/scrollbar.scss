@@ -1,0 +1,22 @@
+@use '~/assets/styles/colors.scss' as *;
+
+@mixin scrollbar($thumb-color: $emerald) {
+    &::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: $thumb-color;
+    }
+
+    &::-webkit-scrollbar-track {
+        @extend %themeable;
+        background: rgb(226, 226, 226);
+
+        .dark & {
+            background-color: lighten($soft-black, 10);
+        }
+    }
+
+    scrollbar-color: $thumb-color rgb(226, 226, 226);
+}

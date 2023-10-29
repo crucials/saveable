@@ -1,5 +1,5 @@
 import { HTMLElement, parse } from 'node-html-parser'
-import { MediaInfo } from '~/types/media-info'
+import type { MediaInfo } from '~/types/media-info'
 
 interface Sample {
     slug : string,
@@ -12,7 +12,7 @@ const downloadMethodErrorMessage = 'Failed to grab sample info. ' +
     'Hit me up on Discord - @amputating or open an issue on Github - ' + 
     'https://github.com/crucials/saveable'
 
-export default defineEventHandler<MediaInfo>(async event => {
+export default defineEventHandler<Promise<MediaInfo>>(async event => {
     const sampleUrl = getQuery(event)['sample_url']?.toString()
 
     if(!sampleUrl) {

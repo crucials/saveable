@@ -2,19 +2,20 @@
     <NuxtLayout name="service-page">
         <template #form>
             <form class="service-form" @submit.prevent="extract">
-                <ServicePageHeading smaller-margin-bottom>
+                <Heading>
                     Extract audio from video
-                </ServicePageHeading>
+                </Heading>
 
-                <p class="service-description">
+                <p class="white-text">
                     Extracting process happens in your browser, so your videos isn't uploaded to anywhere
                 </p>
 
-                <FileUploadArea @file-uploaded="(file : File) => uploadedFile = file" class="video-upload-area">
+                <FileUploadArea @file-uploaded="(file : File) => uploadedFile = file" 
+                    accept="video/*">
                     Upload a video 
-                    (<mark class="tip-action">click</mark>
+                    (<mark class="white-text">click</mark>
                     or
-                    <mark class="tip-action">drag and drop</mark>)
+                    <mark class="white-text">drag and drop</mark>)
                 </FileUploadArea>
 
                 <LoadingButton :loading="loading">
@@ -99,7 +100,4 @@
 </script>
 
 <style lang="scss" scoped>
-    .tip-action {
-        color: white;
-    }
 </style>

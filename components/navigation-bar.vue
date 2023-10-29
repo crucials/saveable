@@ -7,19 +7,19 @@
 
         <ul class="navigation-menu">
             <li>
-                <NuxtLink to="/download/soundcloud" class="navigation-link">
+                <NuxtLink to="/soundcloud/download" class="navigation-link">
                     SoundCloud
                 </NuxtLink>
             </li>
 
             <li>
-                <NuxtLink to="/download/youtube" class="navigation-link">
+                <NuxtLink to="/youtube/download" class="navigation-link">
                     YouTube
                 </NuxtLink>
             </li>
 
             <li>
-                <NuxtLink to="/download/samplefocus" class="navigation-link">
+                <NuxtLink to="/samplefocus/download" class="navigation-link">
                     SampleFocus
                 </NuxtLink>
             </li>

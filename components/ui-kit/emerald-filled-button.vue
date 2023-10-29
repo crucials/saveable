@@ -1,7 +1,9 @@
 <template>
-    <button :class="`emerald-filled-button  emerald-filled-button-${size}`">
+    <component :is="link ? 'a' : 'button'" 
+        :class="`emerald-filled-button  emerald-filled-button-${size}`"
+        :href="link" :target="link ? '_blank' : null">
         <slot></slot>
-    </button>
+    </component>
 </template>
 
 <script lang="ts" setup>
@@ -9,6 +11,10 @@
         size: {
             type: String as PropType<'medium' | 'large'>,
             default: 'medium'
+        },
+
+        link: {
+            type: String as PropType<string>
         }
     })
 </script>

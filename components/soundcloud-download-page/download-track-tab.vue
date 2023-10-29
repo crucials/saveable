@@ -2,12 +2,12 @@
     <NuxtLayout name="service-page">
         <template #form>
             <form class="service-form" @submit.prevent="download">
-                <ServicePageHeading>
+                <Heading margin-bottom="41px">
                     Download track from SoundCloud
-                </ServicePageHeading>
+                </Heading>
 
                 <IconTextField type="url" placeholder="Track link" v-model.trim="trackLink" 
-                    class="link-field">
+                    full-width>
                     <img src="~~/assets/images/link.svg" alt="Two paperclips, link icon">
                 </IconTextField>
 
@@ -35,6 +35,16 @@
             <img src="~~/assets/images/soundcloud.svg" alt="Cloud with sound waves, SoundCloud logo"
                 class="page-icon">
         </template>
+
+        <OtherToolsSection platform-name="SoundCloud" :tools-pages="[
+            {
+                title: 'Export & Import playlist',
+                link: '/soundcloud/save-playlist',
+                iconSrc: '/images/soundcloud-save-playlist-black.svg',
+                darkThemeIconSrc: '/images/soundcloud-save-playlist-white.svg',
+                iconAltText: 'Cloud with sound waves (SoundCloud logo) and the up arrow on top'
+            }
+        ]"/>
     </NuxtLayout>
 </template>
 
@@ -43,15 +53,15 @@
     import type { MediaInfo } from '~/types/media-info'
     import { DEFAULT_SERVER_DOWNLOAD_ERROR_MESSAGE } from '~/constants/messages'
 
+    const emit = defineEmits<{
+        (event : 'tab-switched', tabNumber : number) : void
+    }>()
+
     const { errorTextVisible, errorText, showErrorText } = useErrorText()
 
     const trackLink = ref('')
     const includeArtistInFilename = ref(true)
     const loading = ref(false)
-
-    const emit = defineEmits<{
-        (event : 'tab-switched', tabNumber : number) : void
-    }>()
 
     async function download() {
         const trackLinkValue = trackLink.value

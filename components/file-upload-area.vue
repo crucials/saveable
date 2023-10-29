@@ -1,6 +1,7 @@
 <template>
     <label class="upload-area" @drop.prevent="addDroppedFile" @dragover.prevent="">
-        <input type="file" class="actual-file-input" ref="fileInput" @change="uploadFile">
+        <input type="file" class="actual-file-input" ref="fileInput" @change="uploadFile"
+            :accept="accept">
         
         <img src="~~/assets/images/add-file.svg" alt="File with plus sign in rounded rectangle, add file icon" 
             class="add-file-icon">
@@ -16,12 +17,16 @@
 </template>
 
 <script setup lang="ts">
-    const fileInput = ref<HTMLInputElement>()
-    const filename = ref<string>()
+    defineProps<{
+        accept: string
+    }>()
 
     const emit = defineEmits<{
         (event : 'file-uploaded', file : File) : void
     }>()
+
+    const fileInput = ref<HTMLInputElement>()
+    const filename = ref<string>()
 
     function uploadFile() {
         const files = fileInput.value?.files

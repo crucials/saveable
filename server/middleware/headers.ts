@@ -1,4 +1,4 @@
-const FFMPEG_DEPENDANT_ROUTES = [ '/extract-audio', '/download/youtube' ]
+const FFMPEG_DEPENDANT_ROUTES = [ '/extract-audio', '/youtube/download' ]
 
 export default defineEventHandler((event) => {
     if(FFMPEG_DEPENDANT_ROUTES.some(route => event.path?.includes(route))) {

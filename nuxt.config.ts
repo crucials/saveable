@@ -1,7 +1,24 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+    modules: [
+        '@vueuse/nuxt',
+        '@nuxt/image',
+        
+        [
+            '@pinia/nuxt',
+            {
+                autoImports: [
+                    'defineStore', 'storeToRefs'
+                ]
+            }
+        ]
+    ],
+
     app: {
         head: {
+            htmlAttrs: {
+                lang: 'en'
+            },
             title: 'Saveable',
             script: [
                 {
@@ -32,22 +49,10 @@ export default defineNuxtConfig({
             preprocessorOptions: {
                 scss: {
                     additionalData: `
-                        @use '~/assets/styles/colors.scss' as *;
-                        @use '~/assets/styles/reusable.scss' as *;
+                        @use '~/assets/styles/main.scss' as *;
                     `
                 }
             }
         }
-    },
-
-    modules: [
-        [
-            '@pinia/nuxt',
-            {
-                autoImports: [
-                    'defineStore', 'storeToRefs'
-                ]
-            }
-        ]
-    ]
+    }
 })

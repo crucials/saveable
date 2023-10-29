@@ -9,13 +9,9 @@ $bottom-bar-breakpoint-width: 1050px;
     flex-direction: column;
     align-items: flex-start;
 
-    > *:not(:last-child) {
+    > *:not(:last-child):not(.custom-margin) {
         margin-bottom: 32px;
     }
-}
-
-.link-field {
-    width: 100%;
 }
 
 .actions {
@@ -93,13 +89,8 @@ $bottom-bar-breakpoint-width: 1050px;
     }
 }
 
-.service-description {
-    font-size: 1rem;
-    color: white;
-}
 
-
-@media (max-width: 911px) {
+@media (max-width: 1000px) {
     .page-icon {
         max-width: 300px;
     }

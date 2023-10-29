@@ -2,12 +2,12 @@
     <NuxtLayout name="service-page">
         <template #form>
             <form class="service-form" @submit.prevent="download">
-                <ServicePageHeading>
+                <Heading margin-bottom="41px">
                     Download from SampleFocus
-                </ServicePageHeading>
+                </Heading>
 
                 <IconTextField type="url" placeholder="Sample page link" v-model.trim="sampleLink"
-                    class="link-field">
+                    full-width>
                     <img src="~~/assets/images/link.svg" alt="Two paperclips, link icon">
                 </IconTextField>
 
@@ -32,7 +32,7 @@
 <script setup lang="ts">
     import { DEFAULT_SERVER_DOWNLOAD_ERROR_MESSAGE } from '~/constants/messages'
     import JsFileDownloader from 'js-file-downloader'
-    import { MediaInfo } from '~/types/media-info'
+    import type { MediaInfo } from '~/types/media-info'
 
     useHead({
         title: 'Download from SampleFocus | Saveable'
