@@ -3,6 +3,11 @@ import getTrackDownloadUrl from '~/server/utils/get-track-download-url'
 import type { SoundcloudApiPlaylist, SoundcloudApiTrack } from '~/types/soundcloud-api'
 import JSZip from 'jszip'
 
+interface TrackFile {
+    name: string,
+    blob: Blob
+}
+
 export default defineEventHandler(async event => {
     const clientId = useRuntimeConfig().soundcloudClientId
     const maximumPlaylistTracks = useRuntimeConfig().maximumPlaylistTracks
@@ -51,7 +56,7 @@ export default defineEventHandler(async event => {
     const zip = new JSZip()
 
     for(const file of playlistTracksFiles) {
-        zip.file(file.name, await file.arrayBuffer(), { binary: true, compression : 'DEFLATE' })
+        zip.file(file.name, await file.blob.arrayBuffer(), { binary: true, compression : 'DEFLATE' })
     }
 
     setHeaders(event, {
@@ -66,7 +71,7 @@ async function getPlaylistTracksFiles(playlist : SoundcloudApiPlaylist, excludeA
     const MAXIMUM_TRACKS = 50
     const clientId = useRuntimeConfig().soundcloudClientId
 
-    const playlistTracksFiles : File[] = []
+    const playlistTracksFiles : TrackFile[] = []
     const rawPlaylistTracks = playlist.tracks
 
     const trackGroupRequests : Promise<void>[] = []
@@ -133,7 +138,10 @@ async function getPlaylistTracksFiles(playlist : SoundcloudApiPlaylist, excludeA
                         const trackFilename = trackName.replace(/[/\\?%*:|"<>]/g, '_') + '.mp3'
 
                         if(downloadUrlResponse.ok) {
-                            playlistTracksFiles.push(new File([ await downloadUrlResponse.blob() ], trackFilename))
+                            playlistTracksFiles.push({
+                                name: trackFilename,
+                                blob: await downloadUrlResponse.blob()
+                            })
                         }
                     }
 
