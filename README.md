@@ -19,11 +19,20 @@ Website with media utilities like video and audio downloader and audio extractio
 
 ## Tech stack
 
-⚒️ Built with Vue, Nuxt, TypeScript and SCSS. Also [ffmpeg.wasm](https://github.com/ffmpegwasm/ffmpeg.wasm) was used from client-side video manipulations
+⚒️ Built with Vue, Nuxt, TypeScript and SCSS. Also [ffmpeg.wasm](https://github.com/ffmpegwasm/ffmpeg.wasm) was used for client-side video manipulations
 
 ## Run locally
 
-^
+considering self-host this app if u want to download playlists and other heavy resources
+
+setup the project:
+
+```bash
+git clone https://github.com/crucials/saveable.git
+npm i
+```
+
+then use [nuxi cli](https://nuxt.com/docs/api/commands/dev) to run it
 
 ⠀
 
