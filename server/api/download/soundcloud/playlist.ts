@@ -2,6 +2,7 @@ import { API_BASE_URL } from '~/constants/api-urls'
 import getTrackDownloadUrl from '~/server/utils/get-track-download-url'
 import type { SoundcloudApiPlaylist, SoundcloudApiTrack } from '~/types/soundcloud-api'
 import JSZip from 'jszip'
+import { clientId } from '~/client-id'
 
 interface TrackFile {
     name: string,
@@ -9,7 +10,6 @@ interface TrackFile {
 }
 
 export default defineEventHandler(async event => {
-    const clientId = useRuntimeConfig().soundcloudClientId
     const maximumPlaylistTracks = useRuntimeConfig().maximumPlaylistTracks
     
     const playlistUrl = getQuery(event)['url']?.toString()
@@ -19,6 +19,13 @@ export default defineEventHandler(async event => {
         throw createError({
             statusCode: 400,
             message: `Query parameter 'url' not provided`
+        })
+    }
+
+    if(!clientId) {
+        throw createError({
+            statusCode: 500,
+            message: `couldn't get client id for querying track info`
         })
     }
 
@@ -69,7 +76,6 @@ export default defineEventHandler(async event => {
 
 async function getPlaylistTracksFiles(playlist : SoundcloudApiPlaylist, excludeArtistInFilenames : boolean) {
     const MAXIMUM_TRACKS = 50
-    const clientId = useRuntimeConfig().soundcloudClientId
 
     const playlistTracksFiles : TrackFile[] = []
     const rawPlaylistTracks = playlist.tracks
@@ -130,7 +136,7 @@ async function getPlaylistTracksFiles(playlist : SoundcloudApiPlaylist, excludeA
                     }, 2500)
 
                     console.log('New track', trackFromGroupIndex)
-                    const downloadUrl = await getTrackDownloadUrl(track, clientId)
+                    const downloadUrl = await getTrackDownloadUrl(track, clientId as string)
 
                     if(downloadUrl) {
                         const downloadUrlResponse = await fetch(downloadUrl)

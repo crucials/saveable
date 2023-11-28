@@ -1,10 +1,10 @@
+import { clientId } from '~/client-id'
 import { API_BASE_URL } from '~/constants/api-urls'
 import getTrackDownloadUrl from '~/server/utils/get-track-download-url'
 import type { MediaInfo } from '~/types/media-info'
 import type { SoundcloudApiTrack } from '~/types/soundcloud-api'
 
 export default defineEventHandler<Promise<MediaInfo>>(async event => {
-    const clientId = useRuntimeConfig().soundcloudClientId
     const trackUrl = getQuery(event)['url']?.toString()
     const excludeArtistInFilename = getQuery(event)['exclude_artist'] === 'true'
     
@@ -12,6 +12,13 @@ export default defineEventHandler<Promise<MediaInfo>>(async event => {
         throw createError({
             statusCode: 400,
             message: `Query parameter 'url' not provided`
+        })
+    }
+
+    if(!clientId) {
+        throw createError({
+            statusCode: 500,
+            message: `couldn't get client id for querying track info`
         })
     }
 

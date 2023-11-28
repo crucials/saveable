@@ -14,6 +14,7 @@
   },
   "devDependencies": {
     "@types/node": "^18",
+    "@types/node-cron": "^3.0.11",
     "@types/node-fetch": "^2.6.7",
     "@vueuse/core": "^10.5.0",
     "@vueuse/nuxt": "^10.5.0",
@@ -29,8 +30,10 @@
     "@pinia/nuxt": "^0.4.9",
     "js-file-downloader": "^1.1.24",
     "jszip": "^3.10.1",
+    "node-cron": "^3.0.3",
     "node-html-parser": "^6.1.5",
     "pinia": "^2.1.7",
+    "soundcloud-client-id-generator": "^1.2.2",
     "ytdl-core": "^4.11.4"
   }
 }

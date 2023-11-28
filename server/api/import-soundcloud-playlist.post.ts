@@ -1,9 +1,8 @@
+import { clientId } from '~/client-id'
 import { API_BASE_URL } from '~/constants/api-urls'
 import type { SoundcloudApiPlaylist } from '~/types/soundcloud-api'
 
 export default defineEventHandler<Promise<SoundcloudApiPlaylist>>(async event => {
-    const clientId = useRuntimeConfig().soundcloudClientId
-
     const body : {
         playlistData? : SoundcloudApiPlaylist,
         token? : string
@@ -15,6 +14,13 @@ export default defineEventHandler<Promise<SoundcloudApiPlaylist>>(async event =>
         throw createError({
             statusCode: 400,
             message: 'Field \'token\' is not provided'
+        })
+    }
+
+    if(!clientId) {
+        throw createError({
+            statusCode: 500,
+            message: `couldn't get client id for querying track info`
         })
     }
 
