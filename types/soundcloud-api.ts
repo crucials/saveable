@@ -1,4 +1,6 @@
 export interface SoundcloudApiTrack {
+    artwork_url : string | null,
+    permalink_url: string,
     user : {
         username : string
     },

@@ -28,6 +28,7 @@
     "@nuxt/image": "^1.0.0-rc.3",
     "@nuxtjs/proxy": "^2.1.0",
     "@pinia/nuxt": "^0.4.9",
+    "browser-id3-writer": "^6.0.0",
     "js-file-downloader": "^1.1.24",
     "jszip": "^3.10.1",
     "node-cron": "^3.0.3",

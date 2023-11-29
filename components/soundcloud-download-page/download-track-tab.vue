@@ -11,8 +11,12 @@
                     <img src="~~/assets/images/link.svg" alt="Two paperclips, link icon">
                 </IconTextField>
 
-                <ToggleButton v-model="includeArtistInFilename">
+                <ToggleButton v-model="options.includeArtistInFilename">
                     Include artist username in filename
+                </ToggleButton>
+
+                <ToggleButton v-model="options.includeMetadata">
+                    Include metadata (cover, title, artist)
                 </ToggleButton>
 
                 <div class="actions">
@@ -49,7 +53,8 @@
 </template>
 
 <script lang="ts" setup>
-    import JsFileDownloader from 'js-file-downloader'    
+    import JsFileDownloader from 'js-file-downloader'   
+    import { ID3Writer } from 'browser-id3-writer'
     import type { MediaInfo } from '~/types/media-info'
     import { DEFAULT_SERVER_DOWNLOAD_ERROR_MESSAGE } from '~/constants/messages'
 
@@ -60,7 +65,10 @@
     const { errorTextVisible, errorText, showErrorText } = useErrorText()
 
     const trackLink = ref('')
-    const includeArtistInFilename = ref(true)
+    const options = reactive({
+        includeArtistInFilename: true,
+        includeMetadata: true
+    })
     const loading = ref(false)
 
     async function download() {
@@ -73,7 +81,7 @@
                 loading.value = true
 
                 const response = await fetch(`/api/media-info/soundcloud/track?url=${trackLinkValue}` 
-                    + `&exclude_artist=${!includeArtistInFilename.value}`)
+                    + `&exclude_artist=${!options.includeArtistInFilename}`)
 
                 if(!response.ok) {
                     if(response.status == 404) {
@@ -91,18 +99,54 @@
                 }
 
                 const trackInfo : MediaInfo = await response.json()
+
+                if(options.includeMetadata && trackInfo.metadata) {
+                    await new JsFileDownloader({
+                        url: await includeMetadata(trackInfo as Required<MediaInfo>),
+                        filename: trackInfo.name + '.mp3'
+                    })
+                    
+                    loading.value = false
+                    return
+                }
+
                 await new JsFileDownloader({
                     url: trackInfo.downloadUrl,
                     filename: trackInfo.name + '.mp3'
                 })
-
                 loading.value = false
             }
             catch(error) {
+                console.error(error)
+                
                 showErrorText(DEFAULT_SERVER_DOWNLOAD_ERROR_MESSAGE)
                 loading.value = false
             }
         }
+    }
+
+    async function includeMetadata(trackInfo : Required<MediaInfo>) : Promise<string> {
+        const trackData = await (await fetch(trackInfo.downloadUrl)).arrayBuffer()
+        const trackImageData = trackInfo.metadata.imageUrl ?
+            await (await fetch(trackInfo.metadata.imageUrl)).arrayBuffer() : null
+        
+        const writer = new ID3Writer(trackData);
+
+        writer.setFrame('TIT2', trackInfo.metadata.title)
+        writer.setFrame('TPE1', [ trackInfo.metadata.artist ])
+        writer.setFrame('WPUB', trackInfo.metadata.url)
+        
+        if(trackImageData) {
+            writer.setFrame('APIC', {
+                type: 3,
+                data: trackImageData,
+                description: 'Super picture',
+            })
+        }
+
+        writer.addTag()
+        
+        return writer.getURL()
     }
 </script>
 

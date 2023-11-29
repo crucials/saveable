@@ -50,6 +50,12 @@ export default defineEventHandler<Promise<MediaInfo>>(async event => {
     
     return {
         name: filename,
-        downloadUrl: downloadUrl
+        downloadUrl: downloadUrl,
+        metadata: {
+            title: rawTrackInfo.title,
+            artist: rawTrackInfo.user.username,
+            imageUrl: rawTrackInfo.artwork_url,
+            url: rawTrackInfo.permalink_url
+        }
     }
 })

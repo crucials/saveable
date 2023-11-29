@@ -58,7 +58,7 @@
 
         &::before {
             content: '';
-            background-color: $emerald;
+            background-color: $pastel-purple;
             width: 100%;
             height: 100%;
             position: absolute;
