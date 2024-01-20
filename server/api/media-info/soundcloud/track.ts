@@ -47,6 +47,8 @@ export default defineEventHandler<Promise<MediaInfo>>(async event => {
 
     const filename = excludeArtistInFilename ? rawTrackInfo.title 
         : `${rawTrackInfo.user.username} - ${rawTrackInfo.title}`
+    const trackImageUrl = rawTrackInfo.artwork_url ? 
+        getLargeArtworkUrl(rawTrackInfo.artwork_url) : null
     
     return {
         name: filename,
@@ -54,8 +56,21 @@ export default defineEventHandler<Promise<MediaInfo>>(async event => {
         metadata: {
             title: rawTrackInfo.title,
             artist: rawTrackInfo.user.username,
-            imageUrl: rawTrackInfo.artwork_url,
+            imageUrl: trackImageUrl,
             url: rawTrackInfo.permalink_url
         }
     }
 })
+
+function getLargeArtworkUrl(artworkUrl : string) {
+    /*
+        soundcloud api returns that type of tracks 
+        artwork (pic) - https://i1.sndcdn.com/artworks-435uih3u6ngfi-de64hj-large.jpg.
+        despite the suffix '-large.jpg', the resolution is small asf.
+        
+        a larger size picture stored at urls with this
+        format - https://i1.sndcdn.com/artworks-435uih3u6ngfi-de64hj-t500x500.jpg
+    */
+    const SMALL_ARTWORK_ENDING = '-large.jpg'
+    return artworkUrl.slice(0, -SMALL_ARTWORK_ENDING.length) + '-t500x500.jpg'
+}
