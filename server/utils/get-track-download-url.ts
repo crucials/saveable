@@ -9,7 +9,10 @@ export default async function getTrackDownloadUrl(track : SoundcloudApiTrack, cl
         return undefined
     }
 
-    const { url: downloadUrl } = await (await fetch(neededTranscoding.url + `?client_id=${clientId}`)).json()
+    const neededTranscodingUrl = new URL(neededTranscoding.url)
+    neededTranscodingUrl.searchParams.append('client_id', clientId)
+
+    const { url: downloadUrl } = await (await fetch(neededTranscodingUrl)).json()
 
     return downloadUrl
 }
