@@ -2,26 +2,19 @@
 
 # Saveable
 
-Website with media utilities like video and audio downloader and audio extraction
+website with media utilities like video and audio downloader and audio extraction
 
-## Features
-:fire: New features - SoundCloud playlist/album downloader (_playlists with more than about 100 tracks probably won't be downloaded because app is hosted on 512 MB servers_) and SampleFocus downloader
+new features - soundcloud playlist/album downloader (_playlists with more than about 100 tracks probably won't be downloaded because app is hosted on 512 MB servers_) and SampleFocus downloader
 
-:city_sunset: Website has nice-looking and comfortable design, bottom bar on mobile for faster navigation. There is also dark and light color themes
+### functionallity: 
+- video, audio or playlist downloaders for such services as youtube and soundcloud (_more platfoms soon_).
+- audio extraction from file or youtube video, converts most of video formats to mp3. convertion happens in your browser so your videos isn't uploaded to anywhere
 
-### Functionallity: 
-- Video, audio or playlist downloaders for such services as Youtube and SoundCloud (_maybe more platfoms soon_).
-- Audio extraction from file or Youtube video, converts most of video formats to mp3. And yes, **convertion happens in your browser** so your videos isn't uploaded to anywhere
+## try it out
 
-## Try it out
+[:eyes: view the app](https://saveable.onrender.com/)
 
-[:eyes: View the app](https://saveable.onrender.com/)
-
-## Tech stack
-
-⚒️ Built with Vue, Nuxt, TypeScript and SCSS. Also [ffmpeg.wasm](https://github.com/ffmpegwasm/ffmpeg.wasm) was used for client-side video manipulations
-
-## Run locally
+## run locally
 
 considering self-host this app if u want to download playlists and other heavy resources
 
