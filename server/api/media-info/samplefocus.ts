@@ -8,9 +8,7 @@ interface Sample {
 
 const downloadMethodErrorMessage = 'Failed to grab sample info. ' + 
     'Make sure your URL starts with \'https://samplefocus.com/samples/...\'. ' +
-    'If URL is valid, apparently, SampleFocus updated their website. ' + 
-    'Hit me up on Discord - @amputating or open an issue on Github - ' + 
-    'https://github.com/crucials/saveable'
+    'If URL is valid, apparently, SampleFocus updated their website. '
 
 export default defineEventHandler<Promise<MediaInfo>>(async event => {
     const sampleUrl = getQuery(event)['sample_url']?.toString()
@@ -39,7 +37,7 @@ export default defineEventHandler<Promise<MediaInfo>>(async event => {
         })
     }
 
-    const sampleWaveForm = root.querySelectorAll('div[data-react-class="SampleWaveform"]')[0]
+    const sampleWaveForm = root.querySelectorAll('div[data-react-class="SampleWaveformContainer"]')[0]
     const rawSamplesJson = sampleWaveForm?.getAttribute('data-react-props')
 
     if (!sampleWaveForm || !rawSamplesJson) {
