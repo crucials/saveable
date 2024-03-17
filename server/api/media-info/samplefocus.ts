@@ -11,13 +11,17 @@ const downloadMethodErrorMessage = 'Failed to grab sample info. ' +
     'If URL is valid, apparently, SampleFocus updated their website. '
 
 export default defineEventHandler<Promise<MediaInfo>>(async event => {
-    const sampleUrl = getQuery(event)['sample_url']?.toString()
+    let sampleUrl = getQuery(event)['sample_url']?.toString()
 
     if(!sampleUrl) {
         throw createError({
             statusCode: 400,
             message: `Query parameter 'sample_url' not provided`
         })
+    }
+
+    if(sampleUrl.endsWith('/download')) {
+        sampleUrl = sampleUrl.substring(0, sampleUrl.lastIndexOf('/download'))
     }
 
     let root : HTMLElement
