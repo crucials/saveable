@@ -31,7 +31,8 @@ export default defineEventHandler<Promise<MediaInfo>>(async event => {
         throw createError({
             statusCode: 400,
             message: 'Failed to parse sample page. Make sure URL is valid and '
-                + 'requested sample exists. status code: ' + samplePageResponse.status,
+                + 'requested sample exists. status code: ' + samplePageResponse.status
+                + ' | body: ' + await samplePageResponse.text()
         })
     }
     root = parse(await samplePageResponse.text())
