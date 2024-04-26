@@ -25,21 +25,16 @@ export default defineEventHandler<Promise<MediaInfo>>(async event => {
     }
 
     let root : HTMLElement
-    try {
-        const samplePageResponse = await fetch(sampleUrl)
 
-        if(!samplePageResponse.ok) {
-            throw new Error()
-        }
-
-        root = parse(await samplePageResponse.text())
-    }
-    catch(error) {
+    const samplePageResponse = await fetch(sampleUrl)
+    if(!samplePageResponse.ok) {
         throw createError({
             statusCode: 400,
-            message: 'Failed to parse sample page. Make sure URL is valid and requested sample exists',
+            message: 'Failed to parse sample page. Make sure URL is valid and '
+                + 'requested sample exists. status code: ' + samplePageResponse.status,
         })
     }
+    root = parse(await samplePageResponse.text())
 
     const sampleWaveForm = root.querySelectorAll('div[data-react-class="SampleWaveformContainer"]')[0]
     const rawSamplesJson = sampleWaveForm?.getAttribute('data-react-props')
