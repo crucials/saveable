@@ -30,8 +30,9 @@
 </template>
 
 <script setup lang="ts">
-import { DEFAULT_DOWNLOAD_ERROR_MESSAGE } from '~/constants/messages'
 import JsFileDownloader from 'js-file-downloader'
+import { DEFAULT_DOWNLOAD_ERROR_MESSAGE } from '~/constants/messages'
+import { EXTERNAL_PROXY_URL } from '~/constants/api-urls'
 import type { MediaInfo } from '~/types/media-info'
 
 interface Sample {
@@ -79,49 +80,6 @@ async function download() {
     finally {
         loading.value = false
     }
-
-    /* if(sampleLinkValue.length < 1) {
-        showErrorText('You should enter sample link to download it')
-    }
-    else {
-        try {
-            loading.value = true
-
-            const response = await fetch(`/api/media-info/samplefocus?sample_url=${sampleLinkValue}`)
-
-            if(!response.ok) {
-                if(response.status === 400) {
-                    const error = await response.json()
-                    showErrorText(error.message)
-                }
-                else if(response.status === 500) {
-                    showErrorText('Failed to grab sample info. If your URL is valid, then, apparently, ' 
-                        + 'SampleFocus updated their website', 3500)
-                }
-                else {
-                    showErrorText(DEFAULT_SERVER_DOWNLOAD_ERROR_MESSAGE)
-                }
-
-                loading.value = false
-            }
-            else {
-                const sampleInfo : MediaInfo = await response.json()
-
-                await new JsFileDownloader({ 
-                    url: '/api/proxy/media?url='
-                        + `${encodeURIComponent(sampleInfo.downloadUrl)}`
-                        + `&referer=${encodeURIComponent('https://samplefocus.com')}`, 
-                    filename: sampleInfo.name + '.mp3',
-                })
-
-                loading.value = false
-            }
-        }
-        catch(error) {
-            showErrorText(DEFAULT_SERVER_DOWNLOAD_ERROR_MESSAGE)
-            loading.value = false
-        }
-    } */
 }
 
 async function getSampleMediaInfo(sampleUrl: string) {
@@ -135,7 +93,8 @@ async function getSampleMediaInfo(sampleUrl: string) {
     
     let samplePage : Document
 
-    const samplePageResponse = await fetch(fixedSampleUrl)
+    const samplePageResponse = await fetch(EXTERNAL_PROXY_URL + '/?'
+        + encodeURIComponent(fixedSampleUrl))
     if(!samplePageResponse.ok) {
         throw new Error('Failed to parse sample page. Make sure URL is valid and '
             + 'requested sample exists. status code: ' + samplePageResponse.status)
