@@ -30,63 +30,136 @@
 </template>
 
 <script setup lang="ts">
-    import { DEFAULT_SERVER_DOWNLOAD_ERROR_MESSAGE } from '~/constants/messages'
-    import JsFileDownloader from 'js-file-downloader'
-    import type { MediaInfo } from '~/types/media-info'
+import { DEFAULT_DOWNLOAD_ERROR_MESSAGE } from '~/constants/messages'
+import JsFileDownloader from 'js-file-downloader'
+import type { MediaInfo } from '~/types/media-info'
 
-    useHead({
-        title: 'Download from SampleFocus | Saveable'
-    })
+interface Sample {
+    slug : string,
+    sample_mp3_url : string
+}
 
-    const { errorTextVisible, errorText, showErrorText } = useErrorText()
+useHead({
+    title: 'Download from SampleFocus | Saveable'
+})
 
-    const sampleLink = ref('')
-    const loading = ref(false)
+const { errorTextVisible, errorText, showErrorText } = useErrorText()
 
-    async function download() {
-        const sampleLinkValue = sampleLink.value
+const sampleLink = ref('')
+const loading = ref(false)
 
-        if(sampleLinkValue.length < 1) {
-            showErrorText('You should enter sample link to download it')
+async function download() {
+    const sampleLinkValue = sampleLink.value
+
+    if(sampleLinkValue.length < 1) {
+        showErrorText('You should enter sample link to download it')
+        return
+    }
+
+    loading.value = true
+    
+    try {
+        const sampleInfo = await getSampleMediaInfo(sampleLinkValue)
+
+        await new JsFileDownloader({ 
+            url: '/api/proxy/media'
+                + `?url=${encodeURIComponent(sampleInfo.downloadUrl)}`
+                + `&referer=${encodeURIComponent('https://samplefocus.com')}`, 
+            filename: sampleInfo.name + '.mp3',
+        })
+    }
+    catch(error) {
+        if(error instanceof Error) {
+            showErrorText(error.message)
         }
         else {
-            try {
-                loading.value = true
+            showErrorText(DEFAULT_DOWNLOAD_ERROR_MESSAGE)
+        }
+    }
+    finally {
+        loading.value = false
+    }
 
-                const response = await fetch(`/api/media-info/samplefocus?sample_url=${sampleLinkValue}`)
+    /* if(sampleLinkValue.length < 1) {
+        showErrorText('You should enter sample link to download it')
+    }
+    else {
+        try {
+            loading.value = true
 
-                if(!response.ok) {
-                    if(response.status === 400) {
-                        const error = await response.json()
-                        showErrorText(error.message)
-                    }
-                    else if(response.status === 500) {
-                        showErrorText('Failed to grab sample info. If your URL is valid, then, apparently, ' 
-                            + 'SampleFocus updated their website', 3500)
-                    }
-                    else {
-                        showErrorText(DEFAULT_SERVER_DOWNLOAD_ERROR_MESSAGE)
-                    }
+            const response = await fetch(`/api/media-info/samplefocus?sample_url=${sampleLinkValue}`)
 
-                    loading.value = false
+            if(!response.ok) {
+                if(response.status === 400) {
+                    const error = await response.json()
+                    showErrorText(error.message)
+                }
+                else if(response.status === 500) {
+                    showErrorText('Failed to grab sample info. If your URL is valid, then, apparently, ' 
+                        + 'SampleFocus updated their website', 3500)
                 }
                 else {
-                    const sampleInfo : MediaInfo = await response.json()
-
-                    await new JsFileDownloader({ 
-                        url: `/api/proxy/media?url=${encodeURIComponent(sampleInfo.downloadUrl)}`, 
-                        filename: sampleInfo.name + '.mp3'
-                    })
-
-                    loading.value = false
+                    showErrorText(DEFAULT_SERVER_DOWNLOAD_ERROR_MESSAGE)
                 }
+
+                loading.value = false
             }
-            catch(error) {
-                showErrorText(DEFAULT_SERVER_DOWNLOAD_ERROR_MESSAGE)
+            else {
+                const sampleInfo : MediaInfo = await response.json()
+
+                await new JsFileDownloader({ 
+                    url: '/api/proxy/media?url='
+                        + `${encodeURIComponent(sampleInfo.downloadUrl)}`
+                        + `&referer=${encodeURIComponent('https://samplefocus.com')}`, 
+                    filename: sampleInfo.name + '.mp3',
+                })
+
                 loading.value = false
             }
         }
+        catch(error) {
+            showErrorText(DEFAULT_SERVER_DOWNLOAD_ERROR_MESSAGE)
+            loading.value = false
+        }
+    } */
+}
+
+async function getSampleMediaInfo(sampleUrl: string) {
+    const downloadMethodErrorMessage = 'Failed to grab sample info. If your URL is '
+        + 'valid, then, apparently, SampleFocus updated their website'
+
+    let fixedSampleUrl = sampleUrl
+    if(sampleUrl.endsWith('/download')) {
+        fixedSampleUrl = sampleUrl.substring(0, sampleUrl.lastIndexOf('/download'))
     }
+    
+    let samplePage : Document
+
+    const samplePageResponse = await fetch(fixedSampleUrl)
+    if(!samplePageResponse.ok) {
+        throw new Error('Failed to parse sample page. Make sure URL is valid and '
+            + 'requested sample exists. status code: ' + samplePageResponse.status)
+    }
+    samplePage = new DOMParser().parseFromString(await samplePageResponse.text(), 'text/html')
+
+    const sampleWaveForm = samplePage.querySelectorAll('div[data-react-class="SampleWaveformContainer"]')[0]
+    const rawSamplesJson = sampleWaveForm?.getAttribute('data-react-props')
+
+    if (!sampleWaveForm || !rawSamplesJson) {
+        throw new Error(downloadMethodErrorMessage)
+    }
+
+    const sample: Sample = JSON.parse(rawSamplesJson)?.sample
+
+    if (!sample) {
+        throw new Error(downloadMethodErrorMessage)
+    }
+
+    return {
+        downloadUrl: sample.sample_mp3_url,
+        name: sample.slug,
+    }
+}
 </script>
 
 <style lang="scss" scoped>

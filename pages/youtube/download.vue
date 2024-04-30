@@ -38,7 +38,7 @@
     import JsFileDownloader from 'js-file-downloader'
     import { createFFmpeg } from '@ffmpeg/ffmpeg'    
     import type { MediaInfo } from '~/types/media-info'
-    import { DEFAULT_SERVER_DOWNLOAD_ERROR_MESSAGE, DEFAULT_SERVER_EXTRACT_ERROR_MESSAGE } from '~/constants/messages'
+    import { DEFAULT_DOWNLOAD_ERROR_MESSAGE, DEFAULT_SERVER_EXTRACT_ERROR_MESSAGE } from '~/constants/messages'
 
     const { errorTextVisible, errorText, showErrorText } = useErrorText()
 
@@ -69,7 +69,7 @@
                 }).finally(() => loading.value = false)
             }
             catch(error) {
-                showErrorText(DEFAULT_SERVER_DOWNLOAD_ERROR_MESSAGE)
+                showErrorText(DEFAULT_DOWNLOAD_ERROR_MESSAGE)
                 loading.value = false
             }
         }

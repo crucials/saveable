@@ -86,7 +86,7 @@
 
 <script lang="ts" setup>
     import JsFileDownloader from 'js-file-downloader'    
-    import { DEFAULT_SERVER_DOWNLOAD_ERROR_MESSAGE } from '~/constants/messages'
+    import { DEFAULT_DOWNLOAD_ERROR_MESSAGE } from '~/constants/messages'
 
     interface DownloadStatus {
         inProcess : boolean,
@@ -150,7 +150,7 @@
                         hostLocallyLinkVisible.value = true
                     }
                     else {
-                        showErrorInModal(DEFAULT_SERVER_DOWNLOAD_ERROR_MESSAGE)
+                        showErrorInModal(DEFAULT_DOWNLOAD_ERROR_MESSAGE)
                     }
 
                     return
@@ -177,7 +177,7 @@
                     downloadStatus.value.inProcess = false
                 }
                 else {
-                    showErrorInModal(DEFAULT_SERVER_DOWNLOAD_ERROR_MESSAGE)
+                    showErrorInModal(DEFAULT_DOWNLOAD_ERROR_MESSAGE)
                 }
             }
         }

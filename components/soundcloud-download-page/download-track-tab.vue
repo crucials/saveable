@@ -56,7 +56,7 @@
     import JsFileDownloader from 'js-file-downloader'   
     import { ID3Writer } from 'browser-id3-writer'
     import type { MediaInfo } from '~/types/media-info'
-    import { DEFAULT_SERVER_DOWNLOAD_ERROR_MESSAGE } from '~/constants/messages'
+    import { DEFAULT_DOWNLOAD_ERROR_MESSAGE } from '~/constants/messages'
 
     const emit = defineEmits<{
         (event : 'tab-switched', tabNumber : number) : void
@@ -91,7 +91,7 @@
                         showErrorText('Provided link is not a track')
                     }
                     else {
-                        showErrorText(DEFAULT_SERVER_DOWNLOAD_ERROR_MESSAGE)
+                        showErrorText(DEFAULT_DOWNLOAD_ERROR_MESSAGE)
                     }
 
                     loading.value = false
@@ -119,7 +119,7 @@
             catch(error) {
                 console.error(error)
                 
-                showErrorText(DEFAULT_SERVER_DOWNLOAD_ERROR_MESSAGE)
+                showErrorText(DEFAULT_DOWNLOAD_ERROR_MESSAGE)
                 loading.value = false
             }
         }
