@@ -1,5 +1,6 @@
 export default defineEventHandler(async event => {
-    const urlToFetch = getQuery(event)['url']?.toString()
+    const query = getQuery(event)
+    const urlToFetch = query['url']?.toString()
 
     if(!urlToFetch) {
         throw createError({ statusCode: 400, message: `Query parameter 'url' not provided` })
@@ -7,7 +8,11 @@ export default defineEventHandler(async event => {
 
     let response : Response
     try {
-        response = await fetch(urlToFetch)
+        const headers = query['referer'] ? {
+            'Referer': query['referer'].toString()
+        } : undefined
+
+        response = await fetch(urlToFetch, { headers })
     }
     catch(error) {
         console.log(error)
