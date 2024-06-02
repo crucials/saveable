@@ -99,16 +99,18 @@ async function getSampleMediaInfo(sampleUrl: string) {
         throw new Error('Failed to parse sample page. Make sure URL is valid and '
             + 'requested sample exists. status code: ' + samplePageResponse.status)
     }
-    samplePage = new DOMParser().parseFromString(await samplePageResponse.text(), 'text/html')
+    samplePage = new DOMParser().parseFromString(await samplePageResponse.text(),
+        'text/html')
 
-    const sampleWaveForm = samplePage.querySelectorAll('div[data-react-class="SampleWaveformContainer"]')[0]
-    const rawSamplesJson = sampleWaveForm?.getAttribute('data-react-props')
+    const rawSampleJson = samplePage.querySelector(
+        'script[data-component-name="SampleWaveformContainer"]'
+    )?.textContent
 
-    if (!sampleWaveForm || !rawSamplesJson) {
+    if (!rawSampleJson) {
         throw new Error(downloadMethodErrorMessage)
     }
 
-    const sample: Sample = JSON.parse(rawSamplesJson)?.sample
+    const sample: Sample = JSON.parse(rawSampleJson)?.sample
 
     if (!sample) {
         throw new Error(downloadMethodErrorMessage)
