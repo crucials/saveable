@@ -50,8 +50,9 @@
 </template>
 
 <script setup lang="ts">
-import type { SoundcloudApiPlaylist } from '~/types/soundcloud-api'
 import JsFileDownloader from 'js-file-downloader'
+import type { SoundcloudApiPlaylist } from '~/types/soundcloud-api'
+import { clientId } from '~/client-id'
 
 const emit = defineEmits<{
     (event : 'tab-switched', tabNumber: number): void
@@ -74,6 +75,7 @@ async function exportPlaylist() {
             loading.value = true
             const response = await useFetch<SoundcloudApiPlaylist>(
                 `/api/media-info/soundcloud/playlist?url=${playlistLinkValue}`
+                + `&client_id=${clientId}`
             )
 
             if (response.error.value) {

@@ -2,7 +2,6 @@ import { API_BASE_URL } from '~/constants/api-urls'
 import getTrackDownloadUrl from '~/server/utils/get-track-download-url'
 import type { SoundcloudApiPlaylist, SoundcloudApiTrack } from '~/types/soundcloud-api'
 import JSZip from 'jszip'
-import { clientId } from '~/client-id'
 
 interface TrackFile {
     name: string,
@@ -12,20 +11,21 @@ interface TrackFile {
 export default defineEventHandler(async event => {
     const maximumPlaylistTracks = useRuntimeConfig().maximumPlaylistTracks
     
+    const clientId = getQuery(event)['client_id']?.toString()
     const playlistUrl = getQuery(event)['url']?.toString()
     const excludeArtistInFilenames = getQuery(event)['exclude_artist'] === 'true'
 
     if(!playlistUrl) {
         throw createError({
             statusCode: 400,
-            message: `Query parameter 'url' not provided`
+            message: `query param 'client_id' must be specified`
         })
     }
 
     if(!clientId) {
         throw createError({
-            statusCode: 500,
-            message: `couldn't get client id for querying track info`
+            statusCode: 400,
+            message: `query param 'client_id' must be specified`
         })
     }
 
@@ -58,7 +58,9 @@ export default defineEventHandler(async event => {
         })
     }
 
-    const playlistTracksFiles = await getPlaylistTracksFiles(rawPlaylistInfo, excludeArtistInFilenames)
+    const playlistTracksFiles = await getPlaylistTracksFiles(
+        rawPlaylistInfo, excludeArtistInFilenames, clientId
+    )
 
     const zip = new JSZip()
 
@@ -74,7 +76,11 @@ export default defineEventHandler(async event => {
     return zip.generateNodeStream()
 })
 
-async function getPlaylistTracksFiles(playlist : SoundcloudApiPlaylist, excludeArtistInFilenames : boolean) {
+async function getPlaylistTracksFiles(
+    playlist : SoundcloudApiPlaylist,
+    excludeArtistInFilenames : boolean,
+    clientId: string
+) {
     const MAXIMUM_TRACKS = 50
 
     const playlistTracksFiles : TrackFile[] = []
@@ -101,27 +107,6 @@ async function getPlaylistTracksFiles(playlist : SoundcloudApiPlaylist, excludeA
             }
 
             const tracksResponseData : SoundcloudApiTrack[] = await tracksResponse.json()
-
-            /* for (const track of tracksResponseData) {
-                await new Promise<void>(async resolveNextTrack => {
-                    setTimeout(() => {
-                        resolveNextTrack()
-                    }, 500)
-
-                    console.log('New track')
-                    const downloadUrl = await getTrackDownloadUrl(track, clientId)
-
-                    if(downloadUrl) {
-                        const downloadUrlResponse = await fetch(downloadUrl)
-                        const trackName = excludeArtistInFilenames ? track.title : `${track.user.username} - ${track.title}`
-                        const trackFilename = trackName.replace(/[/\\?%*:|"<>]/g, '_') + '.mp3'
-
-                        if(downloadUrlResponse.ok) {
-                            playlistTracksFiles.push(new File([ await downloadUrlResponse.blob() ], trackFilename))
-                        }
-                    }
-                })
-            } */
 
             for(
                 let trackFromGroupIndex = 0; 

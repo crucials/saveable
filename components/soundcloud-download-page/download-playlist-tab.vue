@@ -85,131 +85,133 @@
 </template>
 
 <script lang="ts" setup>
-    import JsFileDownloader from 'js-file-downloader'    
-    import { DEFAULT_DOWNLOAD_ERROR_MESSAGE } from '~/constants/messages'
+import JsFileDownloader from 'js-file-downloader'    
+import { clientId } from '~/client-id'
+import { DEFAULT_DOWNLOAD_ERROR_MESSAGE } from '~/constants/messages'
 
-    interface DownloadStatus {
-        inProcess : boolean,
-        stage : 'downloading' | 'success' | 'error' | undefined,
-        heading : string,
-        note : string | undefined
+interface DownloadStatus {
+    inProcess : boolean,
+    stage : 'downloading' | 'success' | 'error' | undefined,
+    heading : string,
+    note : string | undefined
+}
+
+const { errorTextVisible, errorText, showErrorText } = useErrorText();
+
+const playlistLink = ref('')
+
+const downloadStatus = ref<DownloadStatus>({
+    inProcess : false,
+    stage : undefined,
+    heading : '',
+    note: undefined
+})
+const hostLocallyLinkVisible = ref(false);
+const includeArtistInFilenames = ref(true)
+
+const emit = defineEmits<{
+    (event : 'tab-switched', tabNumber : number) : void
+}>()
+
+let abortController : AbortController | undefined = undefined
+
+async function download() {
+    const playlistLinkValue = playlistLink.value
+
+    if(playlistLinkValue.length < 1) {
+        showErrorText('You should enter playlist link to download it')
     }
+    else {
+        try {
+            downloadStatus.value.inProcess = true
+            downloadStatus.value.stage = 'downloading'
+            downloadStatus.value.heading = 'Downloading...'
+            downloadStatus.value.note = 'Downloading large playlists can take up to 7 minutes'
+            hostLocallyLinkVisible.value = false
 
-    const { errorTextVisible, errorText, showErrorText } = useErrorText();
+            abortController = new AbortController()
 
-    const playlistLink = ref('')
+            const response = await fetch(`/api/download/soundcloud/playlist?url=${playlistLinkValue}`
+                + `&exclude_artist=${!includeArtistInFilenames.value}`
+                + `&client_id=${clientId}`, {
+                signal: abortController.signal
+            })
 
-    const downloadStatus = ref<DownloadStatus>({
-        inProcess : false,
-        stage : undefined,
-        heading : '',
-        note: undefined
-    })
-    const hostLocallyLinkVisible = ref(false);
-    const includeArtistInFilenames = ref(true)
-
-    const emit = defineEmits<{
-        (event : 'tab-switched', tabNumber : number) : void
-    }>()
-
-    let abortController : AbortController | undefined = undefined
-
-    async function download() {
-        const playlistLinkValue = playlistLink.value
-
-        if(playlistLinkValue.length < 1) {
-            showErrorText('You should enter playlist link to download it')
-        }
-        else {
-            try {
-                downloadStatus.value.inProcess = true
-                downloadStatus.value.stage = 'downloading'
-                downloadStatus.value.heading = 'Downloading...'
-                downloadStatus.value.note = 'Downloading large playlists can take up to 7 minutes'
-                hostLocallyLinkVisible.value = false
-
-                abortController = new AbortController()
-
-                const response = await fetch(`/api/download/soundcloud/playlist?url=${playlistLinkValue}` + 
-                    `&exclude_artist=${!includeArtistInFilenames.value}`, {
-                    signal: abortController.signal
-                })
-
-                if(!response.ok) {
-                    if(response.status == 404) {
-                        showErrorInModal('Playlist with entered link not found')
-                    }
-                    else if(response.status == 429) {
-                        showErrorInModal('Soundcloud servers request limit is reached for today')
-                    }
-                    else if(response.status == 400) {
-                        showErrorInModal('Provided link is not a playlist')
-                    }
-                    else if(response.status == 413) {
-                        showErrorInModal('Your playlist is too large for our free tier hosting')
-                        hostLocallyLinkVisible.value = true
-                    }
-                    else {
-                        showErrorInModal(DEFAULT_DOWNLOAD_ERROR_MESSAGE)
-                    }
-
-                    return
+            if(!response.ok) {
+                if(response.status == 404) {
+                    showErrorInModal('Playlist with entered link not found')
                 }
-
-                const playlistZipBlob = new Blob([ await response.arrayBuffer() ])
-                const zipDownloadUrl = URL.createObjectURL(playlistZipBlob)
-
-                await new JsFileDownloader({
-                    url: zipDownloadUrl,
-                    filename: getFilenameFromHeaders(response) || 'playlist'
-                })
-
-                downloadStatus.value.stage = 'success'
-                downloadStatus.value.heading = 'Successfully downloaded'
-                downloadStatus.value.note = undefined
-
-                setTimeout(() => {
-                    downloadStatus.value.inProcess = false
-                }, 2000)
-            }
-            catch(error) {
-                if(error instanceof Error && error.name == 'AbortError') {
-                    downloadStatus.value.inProcess = false
+                else if(response.status == 429) {
+                    showErrorInModal('Soundcloud servers request limit is reached for today')
+                }
+                else if(response.status == 400) {
+                    showErrorInModal('Provided link is not a playlist')
+                }
+                else if(response.status == 413) {
+                    showErrorInModal('Your playlist is too large for our free tier hosting')
+                    hostLocallyLinkVisible.value = true
                 }
                 else {
                     showErrorInModal(DEFAULT_DOWNLOAD_ERROR_MESSAGE)
                 }
+
+                return
+            }
+
+            const playlistZipBlob = new Blob([ await response.arrayBuffer() ])
+            const zipDownloadUrl = URL.createObjectURL(playlistZipBlob)
+
+            await new JsFileDownloader({
+                url: zipDownloadUrl,
+                filename: getFilenameFromHeaders(response) || 'playlist'
+            })
+
+            downloadStatus.value.stage = 'success'
+            downloadStatus.value.heading = 'Successfully downloaded'
+            downloadStatus.value.note = undefined
+
+            setTimeout(() => {
+                downloadStatus.value.inProcess = false
+            }, 2000)
+        }
+        catch(error) {
+            if(error instanceof Error && error.name == 'AbortError') {
+                downloadStatus.value.inProcess = false
+            }
+            else {
+                showErrorInModal(DEFAULT_DOWNLOAD_ERROR_MESSAGE)
             }
         }
     }
+}
 
-    function getFilenameFromHeaders(response : Response) {
-        const headerParts = response.headers.get('Content-Disposition')?.split('; filename=')
+function getFilenameFromHeaders(response : Response) {
+    const headerParts = response.headers.get('Content-Disposition')?.split('; filename=')
 
-        if(headerParts) {
-            return headerParts[1]
-        }
-        else {
-            return undefined
-        }
+    if(headerParts) {
+        return headerParts[1]
     }
+    else {
+        return undefined
+    }
+}
 
-    function showErrorInModal(errorText : string) {
-        downloadStatus.value.heading = errorText
-        downloadStatus.value.stage = 'error'
+function showErrorInModal(errorText : string) {
+    downloadStatus.value.heading = errorText
+    downloadStatus.value.stage = 'error'
+    downloadStatus.value.note = undefined
+}
+
+function closeDownloadStatusModal() {
+    if(downloadStatus.value.stage === 'downloading') {
+        abortController?.abort()
+    }
+    else {
+        downloadStatus.value.inProcess = false
+        downloadStatus.value.stage = undefined
         downloadStatus.value.note = undefined
     }
-
-    function closeDownloadStatusModal() {
-        if(downloadStatus.value.stage === 'downloading') {
-            abortController?.abort()
-        }
-        else {
-            downloadStatus.value.inProcess = false
-            downloadStatus.value.stage = undefined
-            downloadStatus.value.note = undefined
-        }
-    }
+}
 </script>
 
 <style lang="scss" scoped>

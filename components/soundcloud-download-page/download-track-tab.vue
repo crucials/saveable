@@ -53,101 +53,103 @@
 </template>
 
 <script lang="ts" setup>
-    import JsFileDownloader from 'js-file-downloader'   
-    import { ID3Writer } from 'browser-id3-writer'
-    import type { MediaInfo } from '~/types/media-info'
-    import { DEFAULT_DOWNLOAD_ERROR_MESSAGE } from '~/constants/messages'
+import JsFileDownloader from 'js-file-downloader'   
+import { ID3Writer } from 'browser-id3-writer'
+import type { MediaInfo } from '~/types/media-info'
+import { DEFAULT_DOWNLOAD_ERROR_MESSAGE } from '~/constants/messages'
+import { clientId } from '~/client-id';
 
-    const emit = defineEmits<{
-        (event : 'tab-switched', tabNumber : number) : void
-    }>()
+const emit = defineEmits<{
+    (event : 'tab-switched', tabNumber : number) : void
+}>()
 
-    const { errorTextVisible, errorText, showErrorText } = useErrorText()
+const { errorTextVisible, errorText, showErrorText } = useErrorText()
 
-    const trackLink = ref('')
-    const options = reactive({
-        includeArtistInFilename: true,
-        includeMetadata: true
-    })
-    const loading = ref(false)
+const trackLink = ref('')
+const options = reactive({
+    includeArtistInFilename: true,
+    includeMetadata: true
+})
+const loading = ref(false)
 
-    async function download() {
-        const trackLinkValue = trackLink.value
-        if(trackLinkValue.length < 1) {
-            showErrorText('You should enter track link to download it')
-        }
-        else {
-            try {
-                loading.value = true
+async function download() {
+    const trackLinkValue = trackLink.value
+    if(trackLinkValue.length < 1) {
+        showErrorText('You should enter track link to download it')
+    }
+    else {
+        try {
+            loading.value = true
 
-                const response = await fetch(`/api/media-info/soundcloud/track?url=${trackLinkValue}` 
-                    + `&exclude_artist=${!options.includeArtistInFilename}`)
+            const response = await fetch(`/api/media-info/soundcloud/track?url=${trackLinkValue}`
+                + `&exclude_artist=${!options.includeArtistInFilename}`
+                + `&client_id=${clientId}`)
 
-                if(!response.ok) {
-                    if(response.status == 404) {
-                        showErrorText('Track with entered link not found')
-                    }
-                    else if(response.status == 400) {
-                        showErrorText('Provided link is not a track')
-                    }
-                    else {
-                        showErrorText(DEFAULT_DOWNLOAD_ERROR_MESSAGE)
-                    }
-
-                    loading.value = false
-                    return
+            if(!response.ok) {
+                if(response.status == 404) {
+                    showErrorText('Track with entered link not found')
+                }
+                else if(response.status == 400) {
+                    showErrorText('Provided link is not a track')
+                }
+                else {
+                    showErrorText(DEFAULT_DOWNLOAD_ERROR_MESSAGE)
                 }
 
-                const trackInfo : MediaInfo = await response.json()
+                loading.value = false
+                return
+            }
 
-                if(options.includeMetadata && trackInfo.metadata) {
-                    await new JsFileDownloader({
-                        url: await includeMetadata(trackInfo as Required<MediaInfo>),
-                        filename: trackInfo.name + '.mp3'
-                    })
-                    
-                    loading.value = false
-                    return
-                }
+            const trackInfo : MediaInfo = await response.json()
 
+            if(options.includeMetadata && trackInfo.metadata) {
                 await new JsFileDownloader({
-                    url: trackInfo.downloadUrl,
+                    url: await includeMetadata(trackInfo as Required<MediaInfo>),
                     filename: trackInfo.name + '.mp3'
                 })
-                loading.value = false
-            }
-            catch(error) {
-                console.error(error)
                 
-                showErrorText(DEFAULT_DOWNLOAD_ERROR_MESSAGE)
                 loading.value = false
+                return
             }
-        }
-    }
 
-    async function includeMetadata(trackInfo : Required<MediaInfo>) : Promise<string> {
-        const trackData = await (await fetch(trackInfo.downloadUrl)).arrayBuffer()
-        const trackImageData = trackInfo.metadata.imageUrl ?
-            await (await fetch(trackInfo.metadata.imageUrl)).arrayBuffer() : null
-        
-        const writer = new ID3Writer(trackData);
-
-        writer.setFrame('TIT2', trackInfo.metadata.title)
-        writer.setFrame('TPE1', [ trackInfo.metadata.artist ])
-        writer.setFrame('WPUB', trackInfo.metadata.url)
-        
-        if(trackImageData) {
-            writer.setFrame('APIC', {
-                type: 3,
-                data: trackImageData,
-                description: 'Super picture',
+            await new JsFileDownloader({
+                url: trackInfo.downloadUrl,
+                filename: trackInfo.name + '.mp3'
             })
+            loading.value = false
         }
-
-        writer.addTag()
-        
-        return writer.getURL()
+        catch(error) {
+            console.error(error)
+            
+            showErrorText(DEFAULT_DOWNLOAD_ERROR_MESSAGE)
+            loading.value = false
+        }
     }
+}
+
+async function includeMetadata(trackInfo : Required<MediaInfo>) : Promise<string> {
+    const trackData = await (await fetch(trackInfo.downloadUrl)).arrayBuffer()
+    const trackImageData = trackInfo.metadata.imageUrl ?
+        await (await fetch(trackInfo.metadata.imageUrl)).arrayBuffer() : null
+    
+    const writer = new ID3Writer(trackData);
+
+    writer.setFrame('TIT2', trackInfo.metadata.title)
+    writer.setFrame('TPE1', [ trackInfo.metadata.artist ])
+    writer.setFrame('WPUB', trackInfo.metadata.url)
+    
+    if(trackImageData) {
+        writer.setFrame('APIC', {
+            type: 3,
+            data: trackImageData,
+            description: 'Super picture',
+        })
+    }
+
+    writer.addTag()
+    
+    return writer.getURL()
+}
 </script>
 
 <style lang="scss" scoped>
