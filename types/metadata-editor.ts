@@ -17,5 +17,4 @@ export interface MediaMetadata {
     artist: string | null
     year: string | null
     images?: MetadataImage[]
-    [key: string]: unknown;
 }

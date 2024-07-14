@@ -21,7 +21,7 @@
 
             <form
                 class="metadata-form"
-                @submit.prevent=""
+                @submit.prevent="save"
             >
                 <div class="metadata-form-inputs">
                     <IconTextField
@@ -36,7 +36,7 @@
                         placeholder="Artist"
                     />
 
-                    <IconTextField
+                    <!-- <IconTextField
                         v-model="metadata.data.year"
                         themeable
                         placeholder="Year"
@@ -46,14 +46,20 @@
                         v-model="metadata.data.album"
                         themeable
                         placeholder="Album"
-                    />
+                    /> -->
                 </div>
 
                 <div>
-                    <img
+                    <!-- <img
                         v-if="metadata.data.images && metadata.data.images.length > 0"
                         :src="metadata.data.images[0].url"
-                    />
+                    /> -->
+                </div>
+
+                <div class="save-button-wrapper">
+                    <EmeraldFilledButton type="submit">
+                        Save
+                    </EmeraldFilledButton>
                 </div>
             </form>
         </div>
@@ -61,8 +67,10 @@
 </template>
 
 <script setup lang="ts">
+import { ID3Writer } from 'browser-id3-writer';
 import { fromFile } from 'id3js'
-import JsFileDownloader from 'js-file-downloader';
+import JsFileDownloader from 'js-file-downloader'
+import { ID3_ARTIST, ID3_TITLE } from '~/constants/id3-tags';
 import { useNotificationsStore } from '~/stores/notifications'
 import type { MetadataImageWithUrl, MediaMetadata } from '~/types/metadata-editor'
 
@@ -95,8 +103,13 @@ watch(() => props.file, async () => {
         const fileMetadata = await fromFile(props.file)
 
         if(!fileMetadata) {
-            showNotification('error', 'failed to load your file metadata')
-            return    
+            metadata.data = {
+                album: null,
+                artist: null,
+                title: null,
+                year: null,
+            }
+            return
         }
 
         metadata.data = {
@@ -124,6 +137,29 @@ function getImagesFromMetadata(
         }
     })
 }
+
+async function save() {
+    if(!props.file) {
+        return
+    }
+
+    const writer = new ID3Writer(await props.file.arrayBuffer())
+
+    if(metadata.data?.title) {
+        writer.setFrame(ID3_TITLE, metadata.data.title)
+    }
+
+    if(metadata.data?.artist) {
+        writer.setFrame(ID3_ARTIST, [metadata.data.artist])
+    }
+
+    writer.addTag()
+
+    new JsFileDownloader({
+        filename: props.file.name,
+        url: writer.getURL()
+    })
+}
 </script>
 
 <style lang="scss" scoped>
@@ -141,5 +177,15 @@ function getImagesFromMetadata(
 
 .metadata-editor-wrapper {
     width: 100%;
+}
+
+.save-button-wrapper {
+    grid-column: span 2;
+    margin-top: 20px;
+
+    button {
+        margin: 0 auto;
+        width: 240px;
+    }
 }
 </style>

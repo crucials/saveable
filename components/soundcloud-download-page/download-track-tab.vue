@@ -57,7 +57,8 @@ import JsFileDownloader from 'js-file-downloader'
 import { ID3Writer } from 'browser-id3-writer'
 import type { MediaInfo } from '~/types/media-info'
 import { DEFAULT_DOWNLOAD_ERROR_MESSAGE } from '~/constants/messages'
-import { clientId } from '~/client-id';
+import { clientId } from '~/client-id'
+import { ID3_TITLE, ID3_ARTIST, ID3_PUBLISHER_URL, ID3_COVERFRONT_IMAGE } from '~/constants/id3-tags'
 
 const emit = defineEmits<{
     (event : 'tab-switched', tabNumber : number) : void
@@ -134,20 +135,20 @@ async function includeMetadata(trackInfo : Required<MediaInfo>) : Promise<string
     
     const writer = new ID3Writer(trackData);
 
-    writer.setFrame('TIT2', trackInfo.metadata.title)
-    writer.setFrame('TPE1', [ trackInfo.metadata.artist ])
-    writer.setFrame('WPUB', trackInfo.metadata.url)
+    writer.setFrame(ID3_TITLE, trackInfo.metadata.title)
+    writer.setFrame(ID3_ARTIST, [ trackInfo.metadata.artist ])
+    writer.setFrame(ID3_PUBLISHER_URL, trackInfo.metadata.url)
     
     if(trackImageData) {
         writer.setFrame('APIC', {
-            type: 3,
+            type: ID3_COVERFRONT_IMAGE,
             data: trackImageData,
             description: trackInfo.name,
         })
     }
 
     writer.addTag()
-    
+
     return writer.getURL()
 }
 </script>
