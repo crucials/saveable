@@ -1,35 +1,4 @@
 <template>
-    <ModalWindow :opened="downloadStatus.inProcess" @closed="closeDownloadStatusModal">
-        <div class="spinner spinner-partial-border" v-show="downloadStatus.stage === 'downloading'"></div>
-
-        <img src="~~/assets/images/checkmark.svg" alt="Checkmark in green circle"
-            v-show="downloadStatus.stage === 'success'">
-
-        <img src="~~/assets/images/broken-laptop.svg" alt="Laptop with broken screen"
-            v-show="downloadStatus.stage === 'error'">
-
-        <h2 class="download-status-heading">
-            {{ downloadStatus.heading }}
-        </h2>
-
-        <p class="download-status-note" v-show="downloadStatus.note">
-            {{ downloadStatus.note }}
-        </p>
-
-        <div class="actions download-status-modal-actions">
-            <EmeraldFilledButton @click="closeDownloadStatusModal">
-                {{ downloadStatus.stage === 'downloading' ? 'Cancel' : 'Close' }}
-            </EmeraldFilledButton>
-
-            <Transition name="slide-up">
-                <a v-if="hostLocallyLinkVisible" target="_blank" class="emerald-text-action"
-                    href="https://github.com/crucials/saveable/blob/master/README.md#run-locally">
-                    Host this app locally
-                </a>
-            </Transition>
-        </div>
-    </ModalWindow>
-
     <NuxtLayout name="service-page">
         <template #form>
             <form class="service-form" @submit.prevent="download">
@@ -82,6 +51,37 @@
             }
         ]"/>
     </NuxtLayout>
+
+    <ModalWindow :opened="downloadStatus.inProcess" @closed="closeDownloadStatusModal">
+        <div class="spinner spinner-partial-border" v-show="downloadStatus.stage === 'downloading'"></div>
+
+        <img src="~~/assets/images/checkmark.svg" alt="Checkmark in green circle"
+            v-show="downloadStatus.stage === 'success'">
+
+        <img src="~~/assets/images/broken-laptop.svg" alt="Laptop with broken screen"
+            v-show="downloadStatus.stage === 'error'">
+
+        <h2 class="download-status-heading">
+            {{ downloadStatus.heading }}
+        </h2>
+
+        <p class="download-status-note" v-show="downloadStatus.note">
+            {{ downloadStatus.note }}
+        </p>
+
+        <div class="actions download-status-modal-actions">
+            <EmeraldFilledButton @click="closeDownloadStatusModal">
+                {{ downloadStatus.stage === 'downloading' ? 'Cancel' : 'Close' }}
+            </EmeraldFilledButton>
+
+            <Transition name="slide-up">
+                <a v-if="hostLocallyLinkVisible" target="_blank" class="emerald-text-action"
+                    href="https://github.com/crucials/saveable/blob/master/README.md#run-locally">
+                    Host this app locally
+                </a>
+            </Transition>
+        </div>
+    </ModalWindow>
 </template>
 
 <script lang="ts" setup>

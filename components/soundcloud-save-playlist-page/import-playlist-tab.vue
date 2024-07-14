@@ -1,22 +1,4 @@
 <template>
-    <ModalWindow :opened="resultPlaylist.windowOpened" @closed="resultPlaylist.windowOpened = false">
-        <img src="~~/assets/images/checkmark.svg" alt="Checkmark in green circle">
-
-        <Heading color="black-and-white" type="h2" margin-bottom="0">
-            Imported successfully
-        </Heading>
-
-        <IconTextField type="url" disabled v-model="resultPlaylist.url" full-width themeable>
-            <button class="copy-button" @click="copyPlaylistLink">
-                <img src="~~/assets/images/clipboard.svg" alt="Clipboard, 'copy' button icon">
-            </button>
-        </IconTextField>
-
-         <EmeraldFilledButton :link="resultPlaylist.url">
-            Open in new tab
-         </EmeraldFilledButton>
-    </ModalWindow>
-
     <NuxtLayout name="service-page">
         <template #form>
             <form class="service-form" @submit.prevent="importPlaylist">
@@ -84,6 +66,24 @@
             }
         ]"/>
     </NuxtLayout>
+
+    <ModalWindow :opened="resultPlaylist.windowOpened" @closed="resultPlaylist.windowOpened = false">
+        <img src="~~/assets/images/checkmark.svg" alt="Checkmark in green circle">
+
+        <Heading color="black-and-white" type="h2" margin-bottom="0">
+            Imported successfully
+        </Heading>
+
+        <IconTextField type="url" disabled v-model="resultPlaylist.url" full-width themeable>
+            <button class="copy-button" @click="copyPlaylistLink">
+                <img src="~~/assets/images/clipboard.svg" alt="Clipboard, 'copy' button icon">
+            </button>
+        </IconTextField>
+
+         <EmeraldFilledButton :link="resultPlaylist.url">
+            Open in new tab
+         </EmeraldFilledButton>
+    </ModalWindow>
 </template>
 
 <script setup lang="ts">
