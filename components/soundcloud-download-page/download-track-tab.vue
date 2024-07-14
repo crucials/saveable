@@ -142,7 +142,7 @@ async function includeMetadata(trackInfo : Required<MediaInfo>) : Promise<string
         writer.setFrame('APIC', {
             type: 3,
             data: trackImageData,
-            description: 'Super picture',
+            description: trackInfo.name,
         })
     }
 
