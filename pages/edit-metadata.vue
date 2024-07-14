@@ -24,7 +24,11 @@
         </template>
 
         <template #icon>
-            <img src="~~/assets/images/tags.svg" alt="Tags" class="page-icon">
+            <img
+                src="~~/assets/images/tags.svg"
+                alt="Tags"
+                class="full-width-page-icon page-icon"
+            />
         </template>
     </NuxtLayout>
 
@@ -35,7 +39,7 @@
 </template>
 
 <script setup lang="ts">
-import type { MetadataEditorData } from '~/types/metadata-editor-data'
+import type { MetadataEditorData } from '~/types/metadata-editor'
 
 useHead({
     title: 'Edit metadata of your media files | Saveable'

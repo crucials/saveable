@@ -37,8 +37,14 @@
         border-radius: 8px;
         transition: all 0.5s;
 
+        & input[type=number]::-webkit-inner-spin-button,
+        & input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
         &-focused {
-            box-shadow: 0px 0px 0px 3px hsla(0, 0%, 100%, 0.3);
+            box-shadow: 0px 0px 0px 3px $pastel-purple;
         }
 
         .dark &.themeable {
@@ -57,9 +63,10 @@
                 color: lighten($soft-black, 33);
             }
 
-            &.text-field-focused {
-                box-shadow: 0px 0px 0px 3px lighten($soft-black, 5);
-            }
+            // &.text-field-focused {
+            //     box-shadow: 0px 0px 0px 3px lighten($soft-black, 20);
+            //     box-shadow: 0px 0px 0px 3px #FFFFFF30;
+            // }
         }
     }
 

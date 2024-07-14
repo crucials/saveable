@@ -36,17 +36,11 @@
                         placeholder="Artist"
                     />
 
-                    <!-- <IconTextField
-                        v-model="metadata.data.year"
-                        themeable
-                        placeholder="Year"
-                    />
-
                     <IconTextField
                         v-model="metadata.data.album"
                         themeable
                         placeholder="Album"
-                    /> -->
+                    />
                 </div>
 
                 <div>
@@ -70,7 +64,7 @@
 import { ID3Writer } from 'browser-id3-writer';
 import { fromFile } from 'id3js'
 import JsFileDownloader from 'js-file-downloader'
-import { ID3_ARTIST, ID3_TITLE } from '~/constants/id3-tags';
+import { ID3_ALBUM, ID3_ARTIST, ID3_TITLE, ID3_YEAR } from '~/constants/id3-tags'
 import { useNotificationsStore } from '~/stores/notifications'
 import type { MetadataImageWithUrl, MediaMetadata } from '~/types/metadata-editor'
 
@@ -151,6 +145,10 @@ async function save() {
 
     if(metadata.data?.artist) {
         writer.setFrame(ID3_ARTIST, [metadata.data.artist])
+    }
+
+    if(metadata.data?.album) {
+        writer.setFrame(ID3_ALBUM, metadata.data.album)
     }
 
     writer.addTag()
