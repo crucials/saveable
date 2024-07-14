@@ -58,6 +58,7 @@
     }
 
     .upload-area {
+        min-width: 350px;
         padding: 16px;
         border: 2px dashed hsla(0, 0%, 100%, 0.28);
         border-radius: 8px;
@@ -83,6 +84,12 @@
     .filename {
         font-size: 1.15rem;
         color: white;
+    }
+
+    @media (max-width: 670px) {
+        .upload-area {
+            min-width: 230px;
+        }
     }
 
     @media (max-width: 400px) {
