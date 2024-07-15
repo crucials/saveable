@@ -4,7 +4,7 @@
             v-if="modelValue && modelValue.length > 0"
             :src="modelValue[0].url"
             class="metadata-image"
-        />
+        >
 
         <div
             v-else
@@ -43,7 +43,7 @@
 <script setup lang="ts">
 import type { MetadataImageWithUrl } from '~/types/metadata-editor'
 
-const props = defineProps<{
+defineProps<{
     modelValue: MetadataImageWithUrl[] | undefined
 }>()
 

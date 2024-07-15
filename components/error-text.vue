@@ -1,7 +1,7 @@
 <template>
     <Transition name="error-text">
-        <p class="error-text" v-if="visible">
-            <slot></slot>
+        <p v-if="visible" class="error-text">
+            <slot/>
         </p>
     </Transition>
 </template>

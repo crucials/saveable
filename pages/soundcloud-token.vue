@@ -9,7 +9,7 @@
                 alt="Golden key"
             />
 
-            <div class="banner-image-overlay"></div>
+            <div class="banner-image-overlay"/>
 
             <Heading class="article-heading" margin-bottom="41px">
                 What’s a “SoundCloud account token” and why this app needs it

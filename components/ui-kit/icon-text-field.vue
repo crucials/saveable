@@ -7,23 +7,23 @@
             themeable: themeable,
         }"
     >
-        <slot></slot>
+        <slot/>
         <input
             :type="type"
             :placeholder="placeholder"
             class="input"
-            @focus="focused = true"
             :disabled="disabled"
-            @blur="focused = false"
             :value="modelValue"
+            @focus="focused = true"
+            @blur="focused = false"
             @input="
                 (event) =>
-                    $emit(
+                    emit(
                         'update:modelValue',
                         (event.target as HTMLInputElement).value,
                     )
             "
-        />
+        >
     </div>
 </template>
 
@@ -39,8 +39,13 @@ withDefaults(
     }>(),
     {
         type: 'text',
+        placeholder: undefined
     },
 )
+
+const emit = defineEmits<{
+    (event: 'update:modelValue', newValue: string): void
+}>()
 
 const focused = ref(false)
 </script>

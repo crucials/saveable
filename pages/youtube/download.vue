@@ -5,15 +5,15 @@
                 <Heading margin-bottom="41px"> Download from Youtube </Heading>
 
                 <IconTextField
+                    v-model.trim="videoLink"
                     type="url"
                     placeholder="Video link"
-                    v-model.trim="videoLink"
                     full-width
                 >
                     <img
                         src="~~/assets/images/link.svg"
                         alt="Two paperclips, link icon"
-                    />
+                    >
                 </IconTextField>
 
                 <div class="actions">
@@ -22,8 +22,8 @@
                     <button
                         class="action-text"
                         type="button"
-                        @click="extractAudio"
                         :disabled="loading"
+                        @click="extractAudio"
                     >
                         Extract audio
                     </button>
@@ -40,7 +40,7 @@
                 src="~~/assets/images/youtube.svg"
                 alt="Rounded rectangle with triangle in it, YouTube logo"
                 class="page-icon"
-            />
+            >
         </template>
     </NuxtLayout>
 </template>

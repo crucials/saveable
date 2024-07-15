@@ -10,14 +10,19 @@
                 </p>
 
                 <FileUploadArea
-                    @update:model-value="openAudioMetadataEditor"
                     accept=".mp3"
+                    @update:model-value="openAudioMetadataEditor"
                 >
                     Upload an MP3 file (<mark class="white-text">click</mark>
                     or
                     <mark class="white-text">drag and drop</mark>)
                 </FileUploadArea>
             </form>
+
+            <MetadataEditorModal
+                v-model:opened="metadataEditor.modalOpened"
+                :file="metadataEditor.file"
+            />
         </template>
 
         <template #icon>
@@ -25,14 +30,9 @@
                 src="~~/assets/images/tags.svg"
                 alt="Tags"
                 class="full-width-page-icon page-icon"
-            />
+            >
         </template>
     </NuxtLayout>
-
-    <MetadataEditorModal
-        v-model:opened="metadataEditor.modalOpened"
-        :file="metadataEditor.file"
-    />
 </template>
 
 <script setup lang="ts">

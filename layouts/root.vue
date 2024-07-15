@@ -1,9 +1,9 @@
 <template>
     <div class="root-wrapper">
         <NavigationBar />
-        <slot></slot>
+        <slot/>
 
-        <Notifications />
+        <NotificationsList />
     </div>
 </template>
 

@@ -2,14 +2,14 @@
     <div
         :class="{ backdrop: true, 'backdrop-visible': opened }"
         @click="emit('closed')"
-    ></div>
+    />
     <dialog
         class="modal-window"
         :class="{ wide: wide }"
         :open="opened"
         v-bind="$attrs"
     >
-        <slot></slot>
+        <slot/>
     </dialog>
 </template>
 

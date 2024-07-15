@@ -19,8 +19,8 @@
                 </FileUploadArea>
 
                 <IconTextField
-                    placeholder="Account token"
                     v-model.trim="accountToken"
+                    placeholder="Account token"
                     full-width
                 >
                     <NuxtLink
@@ -31,7 +31,7 @@
                             src="~~/assets/images/info.svg"
                             class="token-field-info-icon"
                             alt="Letter 'i' placed in a rounded square, information icon"
-                        />
+                        >
                     </NuxtLink>
                 </IconTextField>
 
@@ -66,7 +66,7 @@
                 src="~~/assets/images/soundcloud-import-large.svg"
                 alt="Cloud with sound waves (SoundCloud logo) and the arrow above pointing on it"
                 class="page-icon"
-            />
+            >
         </template>
 
         <OtherToolsSection
@@ -91,16 +91,16 @@
         <img
             src="~~/assets/images/checkmark.svg"
             alt="Checkmark in green circle"
-        />
+        >
 
         <Heading color="black-and-white" type="h2" margin-bottom="0">
             Imported successfully
         </Heading>
 
         <IconTextField
+            v-model="resultPlaylist.url"
             type="url"
             disabled
-            v-model="resultPlaylist.url"
             full-width
             themeable
         >
@@ -108,7 +108,7 @@
                 <img
                     src="~~/assets/images/clipboard.svg"
                     alt="Clipboard, 'copy' button icon"
-                />
+                >
             </button>
         </IconTextField>
 
@@ -144,7 +144,7 @@ const {
 const loading = ref(false)
 
 const accountToken = ref('')
-let uploadedFile: File | undefined = undefined
+const uploadedFile: File | undefined = undefined
 
 async function importPlaylist() {
     if (uploadedFile) {

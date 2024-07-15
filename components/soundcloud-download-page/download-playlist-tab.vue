@@ -7,15 +7,15 @@
                 <p class="white-text">You can download albums too</p>
 
                 <IconTextField
+                    v-model.trim="playlistLink"
                     type="url"
                     placeholder="Playlist link"
-                    v-model.trim="playlistLink"
                     full-width
                 >
                     <img
                         src="~~/assets/images/link.svg"
                         alt="Two paperclips, link icon"
-                    />
+                    >
                 </IconTextField>
 
                 <ToggleButton v-model="includeArtistInFilenames">
@@ -47,7 +47,7 @@
                 src="~~/assets/images/soundcloud-logo-with-reflection.svg"
                 alt="Cloud with sound waves with reflection, SoundCloud logo"
                 class="page-icon"
-            />
+            >
         </template>
 
         <OtherToolsSection
@@ -71,27 +71,27 @@
         @closed="closeDownloadStatusModal"
     >
         <div
-            class="spinner spinner-partial-border"
             v-show="downloadStatus.stage === 'downloading'"
-        ></div>
+            class="spinner spinner-partial-border"
+        />
 
         <img
+            v-show="downloadStatus.stage === 'success'"
             src="~~/assets/images/checkmark.svg"
             alt="Checkmark in green circle"
-            v-show="downloadStatus.stage === 'success'"
-        />
+        >
 
         <img
+            v-show="downloadStatus.stage === 'error'"
             src="~~/assets/images/broken-laptop.svg"
             alt="Laptop with broken screen"
-            v-show="downloadStatus.stage === 'error'"
-        />
+        >
 
         <h2 class="download-status-heading">
             {{ downloadStatus.heading }}
         </h2>
 
-        <p class="download-status-note" v-show="downloadStatus.note">
+        <p v-show="downloadStatus.note" class="download-status-note">
             {{ downloadStatus.note }}
         </p>
 

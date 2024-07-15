@@ -5,12 +5,12 @@
                 src="~~/assets/images/sun.svg"
                 alt="Sun icon"
                 class="sun-icon"
-            />
+            >
             <img
                 src="~~/assets/images/moon.svg"
                 alt="Moon icon"
                 class="moon-icon"
-            />
+            >
         </div>
     </button>
 </template>

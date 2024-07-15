@@ -6,7 +6,7 @@
             [color]: true,
         }"
     >
-        <slot></slot>
+        <slot/>
     </Component>
 </template>
 

@@ -11,8 +11,6 @@ export async function getSampleMediaInfo(url: string) {
         fixedSampleUrl = url.substring(0, url.lastIndexOf('/download'))
     }
 
-    let samplePage: Document
-
     const samplePageResponse = await fetch(
         EXTERNAL_PROXY_URL + '/?' + encodeURIComponent(fixedSampleUrl),
     )
@@ -23,7 +21,7 @@ export async function getSampleMediaInfo(url: string) {
                 samplePageResponse.status,
         )
     }
-    samplePage = new DOMParser().parseFromString(
+    const samplePage = new DOMParser().parseFromString(
         await samplePageResponse.text(),
         'text/html',
     )

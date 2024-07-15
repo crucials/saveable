@@ -1,4 +1,5 @@
 export interface SoundcloudApiTrack {
+    id: number
     artwork_url: string | null
     permalink_url: string
     user: {
@@ -18,11 +19,7 @@ export interface SoundcloudApiTrack {
 
 export interface SoundcloudApiPlaylist {
     title: string
-    tracks: [
-        {
-            id: number
-        },
-    ]
+    tracks: Pick<SoundcloudApiTrack, 'id'>[]
     sharing: 'public' | 'private'
     permalink_url: string
     kind: string

@@ -1,6 +1,6 @@
 <template>
     <ModalWindow :opened="opened" wide @closed="emit('update:opened', false)">
-        <div v-if="metadata.loading" class="spinner"></div>
+        <div v-if="metadata.loading" class="spinner"/>
 
         <div v-else-if="file && metadata.data" class="metadata-editor-wrapper">
             <Heading
@@ -111,7 +111,7 @@ watch(
     },
 )
 
-function getImagesFromMetadata(
+/* function getImagesFromMetadata(
     metadata: MediaMetadata,
 ): MetadataImageWithUrl[] | undefined {
     if (!metadata.images) {
@@ -126,7 +126,7 @@ function getImagesFromMetadata(
             ),
         }
     })
-}
+} */
 
 async function save() {
     if (!props.file) {

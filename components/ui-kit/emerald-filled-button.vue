@@ -5,21 +5,25 @@
         :href="link"
         :target="link ? '_blank' : null"
     >
-        <slot></slot>
+        <slot/>
     </component>
 </template>
 
 <script lang="ts" setup>
-defineProps({
-    size: {
-        type: String as PropType<'medium' | 'large'>,
-        default: 'medium',
-    },
+// defineProps({
+//     size: {
+//         type: String as PropType<'medium' | 'large'>,
+//         default: 'medium',
+//     },
 
-    link: {
-        type: String as PropType<string>,
-    },
-})
+//     link: {
+//         type: String as PropType<string>,
+//     },
+// })
+defineProps<{
+    size?: 'medium' | 'large'
+    link?: string
+}>()
 </script>
 
 <style lang="scss" scoped>

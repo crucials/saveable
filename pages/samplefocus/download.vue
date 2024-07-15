@@ -7,15 +7,15 @@
                 </Heading>
 
                 <IconTextField
+                    v-model.trim="sampleLink"
                     type="url"
                     placeholder="Sample page link"
-                    v-model.trim="sampleLink"
                     full-width
                 >
                     <img
                         src="~~/assets/images/link.svg"
                         alt="Two paperclips, link icon"
-                    />
+                    >
                 </IconTextField>
 
                 <LoadingButton :loading="loading"> Download </LoadingButton>
@@ -31,7 +31,7 @@
                 src="~~/assets/images/samplefocus.svg"
                 alt="'Sample' and 'Focus' labels divided by sound wave, SampleFocus logo"
                 class="page-icon"
-            />
+            >
         </template>
     </NuxtLayout>
 </template>

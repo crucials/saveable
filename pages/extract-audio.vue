@@ -28,7 +28,7 @@
                 src="~~/assets/images/sound-wave.svg"
                 alt="Sound wave"
                 class="page-icon"
-            />
+            >
         </template>
     </NuxtLayout>
 </template>
@@ -45,7 +45,7 @@ useHead({
 const { errorTextVisible, errorText, showErrorText } = useErrorText()
 const loading = ref(false)
 
-let uploadedFile: File | undefined = undefined
+const uploadedFile: File | undefined = undefined
 
 async function extract() {
     if (uploadedFile) {

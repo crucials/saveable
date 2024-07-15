@@ -1,15 +1,15 @@
 <template>
     <nav
+        ref="navigation"
         class="navigation-bar"
         :class="{ 'navigation-bar-expanded': expanded }"
-        ref="navigation"
     >
         <NuxtLink to="/" class="main-page-link">
             <img
                 src="~~/assets/images/logo.svg"
                 alt="Down arrow points to platform, Saveable logo"
                 class="logo"
-            />
+            >
         </NuxtLink>
 
         <ul class="navigation-menu">
@@ -43,21 +43,21 @@
         <ThemeSwitcher class="theme-switcher" />
 
         <button
+            v-if="expandButtonVisible"
             class="expand-mobile-navigation-button"
             title="Expand the navigation"
             @click="expanded = !expanded"
-            v-if="expandButtonVisible"
         >
             <img
+                v-if="!expanded"
                 src="~~/assets/images/expand.svg"
                 alt="Two arrows pointing up, expand button"
-                v-if="!expanded"
-            />
+            >
             <img
+                v-if="expanded"
                 src="~~/assets/images/close.svg"
                 alt="Cross, close button"
-                v-if="expanded"
-            />
+            >
         </button>
     </nav>
 </template>

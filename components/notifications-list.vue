@@ -1,5 +1,6 @@
 <template>
     <TransitionGroup
+        ref="notificationsContainer"
         :class="{
             'notifications-container': true,
             expanded: expanded,
@@ -7,12 +8,11 @@
         tag="ul"
         name="slide"
         @mouseleave="expanded = false"
-        ref="notificationsContainer"
     >
         <li
-            class="notification"
             v-for="notification in notifications"
             :key="notification.id"
+            class="notification"
             @mouseenter="expanded = true"
             @click="expanded = true"
         >
@@ -20,7 +20,7 @@
                 :src="`/images/${notification.type}-notification-icon.svg`"
                 :alt="`Icon for ${notification.type} notification`"
                 class="notification-icon"
-            />
+            >
 
             {{ notification.message }}
 
@@ -32,7 +32,7 @@
                     )
                 "
             >
-                <img src="~~/assets/images/cross.svg" alt="Cross, close icon" />
+                <img src="~~/assets/images/cross.svg" alt="Cross, close icon" >
             </button>
         </li>
     </TransitionGroup>

@@ -10,15 +10,15 @@
                 </p>
 
                 <IconTextField
+                    v-model.trim="playlistLink"
                     type="url"
                     placeholder="Playlist link"
-                    v-model.trim="playlistLink"
                     full-width
                 >
                     <img
                         src="~~/assets/images/link.svg"
                         alt="Two paperclips, link icon"
-                    />
+                    >
                 </IconTextField>
 
                 <div class="actions">
@@ -44,7 +44,7 @@
                 src="~~/assets/images/soundcloud-export-large.svg"
                 alt="Cloud with sound waves (SoundCloud logo) and an arrow up above it"
                 class="page-icon"
-            />
+            >
         </template>
 
         <OtherToolsSection

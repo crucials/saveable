@@ -5,19 +5,19 @@
             :checked="modelValue"
             @change="
                 (event: Event) =>
-                    $emit(
+                    emit(
                         'update:modelValue',
                         (event.target as HTMLInputElement).checked,
                     )
             "
-        />
+        >
 
         <div class="toggle-button" :class="{ toggled: modelValue }">
-            <div class="circle"></div>
+            <div class="circle"/>
         </div>
 
         <span class="toggle-button-label">
-            <slot></slot>
+            <slot/>
         </span>
     </label>
 </template>
@@ -25,6 +25,10 @@
 <script lang="ts" setup>
 defineProps<{
     modelValue: boolean
+}>()
+
+const emit = defineEmits<{
+    (event: 'update:modelValue', newValue: boolean): void
 }>()
 </script>
 

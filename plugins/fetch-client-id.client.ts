@@ -1,5 +1,5 @@
 import { getSoundcloudClientId } from 'soundcloud-client-id-generator'
-import { clientId, setClientId } from '~/client-id'
+import { setClientId } from '~/client-id'
 import { EXTERNAL_PROXY_URL } from '~/constants/api-urls'
 
 export default defineNuxtPlugin(async () => {

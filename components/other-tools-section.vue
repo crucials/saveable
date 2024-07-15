@@ -7,21 +7,22 @@
         <div class="other-tools-links">
             <NuxtLink
                 v-for="page in toolsPages"
+                :key="page.link"
                 :to="page.link"
                 class="page-card"
             >
-                <div class="lightning"></div>
+                <div class="lightning"/>
 
                 <img
                     :src="page.iconSrc"
                     :alt="page.iconAltText"
                     class="page-icon light-theme-page-icon"
-                />
+                >
                 <img
                     :src="page.darkThemeIconSrc"
                     :alt="page.iconAltText"
                     class="page-icon dark-theme-page-icon"
-                />
+                >
 
                 <h3 class="page-title">
                     {{ page.title }}

@@ -5,21 +5,21 @@
         @dragover.prevent=""
     >
         <input
+            ref="fileInput"
             type="file"
             class="actual-file-input"
-            ref="fileInput"
-            @change="uploadFile"
             :accept="accept"
-        />
+            @change="uploadFile"
+        >
 
         <img
             src="~~/assets/images/add-file.svg"
             alt="File with plus sign in rounded rectangle, add file icon"
             class="add-file-icon"
-        />
+        >
 
         <p v-if="!modelValue" class="tip">
-            <slot></slot>
+            <slot/>
         </p>
 
         <p v-else class="filename">
