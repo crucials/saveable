@@ -6,46 +6,45 @@
         <img src="~~/assets/images/add-file.svg" alt="File with plus sign in rounded rectangle, add file icon" 
             class="add-file-icon">
 
-        <p class="tip" v-if="!filename">
+        <p v-if="!modelValue" class="tip">
             <slot></slot>
         </p>
 
-        <p class="filename">
-            {{ filename }}
+        <p v-else class="filename">
+            {{ modelValue?.name }}
         </p>
     </label>
 </template>
 
 <script setup lang="ts">
-    defineProps<{
-        accept: string
-    }>()
+withDefaults(defineProps<{
+    accept: string
+    modelValue?: File | null
+}>(), {
+    modelValue: null
+})
 
-    const emit = defineEmits<{
-        (event : 'file-uploaded', file : File) : void
-    }>()
+const emit = defineEmits<{
+    (event : 'update:modelValue', file : File) : void
+}>()
 
-    const fileInput = ref<HTMLInputElement>()
-    const filename = ref<string>()
+const fileInput = ref<HTMLInputElement>()
 
-    function uploadFile() {
-        const files = fileInput.value?.files
+function uploadFile() {
+    const files = fileInput.value?.files
 
-        if(files && files[0]) {
-            filename.value = files[0].name
-
-            emit('file-uploaded', files[0])
-        }
+    if(files && files[0]) {
+        emit('update:modelValue', files[0])
     }
+}
 
-    function addDroppedFile(event : DragEvent) {
-        const droppedFile = event.dataTransfer?.files[0]
+function addDroppedFile(event : DragEvent) {
+    const droppedFile = event.dataTransfer?.files[0]
 
-        if(droppedFile) {
-            filename.value = droppedFile.name
-            emit('file-uploaded', droppedFile)
-        }
+    if(droppedFile) {
+        emit('update:modelValue', droppedFile)
     }
+}
 </script>
 
 <style scoped lang="scss">

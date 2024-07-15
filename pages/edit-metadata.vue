@@ -12,7 +12,7 @@
                 </p>
 
                 <FileUploadArea
-                    @file-uploaded="openAudioMetadataEditor"
+                    @update:model-value="openAudioMetadataEditor"
                     accept=".mp3"
                 >
                     Upload an MP3 file

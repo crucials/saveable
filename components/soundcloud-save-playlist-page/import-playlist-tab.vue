@@ -11,8 +11,10 @@
                     generated on export playlist page
                 </p>
 
-                <FileUploadArea @file-uploaded="(file : File) => uploadedFile = file" 
-                    accept="application/json">
+                <FileUploadArea
+                    v-model="uploadedFile"
+                    accept="application/json"
+                >
                     Upload JSON file
                     (<mark class="white-text">click</mark>
                     or

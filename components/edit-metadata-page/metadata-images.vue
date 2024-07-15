@@ -24,8 +24,11 @@
                 </defs>
             </svg>
         </div>
-        
-        <FileUploadArea accept="image/*" @file-uploaded="uploadImage">
+
+        <FileUploadArea
+            accept="image/*"
+            @update:model-value="uploadImage"
+        >
             Upload an image 
             (<mark class="white-text">click</mark>
             or
