@@ -33,7 +33,7 @@
                     />
                 </div>
 
-                <div>
+                <div class="metadata-image-wrapper">
                     <MetadataImage v-model="metadata.data.image" />
                 </div>
 
@@ -171,10 +171,20 @@ async function save() {
         row-gap: 20px;
         max-width: 600px;
     }
+
+    @media (max-width: 670px) {
+        grid-template-columns: 1fr;
+    }
 }
 
 .metadata-editor-wrapper {
     width: 100%;
+}
+
+.metadata-image-wrapper {
+    @media (max-width: 670px) {
+        grid-row-start: 1;
+    }
 }
 
 .save-button-wrapper {
@@ -184,6 +194,10 @@ async function save() {
     button {
         margin: 0 auto;
         width: 240px;
+    }
+
+    @media (max-width: 670px) {
+        grid-column: 1;
     }
 }
 </style>

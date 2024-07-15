@@ -72,7 +72,7 @@ function addDroppedFile(event: DragEvent) {
 }
 
 .upload-area {
-    min-width: 300px;
+    min-width: 260px;
     padding: 16px;
     border: 2px dashed hsla(0, 0%, 100%, 0.28);
     border-radius: 8px;
@@ -100,9 +100,16 @@ function addDroppedFile(event: DragEvent) {
     color: white;
 }
 
+@media (max-width: 1280px) {
+    .tip, .filename {
+        font-size: 1rem;
+    }
+}
+
 @media (max-width: 670px) {
     .upload-area {
         min-width: 230px;
+        padding: 10px;
     }
 }
 

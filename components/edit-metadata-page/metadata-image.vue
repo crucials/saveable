@@ -1,10 +1,10 @@
 <template>
-    <div>
-        <img v-if="modelValue" :src="modelValue.url" class="metadata-image" />
+    <div class="metadata-image">
+        <img v-if="modelValue" :src="modelValue.url" class="metadata-image-preview" />
 
         <div
             v-else
-            class="metadata-image music-note-icon-container"
+            class="metadata-image-preview music-note-icon-container"
             title="No image"
         >
             <svg
@@ -61,6 +61,19 @@ async function uploadImage(file: File) {
 
 <style scoped lang="scss">
 .metadata-image {
+    @media (max-width: 670px) {
+        display: grid;
+        grid-template-columns: minmax(200px, 2fr) 1fr;
+        gap: 12px;
+        align-items: start;
+    }
+
+    @media (max-width: 530px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.metadata-image-preview {
     max-width: 280px;
     width: 100%;
     aspect-ratio: 1/1;
@@ -68,6 +81,11 @@ async function uploadImage(file: File) {
     object-fit: cover;
 
     margin-bottom: 30px;
+
+    @media (max-width: 530px) {
+        max-width: 170px;
+        margin-bottom: 10px;
+    }
 }
 
 .music-note-icon-container {
