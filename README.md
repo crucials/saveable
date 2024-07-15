@@ -6,9 +6,10 @@ website with media utilities like video and audio downloader and audio extractio
 
 new features - soundcloud playlist/album downloader (_playlists with more than about 100 tracks probably won't be downloaded because app is hosted on 512 MB servers_) and SampleFocus downloader
 
-### functionallity: 
-- video, audio or playlist downloaders for such services as youtube and soundcloud (_more platfoms soon_).
-- audio extraction from file or youtube video, converts most of video formats to mp3. convertion happens in your browser so your videos isn't uploaded to anywhere
+### functionallity:
+
+-   video, audio or playlist downloaders for such services as youtube and soundcloud (_more platfoms soon_).
+-   audio extraction from file or youtube video, converts most of video formats to mp3. convertion happens in your browser so your videos isn't uploaded to anywhere
 
 ## try it out
 

@@ -1,24 +1,30 @@
 <template>
-    <Component :is="type" class="heading custom-margin" 
+    <Component
+        :is="type"
+        class="heading custom-margin"
         :class="{
-            [color]: true
-        }">
+            [color]: true,
+        }"
+    >
         <slot></slot>
     </Component>
 </template>
 
 <script lang="ts" setup>
-const props = withDefaults(defineProps<{
-    marginBottom?: string
-    type? : 'h1' | 'h2' | 'h3'
-    color? : 'white' | 'pastel-purple' | 'black-and-white'
-    textAlign?: 'start' | 'end' | 'center'
-}>(), {
-    type: 'h1',
-    color: 'white',
-    marginBottom: '16px',
-    textAlign: 'start',
-})
+const props = withDefaults(
+    defineProps<{
+        marginBottom?: string
+        type?: 'h1' | 'h2' | 'h3'
+        color?: 'white' | 'pastel-purple' | 'black-and-white'
+        textAlign?: 'start' | 'end' | 'center'
+    }>(),
+    {
+        type: 'h1',
+        color: 'white',
+        marginBottom: '16px',
+        textAlign: 'start',
+    },
+)
 </script>
 
 <style scoped lang="scss">

@@ -2,21 +2,18 @@
     <NuxtLayout name="service-page">
         <template #form>
             <form class="service-form" @submit.prevent>
-                <Heading>
-                    Edit tags/metadata of MP3 file
-                </Heading>
+                <Heading> Edit tags/metadata of MP3 file </Heading>
 
                 <p class="white-text">
-                    Metadata editing happens in your browser, so your files isn't uploaded
-                    to anywhere
+                    Metadata editing happens in your browser, so your files
+                    isn't uploaded to anywhere
                 </p>
 
                 <FileUploadArea
                     @update:model-value="openAudioMetadataEditor"
                     accept=".mp3"
                 >
-                    Upload an MP3 file
-                    (<mark class="white-text">click</mark>
+                    Upload an MP3 file (<mark class="white-text">click</mark>
                     or
                     <mark class="white-text">drag and drop</mark>)
                 </FileUploadArea>
@@ -42,12 +39,12 @@
 import type { MetadataEditorData } from '~/types/metadata-editor'
 
 useHead({
-    title: 'Edit metadata of your media files | Saveable'
+    title: 'Edit metadata of your media files | Saveable',
 })
 
 const metadataEditor = reactive<MetadataEditorData>({
     modalOpened: false,
-    file: null
+    file: null,
 })
 
 function openAudioMetadataEditor(file: File) {
@@ -56,6 +53,4 @@ function openAudioMetadataEditor(file: File) {
 }
 </script>
 
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>

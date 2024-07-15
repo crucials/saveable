@@ -1,5 +1,9 @@
 <template>
-    <WhiteFilledButton class="loading-button" :class="{ 'loading': loading }" :disabled="loading">
+    <WhiteFilledButton
+        class="loading-button"
+        :class="{ loading: loading }"
+        :disabled="loading"
+    >
         <span class="loading-button-text">
             <slot></slot>
         </span>
@@ -9,28 +13,28 @@
 </template>
 
 <script lang="ts" setup>
-    defineProps<{
-        loading : boolean
-    }>()
+defineProps<{
+    loading: boolean
+}>()
 </script>
 
 <style scoped lang="scss">
-    .spinner {
+.spinner {
+    display: none;
+}
+
+.loading {
+    &:hover {
+        box-shadow: none;
+        cursor: not-allowed;
+    }
+
+    .loading-button-text {
         display: none;
     }
 
-    .loading {
-        &:hover {
-            box-shadow: none;
-            cursor: not-allowed;
-        }
-
-        .loading-button-text {
-            display: none;
-        }
-
-        .spinner {
-            display: block;
-        }
+    .spinner {
+        display: block;
     }
+}
 </style>

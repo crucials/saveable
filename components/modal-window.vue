@@ -1,8 +1,11 @@
 <template>
-    <div :class="{ 'backdrop': true, 'backdrop-visible': opened }" @click="emit('closed')"></div>
+    <div
+        :class="{ backdrop: true, 'backdrop-visible': opened }"
+        @click="emit('closed')"
+    ></div>
     <dialog
         class="modal-window"
-        :class="{ 'wide': wide }"
+        :class="{ wide: wide }"
         :open="opened"
         v-bind="$attrs"
     >
@@ -12,12 +15,12 @@
 
 <script lang="ts" setup>
 defineProps<{
-    opened : boolean
+    opened: boolean
     wide?: boolean
 }>()
 
 const emit = defineEmits<{
-    (event : 'closed') : void
+    (event: 'closed'): void
 }>()
 
 onMounted(() => {
@@ -28,8 +31,8 @@ onUnmounted(() => {
     document.removeEventListener('keyup', closeIfPressedEscape)
 })
 
-function closeIfPressedEscape(event : KeyboardEvent) {
-    if(event.key === 'Escape') {
+function closeIfPressedEscape(event: KeyboardEvent) {
+    if (event.key === 'Escape') {
         emit('closed')
     }
 }
@@ -69,7 +72,7 @@ function closeIfPressedEscape(event : KeyboardEvent) {
     border-radius: 16px;
     background-color: white;
     transform-origin: center;
-    box-shadow: 0px 0px 30px 0px #0000004D;
+    box-shadow: 0px 0px 30px 0px #0000004d;
     width: 30%;
     min-width: 400px;
 

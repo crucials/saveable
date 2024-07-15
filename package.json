@@ -1,49 +1,49 @@
 {
-  "name": "saveable",
-  "private": true,
-  "overrides": {
-    "vue": "latest",
-    "eslint": "^9.7.0"
-  },
-  "type": "module",
-  "scripts": {
-    "build": "nuxt build",
-    "dev": "nuxt dev",
-    "generate": "nuxt generate",
-    "preview": "nuxt preview",
-    "postinstall": "nuxt prepare",
-    "start": "node ./.output/server/index.mjs",
-    "test": "npm run start | vitest run",
-    "test:exclude-api": "vitest run --exclude ./tests/api/**/*",
-    "lint": ""
-  },
-  "devDependencies": {
-    "@nuxt/eslint": "^0.3.13",
-    "@nuxt/test-utils": "^3.13.1",
-    "@types/node": "^18",
-    "@types/node-fetch": "^2.6.7",
-    "@vueuse/core": "^10.5.0",
-    "@vueuse/nuxt": "^10.5.0",
-    "globals": "^15.8.0",
-    "jsdom": "^24.1.0",
-    "nuxt": "^3.4.3",
-    "prettier": "^3.3.3",
-    "sass": "^1.62.1",
-    "vitest": "^1.6.0"
-  },
-  "dependencies": {
-    "@ffmpeg/core": "^0.11.0",
-    "@ffmpeg/ffmpeg": "^0.11.6",
-    "@netlify/functions": "^1.6.0",
-    "@nuxt/image": "^1.0.0-rc.3",
-    "@pinia/nuxt": "^0.4.9",
-    "browser-id3-writer": "^6.0.0",
-    "id3js": "^2.1.1",
-    "js-file-downloader": "^1.1.24",
-    "jszip": "^3.10.1",
-    "node-html-parser": "^6.1.5",
-    "pinia": "^2.1.7",
-    "soundcloud-client-id-generator": "^1.4.2",
-    "ytdl-core": "^4.11.4"
-  }
+    "name": "saveable",
+    "private": true,
+    "overrides": {
+        "vue": "latest",
+        "eslint": "^9.7.0"
+    },
+    "type": "module",
+    "scripts": {
+        "build": "nuxt build",
+        "dev": "nuxt dev",
+        "generate": "nuxt generate",
+        "preview": "nuxt preview",
+        "postinstall": "nuxt prepare",
+        "start": "node ./.output/server/index.mjs",
+        "test": "npm run start | vitest run",
+        "test:exclude-api": "vitest run --exclude ./tests/api/**/*",
+        "lint": ""
+    },
+    "devDependencies": {
+        "@nuxt/eslint": "^0.3.13",
+        "@nuxt/test-utils": "^3.13.1",
+        "@types/node": "^18",
+        "@types/node-fetch": "^2.6.7",
+        "@vueuse/core": "^10.5.0",
+        "@vueuse/nuxt": "^10.5.0",
+        "globals": "^15.8.0",
+        "jsdom": "^24.1.0",
+        "nuxt": "^3.4.3",
+        "prettier": "^3.3.3",
+        "sass": "^1.62.1",
+        "vitest": "^1.6.0"
+    },
+    "dependencies": {
+        "@ffmpeg/core": "^0.11.0",
+        "@ffmpeg/ffmpeg": "^0.11.6",
+        "@netlify/functions": "^1.6.0",
+        "@nuxt/image": "^1.0.0-rc.3",
+        "@pinia/nuxt": "^0.4.9",
+        "browser-id3-writer": "^6.0.0",
+        "id3js": "^2.1.1",
+        "js-file-downloader": "^1.1.24",
+        "jszip": "^3.10.1",
+        "node-html-parser": "^6.1.5",
+        "pinia": "^2.1.7",
+        "soundcloud-client-id-generator": "^1.4.2",
+        "ytdl-core": "^4.11.4"
+    }
 }

@@ -1,12 +1,11 @@
-if(localStorage.getItem('theme') === null) {
-    if(window.matchMedia('(prefers-color-scheme: dark)').matches) {
+if (localStorage.getItem('theme') === null) {
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
         localStorage.setItem('theme', 'dark')
-    }
-    else {
+    } else {
         localStorage.setItem('theme', 'light')
     }
 }
 
-if(localStorage.getItem('theme') === 'dark') {
+if (localStorage.getItem('theme') === 'dark') {
     document.documentElement.classList.add('dark')
 }

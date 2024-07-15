@@ -4,26 +4,34 @@
     border: 0;
 }
 
-*, *:before, *:after {
+*,
+*:before,
+*:after {
     -moz-box-sizing: border-box;
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
-nav, footer, header, aside {
+nav,
+footer,
+header,
+aside {
     display: block;
 }
 
-html, body {
-	font-size: 100%;
-	line-height: 1.5;
-	font-size: 16px;
-	-ms-text-size-adjust: 100%;
-	-moz-text-size-adjust: 100%;
-	-webkit-text-size-adjust: 100%;
+html,
+body {
+    font-size: 100%;
+    line-height: 1.5;
+    font-size: 16px;
+    -ms-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
 }
 
-input, button, textarea {
+input,
+button,
+textarea {
     font-family: inherit;
 }
 
@@ -31,7 +39,8 @@ input::-ms-clear {
     display: none;
 }
 
-input:focus, textarea:focus {
+input:focus,
+textarea:focus {
     outline: none;
     border: none;
     box-shadow: none;
@@ -47,7 +56,9 @@ button::-moz-focus-inner {
     border: 0;
 }
 
-a, a:visited, a:hover {
+a,
+a:visited,
+a:hover {
     text-decoration: none;
 }
 
@@ -55,10 +66,11 @@ ul li {
     list-style: none;
 }
 
-select, mark {
+select,
+mark {
     background-color: transparent;
 }
 
 dialog {
-	margin: 0;
+    margin: 0;
 }

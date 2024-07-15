@@ -1,15 +1,8 @@
 <template>
-    <ModalWindow
-        :opened="opened"
-        wide
-        @closed="emit('update:opened', false)"
-    >
+    <ModalWindow :opened="opened" wide @closed="emit('update:opened', false)">
         <div v-if="metadata.loading" class="spinner"></div>
 
-        <div
-            v-else-if="file && metadata.data"
-            class="metadata-editor-wrapper"
-        >
+        <div v-else-if="file && metadata.data" class="metadata-editor-wrapper">
             <Heading
                 color="black-and-white"
                 text-align="center"
@@ -19,10 +12,7 @@
                 {{ file.name }}
             </Heading>
 
-            <form
-                class="metadata-form"
-                @submit.prevent="save"
-            >
+            <form class="metadata-form" @submit.prevent="save">
                 <div class="metadata-form-inputs">
                     <IconTextField
                         v-model="metadata.data.title"
@@ -58,18 +48,20 @@
 </template>
 
 <script setup lang="ts">
-import { ID3Writer } from 'browser-id3-writer';
+import { ID3Writer } from 'browser-id3-writer'
 import { fromFile } from 'id3js'
 import JsFileDownloader from 'js-file-downloader'
 import { ID3_ALBUM, ID3_ARTIST, ID3_TITLE } from '~/constants/id3-tags'
 import { useNotificationsStore } from '~/stores/notifications'
-import type { MetadataImageWithUrl, MediaMetadata } from '~/types/metadata-editor'
+import type {
+    MetadataImageWithUrl,
+    MediaMetadata,
+} from '~/types/metadata-editor'
 
 const props = defineProps<{
     opened: boolean
     file: File | null
 }>()
-
 
 const emit = defineEmits<{
     (event: 'update:opened', newValue: boolean): void
@@ -79,73 +71,79 @@ const { showNotification } = useNotificationsStore()
 
 const metadata = reactive<{
     loading: boolean
-    data: MediaMetadata & { images?: MetadataImageWithUrl[] } | null
+    data: (MediaMetadata & { images?: MetadataImageWithUrl[] }) | null
 }>({
     loading: false,
     data: null,
 })
 
-watch(() => props.file, async () => {
-    if(!props.file) {
-        return
-    }
-
-    try {
-        const fileMetadata = await fromFile(props.file)
-
-        if(!fileMetadata) {
-            metadata.data = {
-                album: null,
-                artist: null,
-                title: null,
-                year: null,
-            }
+watch(
+    () => props.file,
+    async () => {
+        if (!props.file) {
             return
         }
 
-        metadata.data = {
-            ...fileMetadata,
-            // images: getImagesFromMetadata(fileMetadata)
-            images: undefined,
+        try {
+            const fileMetadata = await fromFile(props.file)
+
+            if (!fileMetadata) {
+                metadata.data = {
+                    album: null,
+                    artist: null,
+                    title: null,
+                    year: null,
+                }
+                return
+            }
+
+            metadata.data = {
+                ...fileMetadata,
+                // images: getImagesFromMetadata(fileMetadata)
+                images: undefined,
+            }
+        } catch (error) {
+            showNotification(
+                'error',
+                'failed to load your file metadata, more info: ' + `'${error}'`,
+            )
         }
-    }
-    catch(error) {
-        showNotification('error', 'failed to load your file metadata, more info: '
-            + `'${error}'`)
-    }
-})
+    },
+)
 
 function getImagesFromMetadata(
-    metadata: MediaMetadata
+    metadata: MediaMetadata,
 ): MetadataImageWithUrl[] | undefined {
     if (!metadata.images) {
         return undefined
     }
 
-    return metadata.images.map(image => {
+    return metadata.images.map((image) => {
         return {
             ...image,
-            url: URL.createObjectURL(new Blob([new Uint8Array(image.data)], { type: undefined }))
+            url: URL.createObjectURL(
+                new Blob([new Uint8Array(image.data)], { type: undefined }),
+            ),
         }
     })
 }
 
 async function save() {
-    if(!props.file) {
+    if (!props.file) {
         return
     }
 
     const writer = new ID3Writer(await props.file.arrayBuffer())
 
-    if(metadata.data?.title) {
+    if (metadata.data?.title) {
         writer.setFrame(ID3_TITLE, metadata.data.title)
     }
 
-    if(metadata.data?.artist) {
+    if (metadata.data?.artist) {
         writer.setFrame(ID3_ARTIST, [metadata.data.artist])
     }
 
-    if(metadata.data?.album) {
+    if (metadata.data?.album) {
         writer.setFrame(ID3_ALBUM, metadata.data.album)
     }
 
@@ -153,7 +151,7 @@ async function save() {
 
     new JsFileDownloader({
         filename: props.file.name,
-        url: writer.getURL()
+        url: writer.getURL(),
     })
 }
 </script>

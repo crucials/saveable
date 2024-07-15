@@ -4,5 +4,5 @@ export default defineVitestConfig({
     test: {
         setupFiles: './tests/setup.ts',
         environment: 'jsdom',
-    }
+    },
 })

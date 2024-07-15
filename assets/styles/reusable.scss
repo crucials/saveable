@@ -56,16 +56,17 @@ $bottom-bar-breakpoint-width: 1050px;
         transform-origin: right;
     }
 
-    &:hover::before, &:hover::after {
+    &:hover::before,
+    &:hover::after {
         transform: scaleX(1);
     }
 
     &:disabled:hover {
         cursor: not-allowed;
 
-        &::before, &::after {
+        &::before,
+        &::after {
             transform: scaleX(0);
-
         }
     }
 }
@@ -92,7 +93,6 @@ $bottom-bar-breakpoint-width: 1050px;
         border-right: 2px solid $emerald;
     }
 }
-
 
 @media (max-width: 1000px) {
     .page-icon {

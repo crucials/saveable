@@ -1,9 +1,24 @@
-$emerald: #5DC080;
-$soft-black: #0F0F0F;
-$pastel-purple: #A58DE9;
-$enchanted-emerald-gradient: linear-gradient(101.21deg, #FFFFFF 0%, #11998E 0.01%, #38EF7D 100%);
-$amethyst-gradient: linear-gradient(101deg, #FFF 0%, #11998E 0.01%, #A58DE9 0.02%, #38EF7D 100%);
+$emerald: #5dc080;
+$soft-black: #0f0f0f;
+$pastel-purple: #a58de9;
+$enchanted-emerald-gradient: linear-gradient(
+    101.21deg,
+    #ffffff 0%,
+    #11998e 0.01%,
+    #38ef7d 100%
+);
+$amethyst-gradient: linear-gradient(
+    101deg,
+    #fff 0%,
+    #11998e 0.01%,
+    #a58de9 0.02%,
+    #38ef7d 100%
+);
 
 %themeable {
-    transition: color 0.5s, background-color 0.5s, fill 0.5s, border-color 0.5s;
+    transition:
+        color 0.5s,
+        background-color 0.5s,
+        fill 0.5s,
+        border-color 0.5s;
 }

@@ -1,20 +1,38 @@
 <template>
-    <TransitionGroup 
+    <TransitionGroup
         :class="{
             'notifications-container': true,
-            'expanded': expanded,
-        }" tag="ul" name="slide" @mouseleave="expanded = false" ref="notificationsContainer">
-        <li class="notification" v-for="notification in notifications" 
-            :key="notification.id" @mouseenter="expanded = true" @click="expanded = true">
-
-            <img :src="`/images/${notification.type}-notification-icon.svg`" 
-                :alt="`Icon for ${notification.type} notification`" class="notification-icon">
+            expanded: expanded,
+        }"
+        tag="ul"
+        name="slide"
+        @mouseleave="expanded = false"
+        ref="notificationsContainer"
+    >
+        <li
+            class="notification"
+            v-for="notification in notifications"
+            :key="notification.id"
+            @mouseenter="expanded = true"
+            @click="expanded = true"
+        >
+            <img
+                :src="`/images/${notification.type}-notification-icon.svg`"
+                :alt="`Icon for ${notification.type} notification`"
+                class="notification-icon"
+            />
 
             {{ notification.message }}
 
-            <button class="close-button" 
-                @click.stop="notifications = notifications.filter(item => item.id !== notification.id)">
-                <img src="~~/assets/images/cross.svg" alt="Cross, close icon">
+            <button
+                class="close-button"
+                @click.stop="
+                    notifications = notifications.filter(
+                        (item) => item.id !== notification.id,
+                    )
+                "
+            >
+                <img src="~~/assets/images/cross.svg" alt="Cross, close icon" />
             </button>
         </li>
     </TransitionGroup>
@@ -103,8 +121,8 @@ onMounted(() => {
     top: 0px;
     padding: 14px 36px 14px 18px;
     border-radius: 12px;
-    border: 2px solid #EBEBEB;
-    box-shadow: 2px 4px 6px 0px rgba(0, 0, 0, 0.10);
+    border: 2px solid #ebebeb;
+    box-shadow: 2px 4px 6px 0px rgba(0, 0, 0, 0.1);
     display: flex;
     align-items: center;
     column-gap: 26px;
@@ -147,7 +165,7 @@ onMounted(() => {
     top: 15px;
     right: 15px;
     transition: opacity 0.4s ease;
-    
+
     .dark & {
         opacity: 0.3;
 
@@ -157,7 +175,9 @@ onMounted(() => {
     }
 }
 
-.slide-move, .slide-enter-active, .slide-leave-active {
+.slide-move,
+.slide-enter-active,
+.slide-leave-active {
     transition: all 0.5s ease;
 }
 
@@ -165,7 +185,8 @@ onMounted(() => {
     position: absolute;
 }
 
-.slide-enter-from, .slide-leave-to {
+.slide-enter-from,
+.slide-leave-to {
     transform: translateX(25px);
     opacity: 0;
 }

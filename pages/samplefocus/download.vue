@@ -6,14 +6,19 @@
                     Download from SampleFocus
                 </Heading>
 
-                <IconTextField type="url" placeholder="Sample page link" v-model.trim="sampleLink"
-                    full-width>
-                    <img src="~~/assets/images/link.svg" alt="Two paperclips, link icon">
+                <IconTextField
+                    type="url"
+                    placeholder="Sample page link"
+                    v-model.trim="sampleLink"
+                    full-width
+                >
+                    <img
+                        src="~~/assets/images/link.svg"
+                        alt="Two paperclips, link icon"
+                    />
                 </IconTextField>
 
-                <LoadingButton :loading="loading">
-                    Download
-                </LoadingButton>
+                <LoadingButton :loading="loading"> Download </LoadingButton>
 
                 <ErrorText :visible="errorTextVisible">
                     {{ errorText }}
@@ -22,9 +27,11 @@
         </template>
 
         <template #icon>
-            <img src="~~/assets/images/samplefocus.svg" 
+            <img
+                src="~~/assets/images/samplefocus.svg"
                 alt="'Sample' and 'Focus' labels divided by sound wave, SampleFocus logo"
-                class="page-icon">
+                class="page-icon"
+            />
         </template>
     </NuxtLayout>
 </template>
@@ -34,7 +41,7 @@ import JsFileDownloader from 'js-file-downloader'
 import { DEFAULT_DOWNLOAD_ERROR_MESSAGE } from '~/constants/messages'
 
 useHead({
-    title: 'Download from SampleFocus | Saveable'
+    title: 'Download from SampleFocus | Saveable',
 })
 
 const { errorTextVisible, errorText, showErrorText } = useErrorText()
@@ -45,37 +52,33 @@ const loading = ref(false)
 async function download() {
     const sampleLinkValue = sampleLink.value
 
-    if(sampleLinkValue.length < 1) {
+    if (sampleLinkValue.length < 1) {
         showErrorText('You should enter sample link to download it')
         return
     }
 
     loading.value = true
-    
+
     try {
         const sampleInfo = await getSampleMediaInfo(sampleLinkValue)
 
-        await new JsFileDownloader({ 
-            url: '/api/proxy/media'
-                + `?url=${encodeURIComponent(sampleInfo.downloadUrl)}`
-                + `&referer=${encodeURIComponent('https://samplefocus.com')}`, 
+        await new JsFileDownloader({
+            url:
+                '/api/proxy/media' +
+                `?url=${encodeURIComponent(sampleInfo.downloadUrl)}` +
+                `&referer=${encodeURIComponent('https://samplefocus.com')}`,
             filename: sampleInfo.name + '.mp3',
         })
-    }
-    catch(error) {
-        if(error instanceof Error) {
+    } catch (error) {
+        if (error instanceof Error) {
             showErrorText(error.message)
-        }
-        else {
+        } else {
             showErrorText(DEFAULT_DOWNLOAD_ERROR_MESSAGE)
         }
-    }
-    finally {
+    } finally {
         loading.value = false
     }
 }
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
