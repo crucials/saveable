@@ -44,10 +44,7 @@
                 </div>
 
                 <div>
-                    <!-- <img
-                        v-if="metadata.data.images && metadata.data.images.length > 0"
-                        :src="metadata.data.images[0].url"
-                    /> -->
+                    <MetadataImages v-model="metadata.data.images" />
                 </div>
 
                 <div class="save-button-wrapper">
@@ -64,7 +61,7 @@
 import { ID3Writer } from 'browser-id3-writer';
 import { fromFile } from 'id3js'
 import JsFileDownloader from 'js-file-downloader'
-import { ID3_ALBUM, ID3_ARTIST, ID3_TITLE, ID3_YEAR } from '~/constants/id3-tags'
+import { ID3_ALBUM, ID3_ARTIST, ID3_TITLE } from '~/constants/id3-tags'
 import { useNotificationsStore } from '~/stores/notifications'
 import type { MetadataImageWithUrl, MediaMetadata } from '~/types/metadata-editor'
 
@@ -108,7 +105,8 @@ watch(() => props.file, async () => {
 
         metadata.data = {
             ...fileMetadata,
-            images: getImagesFromMetadata(fileMetadata)
+            // images: getImagesFromMetadata(fileMetadata)
+            images: undefined,
         }
     }
     catch(error) {
@@ -163,13 +161,14 @@ async function save() {
 <style lang="scss" scoped>
 .metadata-form {
     display: grid;
-    grid-template-columns: 4fr 3fr;
+    grid-template-columns: 5fr minmax(250px, 3fr);
     gap: 20px;
 
     &-inputs {
         display: flex;
         flex-direction: column;
         row-gap: 20px;
+        max-width: 600px;
     }
 }
 
