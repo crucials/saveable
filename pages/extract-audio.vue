@@ -29,7 +29,7 @@
         </template>
 
         <template #icon>
-            <img src="~~/assets/images/sound-wave.svg" alt="Звуковая волна" class="page-icon">
+            <img src="~~/assets/images/sound-wave.svg" alt="Sound wave" class="page-icon">
         </template>
     </NuxtLayout>
 </template>
