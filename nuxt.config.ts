@@ -1,18 +1,13 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-    modules: [
-        '@vueuse/nuxt',
-        '@nuxt/image',
-        
-        [
-            '@pinia/nuxt',
-            {
-                autoImports: [
-                    'defineStore', 'storeToRefs'
-                ]
-            }
-        ]
-    ],
+    modules: ['@vueuse/nuxt', '@nuxt/image', [
+        '@pinia/nuxt',
+        {
+            autoImports: [
+                'defineStore', 'storeToRefs'
+            ]
+        }
+    ], "@nuxt/eslint"],
 
     app: {
         head: {
