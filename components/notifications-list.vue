@@ -20,7 +20,7 @@
                 :src="`/images/${notification.type}-notification-icon.svg`"
                 :alt="`Icon for ${notification.type} notification`"
                 class="notification-icon"
-            >
+            />
 
             {{ notification.message }}
 
@@ -32,7 +32,7 @@
                     )
                 "
             >
-                <img src="~~/assets/images/cross.svg" alt="Cross, close icon" >
+                <img src="~~/assets/images/cross.svg" alt="Cross, close icon" />
             </button>
         </li>
     </TransitionGroup>

@@ -4,7 +4,7 @@
             v-if="modelValue && modelValue.length > 0"
             :src="modelValue[0].url"
             class="metadata-image"
-        >
+        />
 
         <div
             v-else

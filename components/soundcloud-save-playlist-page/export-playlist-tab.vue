@@ -18,7 +18,7 @@
                     <img
                         src="~~/assets/images/link.svg"
                         alt="Two paperclips, link icon"
-                    >
+                    />
                 </IconTextField>
 
                 <div class="actions">
@@ -44,7 +44,7 @@
                 src="~~/assets/images/soundcloud-export-large.svg"
                 alt="Cloud with sound waves (SoundCloud logo) and an arrow up above it"
                 class="page-icon"
-            >
+            />
         </template>
 
         <OtherToolsSection

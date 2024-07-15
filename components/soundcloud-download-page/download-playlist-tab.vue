@@ -15,7 +15,7 @@
                     <img
                         src="~~/assets/images/link.svg"
                         alt="Two paperclips, link icon"
-                    >
+                    />
                 </IconTextField>
 
                 <ToggleButton v-model="includeArtistInFilenames">
@@ -47,7 +47,7 @@
                 src="~~/assets/images/soundcloud-logo-with-reflection.svg"
                 alt="Cloud with sound waves with reflection, SoundCloud logo"
                 class="page-icon"
-            >
+            />
         </template>
 
         <OtherToolsSection
@@ -79,13 +79,13 @@
             v-show="downloadStatus.stage === 'success'"
             src="~~/assets/images/checkmark.svg"
             alt="Checkmark in green circle"
-        >
+        />
 
         <img
             v-show="downloadStatus.stage === 'error'"
             src="~~/assets/images/broken-laptop.svg"
             alt="Laptop with broken screen"
-        >
+        />
 
         <h2 class="download-status-heading">
             {{ downloadStatus.heading }}

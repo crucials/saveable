@@ -5,10 +5,10 @@
         :disabled="loading"
     >
         <span class="loading-button-text">
-            <slot/>
+            <slot />
         </span>
 
-        <div class="spinner spinner-full-border"/>
+        <div class="spinner spinner-full-border" />
     </WhiteFilledButton>
 </template>
 

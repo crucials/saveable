@@ -28,7 +28,7 @@
                 src="~~/assets/images/sound-wave.svg"
                 alt="Sound wave"
                 class="page-icon"
-            >
+            />
         </template>
     </NuxtLayout>
 </template>

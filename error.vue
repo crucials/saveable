@@ -9,7 +9,7 @@
                 src="~~/assets/images/not-found.svg"
                 alt="Pages, documents contain question marks"
                 class="error-illustration"
-            >
+            />
 
             <div class="links">
                 <NuxtLink to="/soundcloud/download" class="page-link">
@@ -17,7 +17,7 @@
                         <img
                             src="~~/assets/images/download.svg"
                             alt="Download icon"
-                        >
+                        />
                         SoundCloud
                     </EmeraldFilledButton>
                 </NuxtLink>
@@ -27,7 +27,7 @@
                         <img
                             src="~~/assets/images/download.svg"
                             alt="Download icon"
-                        >
+                        />
                         YouTube
                     </EmeraldFilledButton>
                 </NuxtLink>

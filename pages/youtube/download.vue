@@ -13,7 +13,7 @@
                     <img
                         src="~~/assets/images/link.svg"
                         alt="Two paperclips, link icon"
-                    >
+                    />
                 </IconTextField>
 
                 <div class="actions">
@@ -40,7 +40,7 @@
                 src="~~/assets/images/youtube.svg"
                 alt="Rounded rectangle with triangle in it, YouTube logo"
                 class="page-icon"
-            >
+            />
         </template>
     </NuxtLayout>
 </template>

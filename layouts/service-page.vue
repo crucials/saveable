@@ -70,11 +70,11 @@
         </svg>
 
         <section class="gradient-container">
-            <slot name="form"/>
-            <slot name="icon"/>
+            <slot name="form" />
+            <slot name="icon" />
         </section>
 
-        <slot/>
+        <slot />
     </main>
 </template>
 

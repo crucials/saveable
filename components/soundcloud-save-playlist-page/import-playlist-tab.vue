@@ -31,7 +31,7 @@
                             src="~~/assets/images/info.svg"
                             class="token-field-info-icon"
                             alt="Letter 'i' placed in a rounded square, information icon"
-                        >
+                        />
                     </NuxtLink>
                 </IconTextField>
 
@@ -66,7 +66,7 @@
                 src="~~/assets/images/soundcloud-import-large.svg"
                 alt="Cloud with sound waves (SoundCloud logo) and the arrow above pointing on it"
                 class="page-icon"
-            >
+            />
         </template>
 
         <OtherToolsSection
@@ -91,7 +91,7 @@
         <img
             src="~~/assets/images/checkmark.svg"
             alt="Checkmark in green circle"
-        >
+        />
 
         <Heading color="black-and-white" type="h2" margin-bottom="0">
             Imported successfully
@@ -108,7 +108,7 @@
                 <img
                     src="~~/assets/images/clipboard.svg"
                     alt="Clipboard, 'copy' button icon"
-                >
+                />
             </button>
         </IconTextField>
 

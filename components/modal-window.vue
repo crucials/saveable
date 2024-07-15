@@ -9,7 +9,7 @@
         :open="opened"
         v-bind="$attrs"
     >
-        <slot/>
+        <slot />
     </dialog>
 </template>
 

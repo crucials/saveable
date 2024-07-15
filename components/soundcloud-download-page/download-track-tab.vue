@@ -15,7 +15,7 @@
                     <img
                         src="~~/assets/images/link.svg"
                         alt="Two paperclips, link icon"
-                    >
+                    />
                 </IconTextField>
 
                 <ToggleButton v-model="options.includeArtistInFilename">
@@ -49,7 +49,7 @@
                 src="~~/assets/images/soundcloud.svg"
                 alt="Cloud with sound waves, SoundCloud logo"
                 class="page-icon"
-            >
+            />
         </template>
 
         <OtherToolsSection

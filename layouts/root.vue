@@ -1,7 +1,7 @@
 <template>
     <div class="root-wrapper">
         <NavigationBar />
-        <slot/>
+        <slot />
 
         <NotificationsList />
     </div>

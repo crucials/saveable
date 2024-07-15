@@ -5,7 +5,7 @@
         :href="link"
         :target="link ? '_blank' : null"
     >
-        <slot/>
+        <slot />
     </component>
 </template>
 

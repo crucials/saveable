@@ -10,16 +10,16 @@
             class="actual-file-input"
             :accept="accept"
             @change="uploadFile"
-        >
+        />
 
         <img
             src="~~/assets/images/add-file.svg"
             alt="File with plus sign in rounded rectangle, add file icon"
             class="add-file-icon"
-        >
+        />
 
         <p v-if="!modelValue" class="tip">
-            <slot/>
+            <slot />
         </p>
 
         <p v-else class="filename">

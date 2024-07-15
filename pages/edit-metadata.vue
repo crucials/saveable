@@ -30,7 +30,7 @@
                 src="~~/assets/images/tags.svg"
                 alt="Tags"
                 class="full-width-page-icon page-icon"
-            >
+            />
         </template>
     </NuxtLayout>
 </template>

@@ -9,7 +9,7 @@
                 src="~~/assets/images/logo.svg"
                 alt="Down arrow points to platform, Saveable logo"
                 class="logo"
-            >
+            />
         </NuxtLink>
 
         <ul class="navigation-menu">
@@ -52,12 +52,12 @@
                 v-if="!expanded"
                 src="~~/assets/images/expand.svg"
                 alt="Two arrows pointing up, expand button"
-            >
+            />
             <img
                 v-if="expanded"
                 src="~~/assets/images/close.svg"
                 alt="Cross, close button"
-            >
+            />
         </button>
     </nav>
 </template>

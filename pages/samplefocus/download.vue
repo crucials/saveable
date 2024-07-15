@@ -15,7 +15,7 @@
                     <img
                         src="~~/assets/images/link.svg"
                         alt="Two paperclips, link icon"
-                    >
+                    />
                 </IconTextField>
 
                 <LoadingButton :loading="loading"> Download </LoadingButton>
@@ -31,7 +31,7 @@
                 src="~~/assets/images/samplefocus.svg"
                 alt="'Sample' and 'Focus' labels divided by sound wave, SampleFocus logo"
                 class="page-icon"
-            >
+            />
         </template>
     </NuxtLayout>
 </template>

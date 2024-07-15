@@ -7,7 +7,7 @@
             themeable: themeable,
         }"
     >
-        <slot/>
+        <slot />
         <input
             :type="type"
             :placeholder="placeholder"
@@ -23,7 +23,7 @@
                         (event.target as HTMLInputElement).value,
                     )
             "
-        >
+        />
     </div>
 </template>
 
@@ -39,7 +39,7 @@ withDefaults(
     }>(),
     {
         type: 'text',
-        placeholder: undefined
+        placeholder: undefined,
     },
 )
 

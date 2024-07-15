@@ -11,18 +11,18 @@
                 :to="page.link"
                 class="page-card"
             >
-                <div class="lightning"/>
+                <div class="lightning" />
 
                 <img
                     :src="page.iconSrc"
                     :alt="page.iconAltText"
                     class="page-icon light-theme-page-icon"
-                >
+                />
                 <img
                     :src="page.darkThemeIconSrc"
                     :alt="page.iconAltText"
                     class="page-icon dark-theme-page-icon"
-                >
+                />
 
                 <h3 class="page-title">
                     {{ page.title }}

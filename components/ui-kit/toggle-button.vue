@@ -10,14 +10,14 @@
                         (event.target as HTMLInputElement).checked,
                     )
             "
-        >
+        />
 
         <div class="toggle-button" :class="{ toggled: modelValue }">
-            <div class="circle"/>
+            <div class="circle" />
         </div>
 
         <span class="toggle-button-label">
-            <slot/>
+            <slot />
         </span>
     </label>
 </template>
