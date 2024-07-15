@@ -10,20 +10,10 @@
 </template>
 
 <script lang="ts" setup>
-// defineProps({
-//     size: {
-//         type: String as PropType<'medium' | 'large'>,
-//         default: 'medium',
-//     },
-
-//     link: {
-//         type: String as PropType<string>,
-//     },
-// })
-defineProps<{
+withDefaults(defineProps<{
     size?: 'medium' | 'large'
     link?: string
-}>()
+}>(), { size: 'medium' })
 </script>
 
 <style lang="scss" scoped>
