@@ -39,11 +39,11 @@
     }
 
     function addDroppedFile(event : DragEvent) {
-        const droppedFIle = event.dataTransfer?.files[0]
+        const droppedFile = event.dataTransfer?.files[0]
 
-        if(droppedFIle) {
-            filename.value = droppedFIle.name
-            emit('file-uploaded', droppedFIle)
+        if(droppedFile) {
+            filename.value = droppedFile.name
+            emit('file-uploaded', droppedFile)
         }
     }
 </script>
@@ -58,7 +58,7 @@
     }
 
     .upload-area {
-        min-width: 350px;
+        min-width: 300px;
         padding: 16px;
         border: 2px dashed hsla(0, 0%, 100%, 0.28);
         border-radius: 8px;
