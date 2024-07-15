@@ -1,10 +1,6 @@
 <template>
     <div>
-        <img
-            v-if="modelValue && modelValue.length > 0"
-            :src="modelValue[0].url"
-            class="metadata-image"
-        />
+        <img v-if="modelValue" :src="modelValue.url" class="metadata-image" />
 
         <div
             v-else
@@ -44,24 +40,22 @@
 import type { MetadataImageWithUrl } from '~/types/metadata-editor'
 
 defineProps<{
-    modelValue: MetadataImageWithUrl[] | undefined
+    modelValue: MetadataImageWithUrl | undefined
 }>()
 
 const emit = defineEmits<{
-    (event: 'update:modelValue', newValue: MetadataImageWithUrl[]): void
+    (event: 'update:modelValue', newValue: MetadataImageWithUrl): void
 }>()
 
 async function uploadImage(file: File) {
     const uploadImageBuffer = await file.arrayBuffer()
 
-    emit('update:modelValue', [
-        {
-            data: uploadImageBuffer,
-            mime: file.type,
-            type: '',
-            url: URL.createObjectURL(new Blob([uploadImageBuffer])),
-        },
-    ])
+    emit('update:modelValue', {
+        data: new Uint8Array(uploadImageBuffer),
+        mime: file.type,
+        type: '',
+        url: URL.createObjectURL(new Blob([uploadImageBuffer])),
+    })
 }
 </script>
 

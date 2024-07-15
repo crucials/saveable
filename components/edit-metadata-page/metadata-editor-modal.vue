@@ -34,7 +34,7 @@
                 </div>
 
                 <div>
-                    <MetadataImages v-model="metadata.data.images" />
+                    <MetadataImage v-model="metadata.data.image" />
                 </div>
 
                 <div class="save-button-wrapper">
@@ -49,7 +49,8 @@
 
 <script setup lang="ts">
 import { ID3Writer } from 'browser-id3-writer'
-import { fromFile } from 'id3js'
+import parse from 'id3-parser'
+import { convertFileToBuffer } from 'id3-parser/lib/util'
 import JsFileDownloader from 'js-file-downloader'
 import { ID3_ALBUM, ID3_ARTIST, ID3_TITLE } from '~/constants/id3-tags'
 import { useNotificationsStore } from '~/stores/notifications'
@@ -71,7 +72,7 @@ const { showNotification } = useNotificationsStore()
 
 const metadata = reactive<{
     loading: boolean
-    data: (MediaMetadata & { images?: MetadataImageWithUrl[] }) | null
+    data: (MediaMetadata & { image?: MetadataImageWithUrl }) | null
 }>({
     loading: false,
     data: null,
@@ -85,22 +86,16 @@ watch(
         }
 
         try {
-            const fileMetadata = await fromFile(props.file)
+            const fileMetadata = parse(await convertFileToBuffer(props.file))
 
-            if (!fileMetadata) {
-                metadata.data = {
-                    album: null,
-                    artist: null,
-                    title: null,
-                    year: null,
-                }
+            if (fileMetadata === false) {
+                metadata.data = {}
                 return
             }
 
             metadata.data = {
                 ...fileMetadata,
-                // images: getImagesFromMetadata(fileMetadata)
-                images: undefined,
+                image: getImageFromMetadata(fileMetadata),
             }
         } catch (error) {
             showNotification(
@@ -111,22 +106,22 @@ watch(
     },
 )
 
-/* function getImagesFromMetadata(
+function getImageFromMetadata(
     metadata: MediaMetadata,
-): MetadataImageWithUrl[] | undefined {
-    if (!metadata.images) {
+): MetadataImageWithUrl | undefined {
+    if (!metadata.image?.data) {
         return undefined
     }
 
-    return metadata.images.map((image) => {
-        return {
-            ...image,
-            url: URL.createObjectURL(
-                new Blob([new Uint8Array(image.data)], { type: undefined }),
-            ),
-        }
-    })
-} */
+    return {
+        ...metadata.image,
+        url: URL.createObjectURL(
+            new Blob([new Uint8Array(metadata.image.data)], {
+                type: undefined,
+            }),
+        ),
+    }
+}
 
 async function save() {
     if (!props.file) {

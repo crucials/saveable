@@ -4,7 +4,7 @@ export interface MetadataEditorData {
 }
 
 export interface MetadataImage {
-    data: ArrayBuffer
+    data?: ArrayLike<number>
     mime: string
     type: string
 }
@@ -12,9 +12,9 @@ export interface MetadataImage {
 export type MetadataImageWithUrl = MetadataImage & { url: string }
 
 export interface MediaMetadata {
-    title: string | null
-    album: string | null
-    artist: string | null
-    year: string | null
-    images?: MetadataImage[]
+    title?: string
+    album?: string
+    artist?: string
+    year?: string
+    image?: MetadataImage
 }
