@@ -28,10 +28,12 @@
             </svg>
         </div>
 
-        <FileUploadArea accept="image/*" @update:model-value="uploadImage">
-            Upload an image (<mark class="white-text">click</mark>
-            or
-            <mark class="white-text">drag and drop</mark>)
+        <FileUploadArea
+            accept="image/*"
+            themeable
+            @update:model-value="uploadImage"
+        >
+            Upload an image (click or drag and drop)
         </FileUploadArea>
     </div>
 </template>
