@@ -52,7 +52,13 @@ import { ID3Writer } from 'browser-id3-writer'
 import parse from 'id3-parser'
 import { convertFileToBuffer } from 'id3-parser/lib/util'
 import JsFileDownloader from 'js-file-downloader'
-import { ID3_ALBUM, ID3_ARTIST, ID3_COVERFRONT_IMAGE, ID3_IMAGE, ID3_TITLE } from '~/constants/id3-tags'
+import {
+    ID3_ALBUM,
+    ID3_ARTIST,
+    ID3_COVERFRONT_IMAGE,
+    ID3_IMAGE,
+    ID3_TITLE,
+} from '~/constants/id3-tags'
 import { useNotificationsStore } from '~/stores/notifications'
 import type {
     MetadataImageWithUrl,
@@ -146,7 +152,7 @@ async function save() {
         writer.setFrame(ID3_IMAGE, {
             type: ID3_COVERFRONT_IMAGE,
             data: new Uint8Array(metadata.data.image.data),
-            description: metadata.data.title || ''
+            description: metadata.data.title || '',
         })
     }
 

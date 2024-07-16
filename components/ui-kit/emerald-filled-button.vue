@@ -10,10 +10,13 @@
 </template>
 
 <script lang="ts" setup>
-withDefaults(defineProps<{
-    size?: 'medium' | 'large'
-    link?: string
-}>(), { size: 'medium' })
+withDefaults(
+    defineProps<{
+        size?: 'medium' | 'large'
+        link?: string
+    }>(),
+    { size: 'medium', link: undefined },
+)
 </script>
 
 <style lang="scss" scoped>

@@ -1,6 +1,10 @@
 <template>
     <div class="metadata-image">
-        <img v-if="modelValue" :src="modelValue.url" class="metadata-image-preview" />
+        <img
+            v-if="modelValue"
+            :src="modelValue.url"
+            class="metadata-image-preview"
+        />
 
         <div
             v-else
