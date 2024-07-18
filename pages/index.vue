@@ -1,11 +1,5 @@
-<template>
-    
-</template>
-
 <script setup lang="ts">
-    useRouter().push('/soundcloud/download')
+useRouter().push('/soundcloud/download')
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

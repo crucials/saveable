@@ -1,5 +1,5 @@
-export let clientId : string | undefined = undefined
+export let clientId: string | undefined = undefined
 
-export function setClientId(newClientId : string) {
+export function setClientId(newClientId: string) {
     clientId = newClientId
 }

@@ -5,11 +5,24 @@
         </Heading>
 
         <div class="other-tools-links">
-            <NuxtLink v-for="page in toolsPages" :to="page.link" class="page-card">
-                <div class="lightning"></div>
+            <NuxtLink
+                v-for="page in toolsPages"
+                :key="page.link"
+                :to="page.link"
+                class="page-card"
+            >
+                <div class="lightning" />
 
-                <img :src="page.iconSrc" :alt="page.iconAltText" class="page-icon light-theme-page-icon">
-                <img :src="page.darkThemeIconSrc" :alt="page.iconAltText" class="page-icon dark-theme-page-icon">
+                <img
+                    :src="page.iconSrc"
+                    :alt="page.iconAltText"
+                    class="page-icon light-theme-page-icon"
+                />
+                <img
+                    :src="page.darkThemeIconSrc"
+                    :alt="page.iconAltText"
+                    class="page-icon dark-theme-page-icon"
+                />
 
                 <h3 class="page-title">
                     {{ page.title }}
@@ -20,20 +33,23 @@
 </template>
 
 <script lang="ts" setup>
-    interface PageCard {
-        title : string,
-        link : string,
-        iconSrc : string,
-        darkThemeIconSrc : string,
-        iconAltText : string
-    }
+interface PageCard {
+    title: string
+    link: string
+    iconSrc: string
+    darkThemeIconSrc: string
+    iconAltText: string
+}
 
-    withDefaults(defineProps<{
-        platformName? : string,
-        toolsPages : PageCard[]
-    }>(), {
-        platformName: ''
-    })
+withDefaults(
+    defineProps<{
+        platformName?: string
+        toolsPages: PageCard[]
+    }>(),
+    {
+        platformName: '',
+    },
+)
 </script>
 
 <style lang="scss" scoped>
@@ -93,11 +109,11 @@
 
 .dark-theme-page-icon {
     display: none;
-    filter: drop-shadow(0px 4px 32px rgba(255, 255, 255, 0.80));
+    filter: drop-shadow(0px 4px 32px rgba(255, 255, 255, 0.8));
     transition: filter 0.3s ease;
 
     .page-card:hover & {
-        filter: drop-shadow(0px 4px 26px rgba(255, 255, 255, 0.60));
+        filter: drop-shadow(0px 4px 26px rgba(255, 255, 255, 0.6));
     }
 }
 
@@ -117,7 +133,7 @@
 
 .dark {
     .page-card {
-        background-color: #FFFFFF07;
+        background-color: #ffffff07;
     }
 
     .lightning {

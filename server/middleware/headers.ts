@@ -1,10 +1,10 @@
-const FFMPEG_DEPENDANT_ROUTES = [ '/extract-audio', '/youtube/download' ]
+const FFMPEG_DEPENDANT_ROUTES = ['/extract-audio', '/youtube/download']
 
 export default defineEventHandler((event) => {
-    if(FFMPEG_DEPENDANT_ROUTES.some(route => event.path?.includes(route))) {
+    if (FFMPEG_DEPENDANT_ROUTES.some((route) => event.path?.includes(route))) {
         setHeaders(event, {
             'Cross-Origin-Embedder-Policy': 'require-corp',
-            'Cross-Origin-Opener-Policy': 'same-origin'
+            'Cross-Origin-Opener-Policy': 'same-origin',
         })
     }
 })

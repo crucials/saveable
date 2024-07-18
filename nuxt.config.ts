@@ -3,45 +3,41 @@ export default defineNuxtConfig({
     modules: [
         '@vueuse/nuxt',
         '@nuxt/image',
-        
         [
             '@pinia/nuxt',
             {
-                autoImports: [
-                    'defineStore', 'storeToRefs'
-                ]
-            }
-        ]
+                autoImports: ['defineStore', 'storeToRefs'],
+            },
+        ],
+        '@nuxt/eslint',
     ],
 
     app: {
         head: {
             htmlAttrs: {
-                lang: 'en'
+                lang: 'en',
             },
             title: 'Saveable',
             script: [
                 {
                     src: '/scripts/color-theme-resolver.js',
-                    type: 'text/javascript'
-                }
+                    type: 'text/javascript',
+                },
             ],
-            link: [
-                { rel: 'icon', type: 'image/x-icon', href: '/favicon.png' }
-            ]
-        }
+            link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.png' }],
+        },
     },
 
     components: [
         {
             path: '~/components',
-            pathPrefix: false
-        }
+            pathPrefix: false,
+        },
     ],
 
     runtimeConfig: {
         soundcloudClientId: '',
-        maximumPlaylistTracks: ''
+        maximumPlaylistTracks: '',
     },
 
     vite: {
@@ -50,9 +46,9 @@ export default defineNuxtConfig({
                 scss: {
                     additionalData: `
                         @use '~/assets/styles/main.scss' as *;
-                    `
-                }
-            }
-        }
-    }
+                    `,
+                },
+            },
+        },
+    },
 })
