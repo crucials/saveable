@@ -272,6 +272,7 @@
 
 <style lang="scss" scoped>
 .mobile-navigation-menu {
+    z-index: 3;
     display: none;
 }
 

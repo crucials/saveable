@@ -40,6 +40,8 @@ function closeIfPressedEscape(event: KeyboardEvent) {
 
 <style lang="scss" scoped>
 .backdrop {
+    z-index: 4;
+
     display: none;
     position: fixed;
     top: 0px;
@@ -59,15 +61,20 @@ function closeIfPressedEscape(event: KeyboardEvent) {
 }
 
 .modal-window {
+    z-index: 5;
+
     display: flex;
     flex-direction: column;
     align-items: center;
     row-gap: 24px;
-
     position: fixed;
     left: 50%;
     top: 50%;
     transform: translateX(-50%) translateY(-50%) scale(0);
+
+    max-height: 92vh;
+    overflow-y: auto;
+
     padding: 40px;
     border-radius: 16px;
     background-color: white;

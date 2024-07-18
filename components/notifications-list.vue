@@ -58,7 +58,7 @@ onMounted(() => {
 .notifications-container {
     position: fixed;
     bottom: 24px;
-    z-index: 10;
+    z-index: 6;
     right: 30px;
     display: flex;
     flex-direction: column;
