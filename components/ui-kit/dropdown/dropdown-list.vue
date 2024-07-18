@@ -36,6 +36,16 @@ const opened = computed({
         @mouseenter="opened = true"
         @mouseleave="opened = false"
     >
+        <button
+            :aria-expanded="opened"
+            aria-controls="dropdownList"
+            aria-haspopup="listbox"
+            class="dropdown-button"
+            @click="opened = !opened"
+        >
+            <slot name="button"></slot>
+        </button>
+
         <Transition
             name="list-slide-down"
         >
@@ -50,15 +60,6 @@ const opened = computed({
                 <slot></slot>
             </ul>
         </Transition>
-
-        <div
-            :aria-expanded="opened"
-            aria-controls="dropdownList"
-            aria-haspopup="listbox"
-            class="dropdown-label"
-        >
-            <slot name="label"></slot>
-        </div>
     </div>
 </template>
 
@@ -83,9 +84,12 @@ const opened = computed({
     border-radius: 10px;
     background-color: white;
 
-    box-shadow: 0px 3px 24px 1px rgb(black, 0.1);
+    box-shadow: 0px 3px 24px 1px #00000010;
+}
 
-    color: white;
+.dark .dropdown-list {
+    background-color: $soft-black;
+    border: 1px solid #4e4e4e;
 }
 
 .list-slide-down-enter-from,
@@ -95,7 +99,7 @@ const opened = computed({
     opacity: 0;
 }
 
-.dropdown-label {
+.dropdown-button {
     position: relative;
 }
 </style>

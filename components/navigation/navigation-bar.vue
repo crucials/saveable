@@ -32,21 +32,22 @@
             </li>
 
             <li>
-                <!-- <NuxtLink to="/extract-audio" class="navigation-link">
-                    Extract audio
-                </NuxtLink> -->
-                <DropdownList>
+                <DropdownList v-model:opened="otherLinksDropdownOpened">
                     <DropdownItem link="/extract-audio">
                         Extract audio
                     </DropdownItem>
 
-                    <DropdownItem>
-                        123
+                    <DropdownItem link="/edit-metadata">
+                        Edit file metadata
                     </DropdownItem>
 
-                    <template #label>
-                        <span class="navigation-link navigation-links-dropdown">
-                            Other
+                    <template #button>
+                        <span
+                            class="navigation-link navigation-links-dropdown"
+                            :class="{ 'navigation-links-dropdown-opened': otherLinksDropdownOpened }"
+                        >
+                            More
+                            <ArrowDownIcon class="arrow-down-icon" />
                         </span>
                     </template>
                 </DropdownList>
@@ -82,16 +83,21 @@ const expanded = ref(false)
 const expandButtonYPosition = ref('0px')
 const expandButtonVisible = ref(false)
 
+const EXPAND_BUTTON_PIXELS_GAP = 6
+
+const otherLinksDropdownOpened = ref(false)
+
 const navigation = ref<HTMLElement | undefined>()
 
 onMounted(() => {
     const navigationElement = navigation.value
+
     if (navigationElement) {
-        expandButtonYPosition.value = `${navigationElement.clientHeight + 6}px`
+        expandButtonYPosition.value = `${navigationElement.clientHeight + EXPAND_BUTTON_PIXELS_GAP}px`
         displayExpandButtonIfNeeded()
 
         const resizeObserver = new ResizeObserver(() => {
-            expandButtonYPosition.value = `${navigationElement.clientHeight + 6}px`
+            expandButtonYPosition.value = `${navigationElement.clientHeight + EXPAND_BUTTON_PIXELS_GAP}px`
             displayExpandButtonIfNeeded()
         })
 
@@ -102,7 +108,7 @@ onMounted(() => {
 function displayExpandButtonIfNeeded() {
     const navigationScrollHeight = navigation.value?.scrollHeight
     console.log(navigationScrollHeight)
-    if (navigationScrollHeight && navigationScrollHeight >= 93) {
+    if (navigationScrollHeight && navigationScrollHeight > 93) {
         expandButtonVisible.value = true
     } else {
         expandButtonVisible.value = false
@@ -121,12 +127,30 @@ function displayExpandButtonIfNeeded() {
     border-bottom: 2px solid hsla(0, 0%, 92%, 1);
     background-color: white;
 
+    max-height: 97px;
+    transition: max-height 0.4s ease-in-out;
+
+    &-expanded {
+        max-height: 100vh;
+    }
+
     .dark & {
         border-bottom: 2px solid hsla(0, 0%, 14%, 1);
         background-color: $soft-black;
     }
 
     @extend %themeable;
+}
+
+.navigation-bar {
+    .expand-mobile-navigation-button {
+        display: block;
+        transition: bottom 0.4s ease-in-out;
+    }
+
+    &-expanded .expand-mobile-navigation-button {
+        bottom: v-bind('expandButtonYPosition');
+    }
 }
 
 .logo {
@@ -173,6 +197,14 @@ function displayExpandButtonIfNeeded() {
 
     &:hover {
         background-color: transparent;
+    }
+
+    .arrow-down-icon {
+        transition: transform 0.3s ease;
+    }
+
+    &-opened .arrow-down-icon {
+        transform: rotate(180deg) scale(0.9);
     }
 }
 
@@ -229,25 +261,6 @@ function displayExpandButtonIfNeeded() {
 @media (max-width: 558px) {
     .navigation-bar {
         column-gap: 50px;
-        max-height: 97px;
-        transition: max-height 0.4s ease-in-out;
-
-        &-expanded {
-            max-height: 100vh;
-        }
-    }
-}
-
-@media (max-width: 559px) {
-    .navigation-bar {
-        .expand-mobile-navigation-button {
-            display: block;
-            transition: bottom 0.4s ease-in-out;
-        }
-
-        &-expanded .expand-mobile-navigation-button {
-            bottom: v-bind('expandButtonYPosition');
-        }
     }
 }
 </style>

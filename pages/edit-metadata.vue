@@ -26,11 +26,7 @@
         </template>
 
         <template #icon>
-            <img
-                src="~~/assets/images/tags.svg"
-                alt="Tags"
-                class="full-width-page-icon page-icon"
-            />
+            <TagsIcon color="white" class="full-width-page-icon page-icon"/>
         </template>
     </NuxtLayout>
 </template>

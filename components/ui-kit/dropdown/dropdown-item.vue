@@ -1,5 +1,5 @@
 <template>
-    <li role="option">
+    <li role="option" tabindex="1">
         <component
             :is="link === undefined ? 'button' : NuxtLink"
             :to="link"
@@ -21,6 +21,8 @@ const NuxtLink = resolveComponent('NuxtLink')
 
 <style scoped lang="scss">
 .dropdown-item {
+    @extend %themeable;
+
     font-size: 16px;
 
     display: flex;
@@ -31,11 +33,20 @@ const NuxtLink = resolveComponent('NuxtLink')
     padding: 5px 12px;
     min-width: 100%;
     border-radius: 8px;
+    text-wrap: nowrap;
     
     color: $soft-black;
+
+    &:hover {
+        background-color: #f7f7f7;
+    }
 }
 
-.dropdown-item:hover {
-    background-color: #f7f7f7;
+.dark .dropdown-item {
+    color: white;
+
+    &:hover {
+        background-color: #242424;
+    }
 }
 </style>
