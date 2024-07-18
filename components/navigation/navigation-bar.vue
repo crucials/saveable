@@ -32,9 +32,24 @@
             </li>
 
             <li>
-                <NuxtLink to="/extract-audio" class="navigation-link">
+                <!-- <NuxtLink to="/extract-audio" class="navigation-link">
                     Extract audio
-                </NuxtLink>
+                </NuxtLink> -->
+                <DropdownList>
+                    <DropdownItem link="/extract-audio">
+                        Extract audio
+                    </DropdownItem>
+
+                    <DropdownItem>
+                        123
+                    </DropdownItem>
+
+                    <template #label>
+                        <span class="navigation-link navigation-links-dropdown">
+                            Other
+                        </span>
+                    </template>
+                </DropdownList>
             </li>
         </ul>
 
@@ -148,6 +163,16 @@ function displayExpandButtonIfNeeded() {
 
     &:hover {
         background-color: hsl(0, 0%, 10%);
+    }
+}
+
+.navigation-links-dropdown {
+    display: flex;
+    align-items: center;
+    column-gap: 8px;
+
+    &:hover {
+        background-color: transparent;
     }
 }
 
