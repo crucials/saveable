@@ -44,7 +44,10 @@
                     <template #button>
                         <span
                             class="navigation-link navigation-links-dropdown"
-                            :class="{ 'navigation-links-dropdown-opened': otherLinksDropdownOpened }"
+                            :class="{
+                                'navigation-links-dropdown-opened':
+                                    otherLinksDropdownOpened,
+                            }"
                         >
                             More
                             <ArrowDownIcon class="arrow-down-icon" />

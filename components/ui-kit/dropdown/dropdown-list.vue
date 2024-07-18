@@ -1,8 +1,11 @@
 <script setup lang="ts">
-const props = withDefaults(defineProps<{
-    opened?: boolean
-    dropdownListClass?: string
-}>(), { opened: undefined })
+const props = withDefaults(
+    defineProps<{
+        opened?: boolean
+        dropdownListClass?: string
+    }>(),
+    { opened: undefined, dropdownListClass: undefined },
+)
 
 const emit = defineEmits<{
     (event: 'update:opened', newValue: boolean): void
@@ -20,12 +23,12 @@ const opened = computed({
         return openedLocally.value
     },
     set(newValue) {
-        if(props.opened !== undefined) {
+        if (props.opened !== undefined) {
             emit('update:opened', newValue)
         }
 
         openedLocally.value = newValue
-    }
+    },
 })
 </script>
 
@@ -46,13 +49,11 @@ const opened = computed({
             <slot name="button"></slot>
         </button>
 
-        <Transition
-            name="list-slide-down"
-        >
+        <Transition name="list-slide-down">
             <ul
                 v-show="opened"
-                role="listbox"
                 id="dropdownList"
+                role="listbox"
                 class="dropdown-list"
                 :class="dropdownListClass"
                 @click="opened = false"

@@ -12,9 +12,12 @@
 </template>
 
 <script setup lang="ts">
-withDefaults(defineProps<{
-    link?: string
-}>(), { link: undefined })
+withDefaults(
+    defineProps<{
+        link?: string
+    }>(),
+    { link: undefined },
+)
 
 const NuxtLink = resolveComponent('NuxtLink')
 </script>
@@ -34,7 +37,7 @@ const NuxtLink = resolveComponent('NuxtLink')
     min-width: 100%;
     border-radius: 8px;
     text-wrap: nowrap;
-    
+
     color: $soft-black;
 
     &:hover {
