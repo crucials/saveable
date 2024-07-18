@@ -121,6 +121,8 @@ function displayExpandButtonIfNeeded() {
 
 <style lang="scss" scoped>
 .navigation-bar {
+    transition: all 0.5s ease;
+
     display: flex;
     justify-content: center;
     row-gap: 5px;
@@ -131,7 +133,6 @@ function displayExpandButtonIfNeeded() {
     background-color: white;
 
     max-height: 97px;
-    transition: max-height 0.4s ease-in-out;
 
     &-expanded {
         max-height: 100vh;
@@ -140,19 +141,6 @@ function displayExpandButtonIfNeeded() {
     .dark & {
         border-bottom: 2px solid hsla(0, 0%, 14%, 1);
         background-color: $soft-black;
-    }
-
-    @extend %themeable;
-}
-
-.navigation-bar {
-    .expand-mobile-navigation-button {
-        display: block;
-        transition: bottom 0.4s ease-in-out;
-    }
-
-    &-expanded .expand-mobile-navigation-button {
-        bottom: v-bind('expandButtonYPosition');
     }
 }
 
@@ -254,6 +242,15 @@ function displayExpandButtonIfNeeded() {
         width: 100%;
         padding: 20px 25px;
         border-top: 2px solid hsl(0, 0%, 89%);
+        
+        .expand-mobile-navigation-button {
+            display: block;
+            transition: bottom 0.4s ease-in-out;
+        }
+
+        &-expanded .expand-mobile-navigation-button {
+            bottom: v-bind('expandButtonYPosition');
+        }
     }
 
     .dark .navigation-bar {

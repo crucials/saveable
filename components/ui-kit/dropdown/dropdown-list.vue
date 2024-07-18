@@ -1,3 +1,35 @@
+<template>
+    <div
+        ref="dropdownWrapper"
+        class="dropdown-wrapper"
+        @mouseenter="opened = true"
+        @mouseleave="opened = false"
+    >
+        <button
+            :aria-expanded="opened"
+            aria-controls="dropdownList"
+            aria-haspopup="listbox"
+            class="dropdown-button"
+            @click="opened = !opened"
+        >
+            <slot name="button"></slot>
+        </button>
+
+        <Transition name="list-slide-down">
+            <ul
+                v-show="opened"
+                id="dropdownList"
+                role="listbox"
+                class="dropdown-list"
+                :class="dropdownListClass"
+                @click="opened = false"
+            >
+                <slot></slot>
+            </ul>
+        </Transition>
+    </div>
+</template>
+
 <script setup lang="ts">
 const props = withDefaults(
     defineProps<{
@@ -32,37 +64,6 @@ const opened = computed({
 })
 </script>
 
-<template>
-    <div
-        ref="dropdownWrapper"
-        class="dropdown-wrapper"
-        @mouseenter="opened = true"
-        @mouseleave="opened = false"
-    >
-        <button
-            :aria-expanded="opened"
-            aria-controls="dropdownList"
-            aria-haspopup="listbox"
-            class="dropdown-button"
-            @click="opened = !opened"
-        >
-            <slot name="button"></slot>
-        </button>
-
-        <Transition name="list-slide-down">
-            <ul
-                v-show="opened"
-                id="dropdownList"
-                role="listbox"
-                class="dropdown-list"
-                :class="dropdownListClass"
-                @click="opened = false"
-            >
-                <slot></slot>
-            </ul>
-        </Transition>
-    </div>
-</template>
 
 <style lang="scss" scoped>
 .dropdown-wrapper {
@@ -86,11 +87,12 @@ const opened = computed({
     background-color: white;
 
     box-shadow: 0px 3px 24px 1px #00000010;
+    border: 1px solid transparent;
 }
 
 .dark .dropdown-list {
     background-color: $soft-black;
-    border: 1px solid #4e4e4e;
+    border-color: #4e4e4e;
 }
 
 .list-slide-down-enter-from,

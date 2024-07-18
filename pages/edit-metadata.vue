@@ -2,7 +2,7 @@
     <NuxtLayout name="service-page">
         <template #form>
             <form class="service-form" @submit.prevent>
-                <Heading> Edit tags/metadata of MP3 file </Heading>
+                <Heading> Edit metadata (ID3 tags) of your media files</Heading>
 
                 <p class="white-text">
                     Metadata editing happens in your browser, so your files

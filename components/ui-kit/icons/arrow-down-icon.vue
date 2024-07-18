@@ -18,6 +18,7 @@
 
 <style scoped lang="scss">
 .arrow-down-icon path {
+    @extend %themeable;
     stroke: #393939;
 }
 
