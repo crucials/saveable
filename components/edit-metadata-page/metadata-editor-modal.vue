@@ -92,12 +92,9 @@ watch(
         }
 
         try {
-            const fileMetadata = parse(await convertFileToBuffer(props.file))
-
-            if (fileMetadata === false) {
-                metadata.data = {}
-                return
-            }
+            const fileMetadata = await getId3Tags(
+                await convertFileToBuffer(props.file),
+            )
 
             metadata.data = {
                 ...fileMetadata,

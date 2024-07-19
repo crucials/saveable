@@ -242,7 +242,7 @@ function displayExpandButtonIfNeeded() {
         width: 100%;
         padding: 20px 25px;
         border-top: 2px solid hsl(0, 0%, 89%);
-        
+
         .expand-mobile-navigation-button {
             display: block;
             transition: bottom 0.4s ease-in-out;

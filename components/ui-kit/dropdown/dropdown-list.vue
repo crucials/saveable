@@ -64,7 +64,6 @@ const opened = computed({
 })
 </script>
 
-
 <style lang="scss" scoped>
 .dropdown-wrapper {
     position: relative;
