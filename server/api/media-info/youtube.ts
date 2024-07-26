@@ -1,4 +1,4 @@
-import ytdl from 'ytdl-core'
+import ytdl from '@distube/ytdl-core'
 import type { MediaInfo } from '~/types/media-info'
 
 export default defineEventHandler<Promise<MediaInfo>>(async (event) => {

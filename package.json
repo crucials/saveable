@@ -31,9 +31,11 @@
         "nuxt": "^3.4.3",
         "prettier": "^3.3.3",
         "sass": "^1.62.1",
-        "vitest": "^1.6.0"
+        "vitest": "^1.6.0",
+        "vue-tsc": "^2.0.29"
     },
     "dependencies": {
+        "@distube/ytdl-core": "^4.13.5",
         "@ffmpeg/core": "^0.11.0",
         "@ffmpeg/ffmpeg": "^0.11.6",
         "@netlify/functions": "^1.6.0",
@@ -45,7 +47,6 @@
         "jszip": "^3.10.1",
         "node-html-parser": "^6.1.5",
         "pinia": "^2.1.7",
-        "soundcloud-client-id-generator": "^1.4.2",
-        "ytdl-core": "^4.11.4"
+        "soundcloud-client-id-generator": "^1.4.2"
     }
 }
