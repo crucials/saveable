@@ -32,7 +32,7 @@ withDefaults(
     defineProps<{
         placeholder?: string
         type?: 'text' | 'email' | 'password' | 'number' | 'url'
-        modelValue: string
+        modelValue: string | null | undefined
         disabled?: boolean
         themeable?: boolean
         fullWidth?: boolean
