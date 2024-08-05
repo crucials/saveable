@@ -49,7 +49,6 @@
 
 <script setup lang="ts">
 import { ID3Writer } from 'browser-id3-writer'
-import parse from 'id3-parser'
 import { convertFileToBuffer } from 'id3-parser/lib/util'
 import JsFileDownloader from 'js-file-downloader'
 import {
