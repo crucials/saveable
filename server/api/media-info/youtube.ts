@@ -13,16 +13,25 @@ export default defineEventHandler<Promise<MediaInfo>>(async (event) => {
 
     try {
         const videoInfo = await ytdl.getInfo(videoUrl)
-        console.log(videoInfo.formats)
-        const bestFormat =
-            videoInfo.formats.find(
-                (format) => format.mimeType === 'video/mp4' && format.hasAudio
-                    && format.hasVideo,
-            ) || videoInfo.formats[0]
+
+        const mp4Format =
+            videoInfo.formats.find((format) =>
+                format.mimeType?.startsWith('audio/mp4'),
+            ) ||
+            videoInfo.formats.find((format) =>
+                format.mimeType?.startsWith('video/mp4'),
+            )
+
+        if (!mp4Format) {
+            throw createError({
+                statusCode: 500,
+                message: 'Couldn\'t find suitable video format to download'
+            })
+        }
 
         return {
             name: videoInfo.videoDetails.title,
-            downloadUrl: bestFormat.url,
+            downloadUrl: mp4Format.url,
         }
     } catch (error) {
         throw createError({
