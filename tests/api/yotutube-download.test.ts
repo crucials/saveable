@@ -1,19 +1,16 @@
 import { describe, expect, test } from 'vitest'
-import { clientId } from '~/client-id'
 import type { MediaInfo } from '~/types/media-info'
 
-const TRACK_URL =
-    'https://soundcloud.com/relaxing-white-noise' +
-    '/airplane-cabin-white-noise-jet'
+const VIDEO_URL = 'https://www.youtube.com/watch?v=jNQXAC9IVRw'
 
-describe('soundcloud downloading', () => {
-    test(`download soundcloud track - ${TRACK_URL}`, async () => {
+describe('youtube downloading', () => {
+    test(`download youtube video - ${VIDEO_URL}`, async () => {
         const response = await fetch(
             'http://localhost:3000' +
-                '/api/media-info/soundcloud/track' +
-                `?url=${TRACK_URL}` +
-                `&client_id=${clientId}`,
+                '/api/media-info/youtube' +
+                `?video_url=${VIDEO_URL}`,
         )
+
         expect(response.ok, `error status code: ${response.status}`).to.be.true
 
         const trackInfo: MediaInfo = await response.json()
