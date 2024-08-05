@@ -13,9 +13,11 @@ export default defineEventHandler<Promise<MediaInfo>>(async (event) => {
 
     try {
         const videoInfo = await ytdl.getInfo(videoUrl)
+        console.log(videoInfo.formats)
         const bestFormat =
             videoInfo.formats.find(
-                (format) => format.hasAudio && format.hasVideo,
+                (format) => format.mimeType === 'video/mp4' && format.hasAudio
+                    && format.hasVideo,
             ) || videoInfo.formats[0]
 
         return {
