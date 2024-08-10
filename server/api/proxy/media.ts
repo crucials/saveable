@@ -26,14 +26,12 @@ export default defineEventHandler(async (event) => {
         })
     }
 
-    if (!response.ok) {
+    if (!response.ok || !response.body) {
         throw createError({
             statusCode: response.status,
             message: `Something went wrong, status code: ${response.status}`,
         })
     }
 
-    const mediaBuffer = await response.arrayBuffer()
-
-    return new Uint8Array(mediaBuffer, 0, mediaBuffer.byteLength)
+    return response.body
 })
