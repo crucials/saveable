@@ -27,7 +27,7 @@ describe('soundcloud downloading', () => {
 
         expect(
             (await fileResponse.blob()).type,
-            'audio file has invalid format'
+            'audio file has invalid format',
         ).to.eq('audio/mpeg')
     })
 })

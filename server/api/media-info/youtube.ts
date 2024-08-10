@@ -25,7 +25,7 @@ export default defineEventHandler<Promise<MediaInfo>>(async (event) => {
         if (!mp4Format) {
             throw createError({
                 statusCode: 500,
-                message: 'Couldn\'t find suitable video format to download'
+                message: "Couldn't find suitable video format to download",
             })
         }
 
