@@ -77,7 +77,7 @@ async function download() {
             new JsFileDownloader({
                 url: `/api/proxy/media?url=${encodeURIComponent(videoInfo.downloadUrl)}`,
                 filename: videoInfo.name + '.mp4',
-                timeout: 200 * 1000
+                timeout: 200 * 1000,
             })
                 .catch(() => {
                     window.open(videoInfo.downloadUrl)
