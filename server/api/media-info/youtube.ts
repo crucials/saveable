@@ -48,6 +48,8 @@ export default defineEventHandler<Promise<MediaInfo>>(async (event) => {
             downloadUrl: mp4Format.url,
         }
     } catch (error) {
+        console.error(error)
+
         throw createError({
             statusCode: 500,
             message:
