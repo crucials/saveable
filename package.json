@@ -15,7 +15,7 @@
         "start": "node ./.output/server/index.mjs",
         "test": "npm run start | vitest run",
         "test:exclude-api": "vitest run --exclude ./tests/api/**/*",
-        "lint": ""
+        "lint": "eslint"
     },
     "devDependencies": {
         "@nuxt/eslint": "^0.3.13",
