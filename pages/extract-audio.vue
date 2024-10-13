@@ -45,19 +45,19 @@ useHead({
 const { errorTextVisible, errorText, showErrorText } = useErrorText()
 const loading = ref(false)
 
-const uploadedFile: File | undefined = undefined
+const uploadedFile = ref<File | null>()
 
 async function extract() {
-    if (uploadedFile) {
-        if (!uploadedFile.type.startsWith('video/')) {
+    if (uploadedFile.value) {
+        if (!uploadedFile.value.type.startsWith('video/')) {
             showErrorText('File must be a video')
             return
         }
 
         loading.value = true
 
-        const videoFilename = uploadedFile.name.split('.')[0]
-        const videoBuffer = await uploadedFile.arrayBuffer()
+        const videoFilename = uploadedFile.value.name.split('.')[0]
+        const videoBuffer = await uploadedFile.value.arrayBuffer()
 
         try {
             const ffmpeg = createFFmpeg({
@@ -68,7 +68,8 @@ async function extract() {
             })
             await ffmpeg.load()
 
-            const targetVideoFilename = `videoToExtractFrom.${uploadedFile.type.split('/')[1]}`
+            const targetVideoFilename =
+                'videoToExtractFrom.' + uploadedFile.value.type.split('/')[1]
 
             ffmpeg.FS(
                 'writeFile',
