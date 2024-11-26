@@ -74,7 +74,6 @@ import JsFileDownloader from 'js-file-downloader'
 import { ID3Writer } from 'browser-id3-writer'
 import type { MediaInfo } from '~/types/media-info'
 import { DEFAULT_DOWNLOAD_ERROR_MESSAGE } from '~/constants/messages'
-import { clientId } from '~/client-id'
 import {
     ID3_TITLE,
     ID3_ARTIST,
@@ -106,8 +105,7 @@ async function download() {
 
             const response = await fetch(
                 `/api/media-info/soundcloud/track?url=${trackLinkValue}` +
-                    `&exclude_artist=${!options.includeArtistInFilename}` +
-                    `&client_id=${clientId}`,
+                    `&exclude_artist=${!options.includeArtistInFilename}`,
             )
 
             if (!response.ok) {

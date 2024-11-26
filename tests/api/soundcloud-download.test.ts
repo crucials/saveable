@@ -1,5 +1,4 @@
 import { describe, expect, test } from 'vitest'
-import { clientId } from '~/client-id'
 import type { MediaInfo } from '~/types/media-info'
 
 const TRACK_URL =
@@ -11,8 +10,7 @@ describe('soundcloud downloading', () => {
         const response = await fetch(
             'http://localhost:3000' +
                 '/api/media-info/soundcloud/track' +
-                `?url=${TRACK_URL}` +
-                `&client_id=${clientId}`,
+                `?url=${TRACK_URL}`,
         )
         expect(response, `error status code: ${response.status}`).to.be.ok
 

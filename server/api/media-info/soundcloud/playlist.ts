@@ -1,9 +1,10 @@
-import { API_BASE_URL } from '~~/constants/api-urls'
-import type { SoundcloudApiPlaylist } from '~~/types/soundcloud-api'
+import { API_BASE_URL } from '~/constants/api-urls'
+import { getClientId } from '~/server/plugins/soundcloud-client-id'
+import type { SoundcloudApiPlaylist } from '~/types/soundcloud-api'
 
 export default defineEventHandler<Promise<SoundcloudApiPlaylist>>(
     async (event) => {
-        const clientId = getQuery(event)['client_id']?.toString()
+        const clientId = getClientId()
         const playlistUrl = getQuery(event)['url']?.toString()
 
         if (!playlistUrl) {
@@ -16,7 +17,7 @@ export default defineEventHandler<Promise<SoundcloudApiPlaylist>>(
         if (!clientId) {
             throw createError({
                 statusCode: 400,
-                message: `query param 'client_id' must be specified`,
+                message: `couldn't obtain soundcloud client id`,
             })
         }
 

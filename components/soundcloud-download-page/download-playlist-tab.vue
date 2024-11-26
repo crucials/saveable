@@ -118,7 +118,6 @@
 
 <script lang="ts" setup>
 import JsFileDownloader from 'js-file-downloader'
-import { clientId } from '~/client-id'
 import { DEFAULT_DOWNLOAD_ERROR_MESSAGE } from '~/constants/messages'
 
 interface DownloadStatus {
@@ -165,8 +164,7 @@ async function download() {
 
             const response = await fetch(
                 `/api/download/soundcloud/playlist?url=${playlistLinkValue}` +
-                    `&exclude_artist=${!includeArtistInFilenames.value}` +
-                    `&client_id=${clientId}`,
+                    `&exclude_artist=${!includeArtistInFilenames.value}`,
                 {
                     signal: abortController.signal,
                 },

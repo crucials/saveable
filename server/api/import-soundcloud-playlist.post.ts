@@ -1,5 +1,5 @@
-import { clientId } from '~/client-id'
 import { API_BASE_URL } from '~/constants/api-urls'
+import { getClientId } from '~/server/plugins/soundcloud-client-id'
 import type { SoundcloudApiPlaylist } from '~/types/soundcloud-api'
 
 export default defineEventHandler<Promise<SoundcloudApiPlaylist>>(
@@ -10,6 +10,7 @@ export default defineEventHandler<Promise<SoundcloudApiPlaylist>>(
         } = JSON.parse(await readBody(event))
 
         const { token, playlistData } = body
+        const clientId = getClientId()
 
         if (!token) {
             throw createError({

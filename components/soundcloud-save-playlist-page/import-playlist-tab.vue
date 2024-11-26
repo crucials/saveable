@@ -119,7 +119,6 @@
 </template>
 
 <script setup lang="ts">
-import { clientId } from '~/client-id'
 import { useNotificationsStore } from '~/stores/notifications'
 import type { SoundcloudApiPlaylist } from '~/types/soundcloud-api'
 
@@ -161,16 +160,13 @@ async function importPlaylist() {
         try {
             loading.value = true
 
-            const response = await fetch(
-                `/api/import-soundcloud-playlist?client_id=${clientId}`,
-                {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        token: accountToken.value,
-                        playlistData: JSON.parse(await uploadedFile.text()),
-                    }),
-                },
-            )
+            const response = await fetch(`/api/import-soundcloud-playlist`, {
+                method: 'POST',
+                body: JSON.stringify({
+                    token: accountToken.value,
+                    playlistData: JSON.parse(await uploadedFile.text()),
+                }),
+            })
 
             if (!response.ok) {
                 showErrorText(DEFAULT_IMPORTING_ERROR_MESSAGE)
