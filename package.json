@@ -13,7 +13,7 @@
         "preview": "nuxt preview",
         "postinstall": "nuxt prepare",
         "start": "node ./.output/server/index.mjs",
-        "test": "npm run start | vitest run",
+        "test": "nuxt build && npm run start | vitest run",
         "test:exclude-api": "vitest run --exclude ./tests/api/**/*",
         "lint": "eslint"
     },
