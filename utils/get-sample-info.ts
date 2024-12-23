@@ -12,8 +12,9 @@ export async function getSampleMediaInfo(url: string) {
     }
 
     const samplePageResponse = await fetch(
-        EXTERNAL_PROXY_URL + '/?' + encodeURIComponent(fixedSampleUrl),
+        EXTERNAL_PROXY_URL + '/?url=' + encodeURIComponent(fixedSampleUrl),
     )
+    
     if (!samplePageResponse.ok) {
         throw new Error(
             'Failed to parse sample page. Make sure URL is valid and ' +
